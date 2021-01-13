@@ -1,7 +1,5 @@
 package com.przewodnik.release.models;
 
-import com.przewodnik.release.MountainRange;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

@@ -1,4 +1,4 @@
-package com.przewodnik.release;
+package com.przewodnik.release.models;
 
 public enum MountainRange {
     TATRY,
