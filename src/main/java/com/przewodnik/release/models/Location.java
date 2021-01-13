@@ -18,6 +18,12 @@ public class Location {
     @Column(nullable = false)
     private Double height;
 
+    @OneToMany(mappedBy = "start", cascade = CascadeType.ALL)
+    private List<Section> starts  = new ArrayList<>();
+
+    @OneToMany(mappedBy = "end", cascade = CascadeType.ALL)
+    private List<Section> ends  = new ArrayList<>();
+
     protected Location() {
     }
 
