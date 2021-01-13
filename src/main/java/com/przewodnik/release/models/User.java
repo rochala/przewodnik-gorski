@@ -18,6 +18,9 @@ public class User {
     private Long id;
 
     @Column()
+    private int pesel;
+
+    @Column()
     private Date birthDate;
 
     @Column(nullable = false, length = 40)
