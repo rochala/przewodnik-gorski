@@ -9,5 +9,5 @@ import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "sections", path = "sections")
 public interface SectionRepository extends PagingAndSortingRepository<Section,Long> {
-    List<Section> findByEndToStartPointsGreaterThanEqual(@Param("minpoints") Integer points);
+    List<Section> findByEndToStartPointsGreaterThanEqual(@Param("points") Integer points);
 }
