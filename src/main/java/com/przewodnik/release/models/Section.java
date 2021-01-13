@@ -3,6 +3,7 @@ package com.przewodnik.release.models;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "sections")
 public class Section {
 
     @Id
