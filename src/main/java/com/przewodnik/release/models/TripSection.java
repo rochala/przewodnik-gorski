@@ -14,7 +14,7 @@ public class TripSection {
 
     @OneToOne
     private Section section;
-    @OneToOne
+    @ManyToOne
     private Trip trip;
 
     protected TripSection() {}

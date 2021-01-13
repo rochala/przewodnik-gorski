@@ -21,10 +21,6 @@ public class Section {
     @OneToOne
     private Location end;
 
-    @OneToMany
-    @JoinColumn(name ="trip_section_id")
-    private List<TripSection> trip_sections = new ArrayList<>();
-
     protected Section() {}
 
     public Section(Location start, Location end, Integer startToEndPoints, Integer endToStartPoints, Double length, String description) {

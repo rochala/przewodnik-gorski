@@ -18,9 +18,6 @@ public class Location {
     @Column(nullable = false)
     private Double height;
 
-    @OneToMany(mappedBy = "locations")
-    private List<Section> sectionList = new ArrayList<>();
-
     protected Location() {
     }
 
