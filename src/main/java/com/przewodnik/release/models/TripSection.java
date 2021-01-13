@@ -1,6 +1,7 @@
 package com.przewodnik.release.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "trip_sections")
@@ -15,6 +16,8 @@ public class TripSection {
     private Section section;
     @OneToOne
     private Trip trip;
+    @OneToMany
+    private List<TripSection> tripSectionList;
 
     protected TripSection() {}
 
