@@ -20,8 +20,7 @@ public class Section {
 
     protected Section() {}
 
-    public Section(Long id, Location start, Location end, Integer startToEndPoints, Integer endToStartPoints, Double length, String description) {
-        this.id = id;
+    public Section(Location start, Location end, Integer startToEndPoints, Integer endToStartPoints, Double length, String description) {
         this.start = start;
         this.end = end;
         this.startToEndPoints = startToEndPoints;
@@ -56,5 +55,18 @@ public class Section {
 
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public String toString() {
+        return "Section{" +
+                "id=" + id +
+                ", startToEndPoints=" + startToEndPoints +
+                ", endToStartPoints=" + endToStartPoints +
+                ", length=" + length +
+                ", description='" + description + '\'' +
+                ", start=" + start +
+                ", end=" + end +
+                '}';
     }
 }
