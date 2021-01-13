@@ -12,7 +12,8 @@ public class TripSection {
     private Long id;
     private Boolean direction;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name="section_id")
     private Section section;
     @ManyToOne
     @JoinColumn(name="trip_id")

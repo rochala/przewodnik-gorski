@@ -35,7 +35,11 @@ public class Trip {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "trip")
+    @ManyToOne
+    @JoinColumn(name = "badge_id", nullable = false)
+    private Badge badge;
+
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
     private List<TripSection> tripSection;
 
     public Trip(Date startDate, Date endDate, int sumPoints, Status status, boolean leaderAttendance, User user) {

@@ -16,10 +16,16 @@ public class Section {
     private Double length;
     private String description;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name="start_id", nullable = false)
     private Location start;
-    @OneToOne
+
+    @ManyToOne
+    @JoinColumn(name="end_id", nullable = false)
     private Location end;
+
+    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL)
+    private List<TripSection> sections  = new ArrayList<>();
 
     protected Section() {}
 
