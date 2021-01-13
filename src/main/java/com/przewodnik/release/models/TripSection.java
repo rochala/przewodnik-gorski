@@ -15,6 +15,7 @@ public class TripSection {
     @OneToOne
     private Section section;
     @ManyToOne
+    @JoinColumn(name="trip_id")
     private Trip trip;
 
     protected TripSection() {}

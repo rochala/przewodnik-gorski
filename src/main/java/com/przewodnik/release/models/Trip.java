@@ -35,7 +35,7 @@ public class Trip {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany
+    @OneToMany(mappedBy = "trip_section")
     private List<TripSection> tripSection;
 
     public Trip(Date startDate, Date endDate, int sumPoints, Status status, boolean leaderAttendance, User user) {
