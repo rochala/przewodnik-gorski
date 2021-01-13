@@ -16,8 +16,6 @@ public class TripSection {
     private Section section;
     @OneToOne
     private Trip trip;
-    @OneToMany
-    private List<TripSection> tripSectionList;
 
     protected TripSection() {}
 

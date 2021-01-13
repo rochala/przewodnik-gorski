@@ -1,6 +1,9 @@
 package com.przewodnik.release.models;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.ArrayList;
+
 
 @Entity
 @Table(name = "locations")
@@ -8,8 +11,15 @@ public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(nullable = false)
     private MountainRange mountainRange;
+
+    @Column(nullable = false)
     private Double height;
+
+    @OneToMany(mappedBy = "locations")
+    private List<Section> sectionList = new ArrayList<>();
 
     protected Location() {
     }

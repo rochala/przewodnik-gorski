@@ -2,6 +2,7 @@ package com.przewodnik.release.models;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 enum Status {
     Niezatwierdzona,
@@ -33,6 +34,9 @@ public class Trip {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @OneToMany
+    private List<TripSection> tripSection;
 
     public Trip(Date startDate, Date endDate, int sumPoints, Status status, boolean leaderAttendance, User user) {
         this.startDate = startDate;

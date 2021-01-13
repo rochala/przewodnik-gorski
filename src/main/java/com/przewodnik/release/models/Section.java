@@ -1,6 +1,8 @@
 package com.przewodnik.release.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "sections")
@@ -18,6 +20,10 @@ public class Section {
     private Location start;
     @OneToOne
     private Location end;
+
+    @OneToMany
+    @JoinColumn(name ="trip_section_id")
+    private List<TripSection> trip_sections = new ArrayList<>();
 
     protected Section() {}
 
