@@ -13,6 +13,9 @@ public class Location {
     private Long id;
 
     @Column(nullable = false)
+    private String locationName;
+
+    @Column(nullable = false)
     private MountainRange mountainRange;
 
     @Column(nullable = false)
@@ -47,5 +50,9 @@ public class Location {
 
     public Double getHeight() {
         return height;
+    }
+
+    public String getLocationName() {
+        return locationName;
     }
 }

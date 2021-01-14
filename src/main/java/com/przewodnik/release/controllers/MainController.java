@@ -3,7 +3,6 @@ package com.przewodnik.release.controllers;
 import com.przewodnik.release.services.ITripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -16,11 +15,9 @@ public class MainController {
         this.tripService = tripService;
     }
 
-    @RequestMapping({"/",""})
-    public String index(Model model)
-    {
-        model.addAttribute("trip", tripService.getTrip());
 
+    @RequestMapping(value= "/")
+    public String index() {
         return "index";
     }
 
