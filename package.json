@@ -1,0 +1,25 @@
+{
+  "name": "przewodnik-gorski",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "devDependencies": {
+    "@webpack-cli/init": "^1.1.1",
+    "webpack": "^5.14.0",
+    "webpack-cli": "^4.3.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rochala/przewodnik-gorski.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rochala/przewodnik-gorski/issues"
+  },
+  "homepage": "https://github.com/rochala/przewodnik-gorski#readme"
+}
