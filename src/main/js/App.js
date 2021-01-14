@@ -16,7 +16,7 @@ class App extends Component {
                     <CssBaseline />
                     <Header /> {}
                     <div className='App'>
-                        Dziala
+                        Dziala baaardzo nieeee
                     </div>
                     <Footer />
                 </ThemeProvider>
