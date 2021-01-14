@@ -2,7 +2,7 @@
   "name": "przewodnik-gorski",
   "version": "1.0.0",
   "description": "",
-  "main": "webpack.config.js",
+  "main": "app.js",
   "devDependencies": {
     "@webpack-cli/init": "^1.1.1",
     "webpack": "^5.14.0",
@@ -28,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/rochala/przewodnik-gorski/issues"
   },
-  "homepage": "https://github.com/rochala/przewodnik-gorski#readme"
+  "homepage": "https://github.com/rochala/przewodnik-gorski#readme",
+  "dependencies": {
+    "rest": "^2.0.0"
+  }
 }
