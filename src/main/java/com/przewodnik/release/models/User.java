@@ -43,4 +43,60 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Trip> trips  = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public int getPesel() {
+        return pesel;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public boolean isDisabled() {
+        return isDisabled;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public List<Trip> getTrips() {
+        return trips;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", pesel=" + pesel +
+                ", birthDate=" + birthDate +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", gender=" + gender +
+                ", email='" + email + '\'' +
+                ", isDisabled=" + isDisabled +
+                ", role='" + role + '\'' +
+                ", trips=" + trips +
+                '}';
+    }
 }
