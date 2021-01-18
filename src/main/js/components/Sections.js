@@ -84,6 +84,7 @@ const Sections = () => {
                             <hr />
                             <Grid container direction="row" justify="space-evenly" alignItems="center">
                                 <TextField
+                                    fullWidth={true}
                                     label="Pasmo górskie"
                                     id="symbolSelect"
                                     defaultValue=""
