@@ -38,7 +38,7 @@ const Sections = () => {
     ]
 
 
-    const url = 'http://127.0.0.1:8080/api/sections/';
+    const url =
 
     useEffect(() => {
         loadData(url);
@@ -98,6 +98,7 @@ const Sections = () => {
                                     <MenuItem value="SUDETY">Sudety</MenuItem>
                                 </TextField>
                             </Grid>
+                            <hr />
                             <Table stickyHeader aria-label="sticky table">
                                 <TableHead>
                                     <TableRow>

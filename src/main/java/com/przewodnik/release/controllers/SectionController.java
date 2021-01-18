@@ -6,13 +6,14 @@ import com.przewodnik.release.services.SectionRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 
 class SectionNotFoundException extends RuntimeException {
-    public SectionNotFoundException(Long id) {
-        super("Could not find section " + id);
+    public SectionNotFoundException(String range) {
+        super("Wrong parameter argument range: " + range);
     }
 }
 
@@ -36,11 +37,21 @@ public class SectionController {
     }
 
     @GetMapping(value= "api/sections")
-    List<Section> getByRange(@RequestParam Optional<MountainRange> range){
+    List<Section> getByRange(@RequestParam Optional<String> range){
         if (range.isPresent()) {
-            return repository.findByEnd_MountainRangeAndStart_MountainRange(range.get(), range.get());
-        }
-        else {
+            if (Arrays.stream(MountainRange.values()).anyMatch(r -> r.name().equals(range.get().toUpperCase()))) {
+                List<Section> sections = repository.findByEnd_MountainRangeAndStart_MountainRange(
+                        MountainRange.valueOf(range.get().toUpperCase()),
+                        MountainRange.valueOf(range.get().toUpperCase()));
+                if (sections.isEmpty()) {
+                    throw new SectionNotFoundException(range.get());
+                } else {
+                    return sections;
+                }
+            } else {
+                throw new SectionNotFoundException(range.get());
+            }
+        } else {
             return repository.findAll();
         }
     }
