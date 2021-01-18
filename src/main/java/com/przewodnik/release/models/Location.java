@@ -44,8 +44,8 @@ public class Location {
         return id;
     }
 
-    public MountainRange getMountainRange() {
-        return mountainRange;
+    public String getMountainRange() {
+        return mountainRange.fullName;
     }
 
     public Double getHeight() {

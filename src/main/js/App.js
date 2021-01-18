@@ -4,19 +4,25 @@ import Footer from "./components/Footer";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "./theme.js";
+import Main from "./components/Main"
 
-
+const navLinks = [
+    { title: 'Odznaki', path: '/' },
+    { title: 'Trasy', path: '/sections' },
+    { title: 'Nowa wycieczka', path: '/trip' },
+]
 
 class App extends Component {
+
 
     render() {
         return (
             <React.StrictMode>
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
-                    <Header /> {}
+                    <Header navLinks={navLinks}/> {}
                     <div className='App'>
-                        Dziala baaardzo nieeee
+                        <Main />
                     </div>
                     <Footer />
                 </ThemeProvider>

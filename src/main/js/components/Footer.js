@@ -9,7 +9,7 @@ function Copyright() {
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
             <Link color="inherit" href="https://material-ui.com/">
-                Sales and Currency API
+                Przewodnik górski
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -31,10 +31,10 @@ const Footer = () => {
     return (
         <footer className={classes.footer}>
             <Typography variant="h6" align="center">
-                Skryptowe 2020
+                Przewodnik Górski
             </Typography>
             <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-                Jędrzej Rochala
+                Jędrzej Rochala, Bartłomiej Duda
             </Typography>
             <Copyright />
         </footer>

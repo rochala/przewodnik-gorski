@@ -6,12 +6,6 @@ import { Link } from 'react-router-dom';
 
 
 
-
-const navLinks = [
-    { title: 'sales', path: '/sales' },
-    { title: 'currency', path: '/currency' },
-]
-
 const useStyles = makeStyles({
     navbarDisplayFlex: {
         display: 'flex',
@@ -28,7 +22,7 @@ const useStyles = makeStyles({
     }
 })
 
-const Header = () => {
+const Header = (props) => {
     const classes = useStyles();
 
     return (
@@ -41,7 +35,7 @@ const Header = () => {
                     </IconButton>
                     { /* zastapic a zmaina linka */}
                     <List component="nav" aria-labelledby="main navigation" className={classes.navDisplayFlex}>
-                        {navLinks.map(({ title, path }) => (
+                        {props.navLinks.map(({ title, path }) => (
                             <Link key={title} to={path} className={classes.linkTextDisplay}>
                                 <ListItem button>
                                     <ListItemText primary={title} />

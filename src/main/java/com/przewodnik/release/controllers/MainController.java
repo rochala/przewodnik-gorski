@@ -22,4 +22,8 @@ public class MainController {
         return "index";
     }
 
+    @RequestMapping(value= "/sections")
+    public String sections() {
+        return "index";
+    }
 }
