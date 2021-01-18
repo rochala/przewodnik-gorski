@@ -24,6 +24,11 @@ const useStyles = makeStyles(theme => ({
 
 const Sections = () => {
     const [data, setData] = useState([]);
+    const [mountainRange, setMountainRange] = useState("TATRY");
+    const [startDate, setStartDate] = useState('2020-01-01');
+    const [endDate, setEndDate] = useState('2020-01-11');
+
+
 
     const columns = [
         { id: 'name', label: 'Nazwa odcinka'},
@@ -63,6 +68,10 @@ const Sections = () => {
         setPage(0);
     };
 
+    const handleChangeMountainRange = (event) => {
+        setMountainRange(event.target.value);
+    };
+
     return (
         <React.Fragment>
             <main>
@@ -72,6 +81,22 @@ const Sections = () => {
                             <Typography variant="h2" component="h1" align="center" color="textPrimary">
                                 Przeglądanie wycieczek w układzie odznak
                             </Typography>
+                            <hr />
+                            <Grid container direction="row" justify="space-evenly" alignItems="center">
+                                <TextField
+                                    label="Pasmo górskie"
+                                    id="symbolSelect"
+                                    defaultValue=""
+                                    value={mountainRange}
+                                    onChange={handleChangeMountainRange}
+                                    select>
+                                    <MenuItem value="">Brak</MenuItem>
+                                    <MenuItem value="TATRY">Tatry</MenuItem>
+                                    <MenuItem value="BESKIDY_ZACHODNIE">Beskidy Zachodnie</MenuItem>
+                                    <MenuItem value="BESKIDY_WSCHODNIE">Sudety</MenuItem>
+                                    <MenuItem value="SUDETY">Sudety</MenuItem>
+                                </TextField>
+                            </Grid>
                             <Table stickyHeader aria-label="sticky table">
                                 <TableHead>
                                     <TableRow>
@@ -103,7 +128,7 @@ const Sections = () => {
                                     })}
                                 </TableBody>
                                 <TablePagination
-                                    rowsPerPageOptions={[5, 10, 25, 100]}
+                                    rowsPerPageOptions={[10, 25, 100]}
                                     component="div"
                                     count={data.length}
                                     rowsPerPage={rowsPerPage}
