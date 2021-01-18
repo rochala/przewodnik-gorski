@@ -38,7 +38,7 @@ const Sections = () => {
     ]
 
 
-    const url = 'http://127.0.0.1:8080/api/sections/';
+    const url = 'http://127.0.0.1:8080/api/sections/?range=' + mountainRange;
 
     useEffect(() => {
         loadData(url);
@@ -70,7 +70,7 @@ const Sections = () => {
 
     const handleChangeMountainRange = (event) => {
         setMountainRange(event.target.value);
-        loadData(url + '?range=' + mountainRange)
+        loadData(url + event.target.value)
     };
 
     return (
