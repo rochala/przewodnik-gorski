@@ -38,14 +38,14 @@ const Sections = () => {
     ]
 
 
-    const url =
+    const url = 'http://127.0.0.1:8080/api/sections/';
 
     useEffect(() => {
         loadData(url);
     }, []);
 
     const loadData = async (url) => {
-        const response = await fetch(url, {
+        const response = await fetch(url , {
             method: 'GET',
             mode: 'cors',
             credentials: 'same-origin',
@@ -70,6 +70,7 @@ const Sections = () => {
 
     const handleChangeMountainRange = (event) => {
         setMountainRange(event.target.value);
+        loadData(url + '?range=' + mountainRange)
     };
 
     return (
@@ -87,14 +88,12 @@ const Sections = () => {
                                     fullWidth={true}
                                     label="Pasmo górskie"
                                     id="symbolSelect"
-                                    defaultValue=""
                                     value={mountainRange}
                                     onChange={handleChangeMountainRange}
                                     select>
-                                    <MenuItem value="">Brak</MenuItem>
                                     <MenuItem value="TATRY">Tatry</MenuItem>
                                     <MenuItem value="BESKIDY_ZACHODNIE">Beskidy Zachodnie</MenuItem>
-                                    <MenuItem value="BESKIDY_WSCHODNIE">Sudety</MenuItem>
+                                    <MenuItem value="BESKIDY_WSCHODNIE">Beskidy Wschodnie</MenuItem>
                                     <MenuItem value="SUDETY">Sudety</MenuItem>
                                 </TextField>
                             </Grid>
