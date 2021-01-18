@@ -25,9 +25,9 @@ const useStyles = makeStyles(theme => ({
 const Sections = () => {
     const [data, setData] = useState([]);
     const [mountainRange, setMountainRange] = useState("TATRY");
-    const [startDate, setStartDate] = useState('2020-01-01');
-    const [endDate, setEndDate] = useState('2020-01-11');
-
+    const [minPoints, setMinPoints] = useState(0);
+    const [name, setName] = useState('');
+    const [querryData, setQuerryData] = useState([])
 
 
     const columns = [
@@ -38,10 +38,10 @@ const Sections = () => {
     ]
 
 
-    const url = 'http://127.0.0.1:8080/api/sections/?range=' + mountainRange;
+    const url = 'http://127.0.0.1:8080/api/sections/?range=';
 
     useEffect(() => {
-        loadData(url);
+        loadData(url + mountainRange);
     }, []);
 
     const loadData = async (url) => {
@@ -52,6 +52,7 @@ const Sections = () => {
         });
         const data = await response.json()
         setData(data);
+        setQuerryData(data);
     }
 
     const classes = useStyles()
@@ -70,8 +71,25 @@ const Sections = () => {
 
     const handleChangeMountainRange = (event) => {
         setMountainRange(event.target.value);
-        loadData(url + event.target.value)
+        loadData(url + event.target.value);
+        setName('');
+        setPage(0);
     };
+
+    function updateQuerryData() {
+        if(name.length >= 3) {
+            setQuerryData(data.filter(element =>
+                element.start.locationName.toLowerCase().startsWith(name.toLowerCase())
+                || element.end.locationName.toLowerCase().startsWith(name.toLowerCase())));
+        } else {
+            setQuerryData(data);
+        }
+    }
+
+    const handleChangeName = (event) => {
+        setName(event.target.value)
+        updateQuerryData()
+    }
 
     return (
         <React.Fragment>
@@ -96,6 +114,13 @@ const Sections = () => {
                                     <MenuItem value="BESKIDY_WSCHODNIE">Beskidy Wschodnie</MenuItem>
                                     <MenuItem value="SUDETY">Sudety</MenuItem>
                                 </TextField>
+                                <TextField
+                                    fullWidth={true}
+                                    label="Nazwa punktu"
+                                    id="pointName"
+                                    value={name}
+                                    onChange={handleChangeName}
+                                    />
                             </Grid>
                             <hr />
                             <Table stickyHeader aria-label="sticky table">
@@ -109,7 +134,7 @@ const Sections = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                                    {querryData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                                         return (
                                             <TableRow hover role="checkbox" tabIndex={-1} key={data.description}>
                                                 <TableCell key="name" align="left">
@@ -131,7 +156,7 @@ const Sections = () => {
                                 <TablePagination
                                     rowsPerPageOptions={[10, 25, 100]}
                                     component="div"
-                                    count={data.length}
+                                    count={querryData.length}
                                     rowsPerPage={rowsPerPage}
                                     page={page}
                                     onChangePage={handleChangePage}
