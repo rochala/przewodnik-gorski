@@ -79,7 +79,7 @@ const Sections = () => {
                     <form noValidate>
                         <Container maxWidth="lg">
                             <Typography variant="h2" component="h1" align="center" color="textPrimary">
-                                Przeglądanie wycieczek w układzie odznak
+                                Przeglądanie tras punktowanych
                             </Typography>
                             <hr />
                             <Grid container direction="row" justify="space-evenly" alignItems="center">

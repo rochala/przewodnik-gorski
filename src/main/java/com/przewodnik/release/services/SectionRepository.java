@@ -1,6 +1,7 @@
 package com.przewodnik.release.services;
 
 import com.przewodnik.release.models.Section;
+import com.przewodnik.release.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -10,5 +11,5 @@ import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "sections", path = "sections")
 public interface SectionRepository extends JpaRepository<Section,Long> {
-    List<Section> findByEndToStartPointsGreaterThanEqual(@Param("points") Integer points);
+    List<Section> findByEnd_MountainRangeAndStart_MountainRange(String range);
 }
