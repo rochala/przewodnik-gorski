@@ -16,6 +16,7 @@ public class Location {
     private String locationName;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.ORDINAL)
     private MountainRange mountainRange;
 
     @Column(nullable = false)

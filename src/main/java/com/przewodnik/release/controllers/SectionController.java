@@ -1,5 +1,6 @@
 package com.przewodnik.release.controllers;
 
+import com.przewodnik.release.models.MountainRange;
 import com.przewodnik.release.models.Section;
 import com.przewodnik.release.services.SectionRepository;
 import org.springframework.http.HttpStatus;
@@ -34,16 +35,14 @@ public class SectionController {
         this.repository = repository;
     }
 
-
-
-    @GetMapping(value= "/api/sections")
-    List<Section> all() {
-        return repository.findAll();
-    }
-
-    @GetMapping(value= "api/sections/{range}")
-    List<Section> getByRange(@PathVariable String range){
-        return repository.findByEnd_MountainRangeAndStart_MountainRange(range);
+    @GetMapping(value= "api/sections")
+    List<Section> getByRange(@RequestParam Optional<MountainRange> range){
+        if (range.isPresent()) {
+            return repository.findByEnd_MountainRangeAndStart_MountainRange(range.get(), range.get());
+        }
+        else {
+            return repository.findAll();
+        }
     }
 
     @PostMapping(value= "/api/sections")
@@ -51,9 +50,4 @@ public class SectionController {
         return repository.save(newSection);
     }
 
-    @GetMapping(value = "/api/sections/{id}")
-    Section one(@PathVariable Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new SectionNotFoundException(id));
-    }
 }
