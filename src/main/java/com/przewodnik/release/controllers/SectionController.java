@@ -41,6 +41,11 @@ public class SectionController {
         return repository.findAll();
     }
 
+    @GetMapping(value= "api/sections/{range}")
+    List<Section> getByRange(@PathVariable String range){
+        return repository.findByEnd_MountainRangeAndStart_MountainRange(range);
+    }
+
     @PostMapping(value= "/api/sections")
     Section newSection(@RequestBody Section newSection) {
         return repository.save(newSection);
