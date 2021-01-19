@@ -15,6 +15,7 @@ public class TripSection {
     @ManyToOne
     @JoinColumn(name="section_id")
     private Section section;
+
     @ManyToOne
     @JoinColumn(name="trip_id")
     private Trip trip;
@@ -39,17 +40,12 @@ public class TripSection {
         return section;
     }
 
-    public Trip getTrip() {
-        return trip;
-    }
-
     @Override
     public String toString() {
         return "TripSection{" +
                 "id=" + id +
                 ", direction=" + direction +
                 ", section=" + section +
-                ", trip=" + trip +
                 '}';
     }
 }

@@ -4,10 +4,8 @@ import com.przewodnik.release.models.Badge;
 import com.przewodnik.release.models.Trip;
 import com.przewodnik.release.models.User;
 import com.przewodnik.release.services.BadgeRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +13,16 @@ import java.util.Optional;
 class BadgeNotFoundException extends RuntimeException{
     public BadgeNotFoundException(Long id) {
         super("Could not find badge " + id);
+    }
+}
+
+@ControllerAdvice
+class BadgeNotFoundAdvice {
+    @ResponseBody
+    @ExceptionHandler(SectionNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    String badgeNotFoundHandler(BadgeNotFoundException exception) {
+        return exception.getMessage();
     }
 }
 
