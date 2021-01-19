@@ -9,6 +9,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import StarIcon from "@material-ui/icons/Star";
 
 
+
 const useStyles = makeStyles(theme => ({
     heroContent: {
         backgroundColor: theme.palette.background.paper,
@@ -21,21 +22,24 @@ const useStyles = makeStyles(theme => ({
         "& .MuiInput-underline::before": {
             borderColor: "red",
         },
+    },
+    list: {
+        width: '100% !important',
+    },
+    element: {
+        width: '30%',
+        height: '60vh'
     }
 
 }));
 
 
 const Sections = () => {
-    const [data, setData] = useState([]);
+    const [badges, setBadges] = useState([]);
 
-    const columns = [
-        { id: 'date', label: 'Date' },
-        { id: 'value', label: 'Value' },
-        { id: 'interpolated', label: 'Interpolated' },
-    ];
+    const url = 'http://127.0.0.1:8080/api/users/badges/?email=b.duda11@wp.pl';
 
-    const url = 'http://127.0.0.1:8080/api/sections/';
+    const classes = useStyles()
 
     useEffect(() => {
         loadData(url);
@@ -48,42 +52,42 @@ const Sections = () => {
             credentials: 'same-origin',
         });
         const data = await response.json()
-        setData(data);
+        setBadges(data);
     }
-
-    const classes = useStyles()
 
     return (
         <React.Fragment>
             <main>
                 <div className={classes.heroContent}>
                     <form noValidate>
-                        <Container maxWidth="xl">
-                            <Typography variant="h2" component="h1" align="center" color="textPrimary">
+                        <Container maxWidth="lg">
+                            <Typography variant="h2" component="h2" align="center" color="textPrimary">
                                 Przegląd wycieczek w układzie odznak
                             </Typography>
                             <Paper>
+                                <hr/><br/>
                             <Grid container flexWrap="wrap" direction="row" justify="space-evenly" alignItems="center">
-                                <GridList>
+                                <GridList className={classes.element}>
                                     <Typography variant="h3">
-                                        <List aria-label="Odznaki">
-                                            {[...Array(30).keys()].map(id =>
-                                            <ListItem button>
-                                                <ListItemIcon>
-                                                    <StarIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary="test" />
-                                            </ListItem>
-                                            )}
-                                        </List>
+                                        Odznaki
                                     </Typography>
+                                    <List aria-label="Odznaki" className={classes.list}>
+                                        {badges.map(id =>
+                                        <ListItem button className={classes.list}>
+                                            <ListItemIcon>
+                                                <StarIcon />
+                                            </ListItemIcon>
+                                            <ListItemText primary="arstarstarstatest" />
+                                        </ListItem>
+                                        )}
+                                    </List>
                                 </GridList>
-                                <GridList>
+                                <GridList className={classes.element}>
                                     <Typography variant="h3">
                                         super
                                     </Typography>
                                 </GridList>
-                                <GridList>
+                                <GridList className={classes.element}>
                                     <Typography variant="h3">
                                         super
                                     </Typography>
