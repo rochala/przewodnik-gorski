@@ -72,12 +72,12 @@ const Sections = () => {
                                         Odznaki
                                     </Typography>
                                     <List aria-label="Odznaki" className={classes.list}>
-                                        {badges.map(id =>
+                                        {badges.map(badge =>
                                         <ListItem button className={classes.list}>
                                             <ListItemIcon>
                                                 <StarIcon />
                                             </ListItemIcon>
-                                            <ListItemText primary="arstarstarstatest" />
+                                            <ListItemText primary={badge.grade} />
                                         </ListItem>
                                         )}
                                     </List>
