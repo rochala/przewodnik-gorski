@@ -10,6 +10,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from "@material-ui/core/Container";
+import Slider from '@material-ui/core/Slider';
+import InputLabel from '@material-ui/core/InputLabel'
 
 
 
@@ -19,22 +21,28 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.background.paper,
         padding: theme.spacing(8, 0, 6),
     },
+    filterInputs: {
+        width: "30%"
+    },
+    sliderFix: {
+        padding: "15px 0px 0px"
+    }
 }));
 
 
 const Sections = () => {
     const [data, setData] = useState([]);
     const [mountainRange, setMountainRange] = useState("TATRY");
-    const [minPoints, setMinPoints] = useState(0);
+    const [minPoints, setMinPoints] = useState([0,50]);
     const [name, setName] = useState('');
-    const [querryData, setQuerryData] = useState([])
+    const [queryData, setQueryData] = useState([])
 
 
     const columns = [
-        { id: 'name', label: 'Nazwa odcinka'},
-        { id: 'range', label: 'Pasmo'},
-        { id: 'points', label: 'Punkty'},
-        { id: 'length', label: 'Długość'},
+        { id: 'name', label: 'Nazwa odcinka', minWidth: "50%"},
+        { id: 'range', label: 'Pasmo', minWidth: "25%"},
+        { id: 'points', label: 'Punkty',minWidth: "12.5%"},
+        { id: 'length', label: 'Długość',minWidth: "12.5%"},
     ]
 
 
@@ -47,12 +55,11 @@ const Sections = () => {
     const loadData = async (url) => {
         const response = await fetch(url , {
             method: 'GET',
-            mode: 'cors',
             credentials: 'same-origin',
         });
         const data = await response.json()
         setData(data);
-        setQuerryData(data);
+        setQueryData(data);
     }
 
     const classes = useStyles()
@@ -65,7 +72,7 @@ const Sections = () => {
     };
 
     const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
+        setRowsPerPage(event.target.value);
         setPage(0);
     };
 
@@ -76,19 +83,30 @@ const Sections = () => {
         setPage(0);
     };
 
-    function updateQuerryData() {
+    const updateQuerryData = (name, minPoints) => {
         if(name.length >= 3) {
-            setQuerryData(data.filter(element =>
-                element.start.locationName.toLowerCase().startsWith(name.toLowerCase())
-                || element.end.locationName.toLowerCase().startsWith(name.toLowerCase())));
+            setQueryData(data.filter(element =>
+                (element.start.locationName.toLowerCase().startsWith(name.toLowerCase())
+                || element.end.locationName.toLowerCase().startsWith(name.toLowerCase()))
+                && (parseInt(element.endToStartPoints, 10) + parseInt(element.startToEndPoints, 10) >= parseInt(minPoints[0],10 ))
+                && (parseInt(element.endToStartPoints, 10) + parseInt(element.startToEndPoints, 10) <= parseInt(minPoints[1],10 ))
+            ));
         } else {
-            setQuerryData(data);
+            setQueryData(data.filter(element =>
+                (parseInt(element.endToStartPoints, 10) + parseInt(element.startToEndPoints, 10) >= parseInt(minPoints[0],10 ))
+                && (parseInt(element.endToStartPoints, 10) + parseInt(element.startToEndPoints, 10) <= parseInt(minPoints[1],10 ))
+            ));
         }
     }
 
     const handleChangeName = (event) => {
         setName(event.target.value)
-        updateQuerryData()
+        updateQuerryData(event.target.value, minPoints)
+    }
+
+    const handleChangeMinPoints = (event, newValue) => {
+        setMinPoints(newValue)
+        updateQuerryData(name,newValue)
     }
 
     return (
@@ -103,9 +121,9 @@ const Sections = () => {
                             <hr />
                             <Grid container direction="row" justify="space-evenly" alignItems="center">
                                 <TextField
+                                    className={classes.filterInputs}
                                     fullWidth={true}
                                     label="Pasmo górskie"
-                                    id="symbolSelect"
                                     value={mountainRange}
                                     onChange={handleChangeMountainRange}
                                     select>
@@ -115,26 +133,45 @@ const Sections = () => {
                                     <MenuItem value="SUDETY">Sudety</MenuItem>
                                 </TextField>
                                 <TextField
+                                    className={classes.filterInputs}
                                     fullWidth={true}
                                     label="Nazwa punktu"
-                                    id="pointName"
                                     value={name}
                                     onChange={handleChangeName}
                                     />
+                                <div className={classes.filterInputs} >
+                                    <InputLabel id="slider">
+                                        Zakres sumy punktów
+                                    </InputLabel>
+                                    <Slider
+                                        style={{ padding: "15px 0 0" }}
+                                        value={minPoints}
+                                        onChange={handleChangeMinPoints}
+                                        valueLabelDisplay="auto"
+                                        label="Zakres sumy punktów"
+                                        aria-labelledby="slider"
+                                        max={50}
+                                        fullWidth={true}
+                                    />
+                                </div>
                             </Grid>
                             <hr />
                             <Table stickyHeader aria-label="sticky table">
                                 <TableHead>
                                     <TableRow>
                                         {columns.map((column) => (
-                                            <TableCell key={column.name} align="left">
+                                            <TableCell
+                                                key={column.name}
+                                                align="left"
+                                                style={{ width: column.minWidth }}
+                                            >
                                                 {column.label}
                                             </TableCell>
                                         ))}
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {querryData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                                    {queryData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                                         return (
                                             <TableRow hover role="checkbox" tabIndex={-1} key={data.description}>
                                                 <TableCell key="name" align="left">
@@ -155,8 +192,7 @@ const Sections = () => {
                                 </TableBody>
                                 <TablePagination
                                     rowsPerPageOptions={[10, 25, 100]}
-                                    component="div"
-                                    count={querryData.length}
+                                    count={queryData.length}
                                     rowsPerPage={rowsPerPage}
                                     page={page}
                                     onChangePage={handleChangePage}
