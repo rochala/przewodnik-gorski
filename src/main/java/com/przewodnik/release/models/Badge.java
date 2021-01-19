@@ -71,7 +71,6 @@ public class Badge {
                 ", grade=" + grade +
                 ", dateAcquired=" + dateAcquired +
                 ", pointsNeeded=" + pointsNeeded +
-                ", trips=" + trips +
                 '}';
     }
 }
