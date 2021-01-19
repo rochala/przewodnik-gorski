@@ -5,8 +5,17 @@ import java.util.Date;
 import java.util.List;
 
 enum Grade {
-    Popularna,
-    MałaBrązowa,
+    POPULARNA("Popularna"),
+    MALA_BRAZOWA("Mała Brązowa");
+
+    String fullName;
+    Grade(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
 }
 @Entity
 @Table(name="badges")
