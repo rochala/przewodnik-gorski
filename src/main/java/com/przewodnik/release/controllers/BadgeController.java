@@ -45,6 +45,7 @@ public class BadgeController {
     {
         return repository.findById(id).orElseThrow(() -> new BadgeNotFoundException(id));
     }
+
     @GetMapping(value ="/api/badges/")
     List<Trip> badgeTrips(@RequestParam Optional<Long> tripsBadgeId){
         if (tripsBadgeId.isPresent()){
