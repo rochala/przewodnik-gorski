@@ -7,6 +7,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import StarIcon from "@material-ui/icons/Star";
+import TableCell from "@material-ui/core/TableCell";
 
 
 
@@ -27,7 +28,6 @@ const useStyles = makeStyles(theme => ({
         width: '100% !important',
     },
     element: {
-        width: '30%',
         height: '60vh'
     }
 
@@ -60,38 +60,38 @@ const Sections = () => {
             <main>
                 <div className={classes.heroContent}>
                     <form noValidate>
-                        <Container maxWidth="lg">
+                        <Container maxWidth="xl">
                             <Typography variant="h2" component="h2" align="center" color="textPrimary">
                                 Przegląd wycieczek w układzie odznak
                             </Typography>
                             <Paper>
                                 <hr/><br/>
                             <Grid container flexWrap="wrap" direction="row" justify="space-evenly" alignItems="center">
-                                <GridList className={classes.element}>
-                                    <Typography variant="h3">
+                                <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '20%'}}>
+                                    <Typography variant="h3" align="center">
                                         Odznaki
                                     </Typography>
-                                    <List aria-label="Odznaki" className={classes.list}>
+                                    <List aria-label="Odznaki" className={classes.list} p={2} >
                                         {badges.map(badge =>
                                         <ListItem button className={classes.list}>
                                             <ListItemIcon>
-                                                <StarIcon />
+                                                {`${(badge.dateAcquired != null) ? '<StarIcon />' : ''}`}
                                             </ListItemIcon>
                                             <ListItemText primary={badge.grade} />
                                         </ListItem>
                                         )}
                                     </List>
-                                </GridList>
-                                <GridList className={classes.element}>
-                                    <Typography variant="h3">
+                                </Paper>
+                                <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '45%'}}>
+                                    <Typography variant="h3" align="center">
                                         super
                                     </Typography>
-                                </GridList>
-                                <GridList className={classes.element}>
-                                    <Typography variant="h3">
+                                </Paper>
+                                <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '35%'}}>
+                                    <Typography variant="h3" align="center">
                                         super
                                     </Typography>
-                                </GridList>
+                                </Paper>
                             </Grid>
                             </Paper>
                         </Container>

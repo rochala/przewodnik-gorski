@@ -61,8 +61,8 @@ public class Badge {
         return id;
     }
 
-    public Grade getGrade() {
-        return grade;
+    public String getGrade() {
+        return grade.getFullName();
     }
 
     public Date getDateAcquired() {
