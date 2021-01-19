@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Container, Grid, Box, MenuItem, TextField, Button } from "@material-ui/core";
+import { Typography, Container, Grid, Box, MenuItem, TextField, Button, GridList } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 
@@ -59,21 +59,21 @@ const Sections = () => {
                             </Typography>
                             <Paper>
                             <Grid container flexWrap="wrap" direction="row" justify="space-evenly" alignItems="center">
-                                <div>
+                                <GridList>
                                     <Typography variant="h3">
                                         super
                                     </Typography>
-                                </div>
-                                <div>
+                                </GridList>
+                                <GridList>
                                     <Typography variant="h3">
                                         super
                                     </Typography>
-                                </div>
-                                <div>
+                                </GridList>
+                                <GridList>
                                     <Typography variant="h3">
                                         super
                                     </Typography>
-                                </div>
+                                </GridList>
                             </Grid>
                             </Paper>
                         </Container>
