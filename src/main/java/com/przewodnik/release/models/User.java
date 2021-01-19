@@ -44,6 +44,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Trip> trips  = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Badge> badges = new ArrayList<>();
+
     public Long getId() {
         return id;
     }
@@ -84,6 +87,10 @@ public class User {
         return trips;
     }
 
+    public List<Badge> getBadges() {
+        return badges;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -96,7 +103,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", isDisabled=" + isDisabled +
                 ", role='" + role + '\'' +
-                ", trips=" + trips +
                 '}';
     }
 }

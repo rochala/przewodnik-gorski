@@ -1,11 +1,14 @@
 package com.przewodnik.release.controllers;
 
+import com.przewodnik.release.models.Badge;
 import com.przewodnik.release.models.User;
 import com.przewodnik.release.services.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(Long id) {
@@ -68,5 +71,14 @@ public class UserController {
             throw new UserEmailNotFoundException(email);
         }
         return user;
+    }
+
+    @GetMapping(value = "/api/users/badges")
+    List<Badge> userBadges(@RequestParam Optional<String> email){
+        if (email.isPresent()){
+            User selectedUser = repository.findByEmail(email.get());
+            return selectedUser.getBadges();
+        }
+        else return new ArrayList<>();
     }
 }
