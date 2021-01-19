@@ -1,7 +1,6 @@
 package com.przewodnik.release.models;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "trip_sections")
@@ -10,7 +9,12 @@ public class TripSection {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column()
     private Boolean direction;
+
+    @Column()
+    private Integer orderSection;
 
     @ManyToOne
     @JoinColumn(name="section_id")
@@ -22,10 +26,11 @@ public class TripSection {
 
     protected TripSection() {}
 
-    public TripSection(Boolean direction, Section section, Trip trip) {
+    public TripSection(Boolean direction, Section section, Trip trip, Integer orderSection) {
         this.direction = direction;
         this.section = section;
         this.trip = trip;
+        this.orderSection = orderSection;
     }
 
     public Long getId() {
@@ -40,10 +45,13 @@ public class TripSection {
         return section;
     }
 
+    public Integer getOrder() { return orderSection;}
+
     @Override
     public String toString() {
         return "TripSection{" +
                 "id=" + id +
+                ", orderSection=" + orderSection +
                 ", direction=" + direction +
                 ", section=" + section +
                 '}';
