@@ -17,8 +17,8 @@ public class User {
     @GeneratedValue
     private Long id;
 
-    @Column()
-    private int pesel;
+    @Column(nullable = false,unique = true)
+    private Long pesel;
 
     @Column()
     private Date birthDate;
@@ -51,7 +51,7 @@ public class User {
         return id;
     }
 
-    public int getPesel() {
+    public Long getPesel() {
         return pesel;
     }
 
