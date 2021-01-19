@@ -53,10 +53,29 @@ const Sections = () => {
             <main>
                 <div className={classes.heroContent}>
                     <form noValidate>
-                        <Container maxWidth="lg">
+                        <Container maxWidth="xl">
                             <Typography variant="h2" component="h1" align="center" color="textPrimary">
-                                Sections
+                                Odznaki
                             </Typography>
+                            <Paper>
+                            <Grid container flexWrap="wrap" direction="row" justify="space-evenly" alignItems="center">
+                                <div>
+                                    <Typography variant="h3">
+                                        super
+                                    </Typography>
+                                </div>
+                                <div>
+                                    <Typography variant="h3">
+                                        super
+                                    </Typography>
+                                </div>
+                                <div>
+                                    <Typography variant="h3">
+                                        super
+                                    </Typography>
+                                </div>
+                            </Grid>
+                            </Paper>
                         </Container>
                     </form>
                 </div>

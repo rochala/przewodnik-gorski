@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Typography, Grid, Box, MenuItem, TextField, Button } from "@material-ui/core";
-import Paper from '@material-ui/core/Paper';
+import React, {useEffect, useState} from "react";
+import {Grid, MenuItem, TextField, Typography} from "@material-ui/core";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Container from "@material-ui/core/Container";
 import Slider from '@material-ui/core/Slider';
 import InputLabel from '@material-ui/core/InputLabel'
-
-
 
 
 const useStyles = makeStyles(theme => ({
@@ -33,27 +29,28 @@ const useStyles = makeStyles(theme => ({
 const Sections = () => {
     const [data, setData] = useState([]);
     const [mountainRange, setMountainRange] = useState("TATRY");
-    const [minPoints, setMinPoints] = useState([0,50]);
+    const [minPoints, setMinPoints] = useState([0, 50]);
     const [name, setName] = useState('');
     const [queryData, setQueryData] = useState([])
-
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const url = 'http://127.0.0.1:8080/api/sections/?range=';
 
     const columns = [
-        { id: 'name', label: 'Nazwa odcinka', minWidth: "50%"},
-        { id: 'range', label: 'Pasmo', minWidth: "25%"},
-        { id: 'points', label: 'Punkty',minWidth: "12.5%"},
-        { id: 'length', label: 'Długość',minWidth: "12.5%"},
+        {id: 'name', label: 'Nazwa odcinka', minWidth: "50%"},
+        {id: 'range', label: 'Pasmo', minWidth: "25%"},
+        {id: 'points', label: 'Punkty', minWidth: "12.5%"},
+        {id: 'length', label: 'Długość', minWidth: "12.5%"},
     ]
 
-
-    const url = 'http://127.0.0.1:8080/api/sections/?range=';
+    const classes = useStyles()
 
     useEffect(() => {
         loadData(url + mountainRange);
     }, []);
 
     const loadData = async (url) => {
-        const response = await fetch(url , {
+        const response = await fetch(url, {
             method: 'GET',
             credentials: 'same-origin',
         });
@@ -61,11 +58,6 @@ const Sections = () => {
         setData(data);
         setQueryData(data);
     }
-
-    const classes = useStyles()
-
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -80,22 +72,22 @@ const Sections = () => {
         setMountainRange(event.target.value);
         loadData(url + event.target.value);
         setName('');
-        setMinPoints([0,50])
+        setMinPoints([0, 50])
         setPage(0);
     };
 
     const updateQuerryData = (name, minPoints) => {
-        if(name.length >= 3) {
+        if (name.length >= 3) {
             setQueryData(data.filter(element =>
                 (element.start.locationName.toLowerCase().startsWith(name.toLowerCase())
-                || element.end.locationName.toLowerCase().startsWith(name.toLowerCase()))
-                && (parseInt(element.endToStartPoints, 10) + parseInt(element.startToEndPoints, 10) >= parseInt(minPoints[0],10 ))
-                && (parseInt(element.endToStartPoints, 10) + parseInt(element.startToEndPoints, 10) <= parseInt(minPoints[1],10 ))
+                    || element.end.locationName.toLowerCase().startsWith(name.toLowerCase()))
+                && (parseInt(element.endToStartPoints, 10) + parseInt(element.startToEndPoints, 10) >= parseInt(minPoints[0], 10))
+                && (parseInt(element.endToStartPoints, 10) + parseInt(element.startToEndPoints, 10) <= parseInt(minPoints[1], 10))
             ));
         } else {
             setQueryData(data.filter(element =>
-                (parseInt(element.endToStartPoints, 10) + parseInt(element.startToEndPoints, 10) >= parseInt(minPoints[0],10 ))
-                && (parseInt(element.endToStartPoints, 10) + parseInt(element.startToEndPoints, 10) <= parseInt(minPoints[1],10 ))
+                (parseInt(element.endToStartPoints, 10) + parseInt(element.startToEndPoints, 10) >= parseInt(minPoints[0], 10))
+                && (parseInt(element.endToStartPoints, 10) + parseInt(element.startToEndPoints, 10) <= parseInt(minPoints[1], 10))
             ));
         }
     }
@@ -107,7 +99,7 @@ const Sections = () => {
 
     const handleChangeMinPoints = (event, newValue) => {
         setMinPoints(newValue)
-        updateQuerryData(name,newValue)
+        updateQuerryData(name, newValue)
     }
 
     return (
@@ -119,7 +111,7 @@ const Sections = () => {
                             <Typography variant="h2" component="h1" align="center" color="textPrimary">
                                 Przeglądanie tras punktowanych
                             </Typography>
-                            <hr />
+                            <hr/>
                             <Grid container direction="row" justify="space-evenly" alignItems="center">
                                 <TextField
                                     className={classes.filterInputs}
@@ -139,13 +131,13 @@ const Sections = () => {
                                     label="Nazwa punktu"
                                     value={name}
                                     onChange={handleChangeName}
-                                    />
-                                <div className={classes.filterInputs} >
+                                />
+                                <div className={classes.filterInputs}>
                                     <InputLabel id="slider">
                                         Zakres sumy punktów
                                     </InputLabel>
                                     <Slider
-                                        style={{ padding: "15px 0 0" }}
+                                        style={{padding: "15px 0 0"}}
                                         value={minPoints}
                                         onChange={handleChangeMinPoints}
                                         valueLabelDisplay="auto"
@@ -156,7 +148,7 @@ const Sections = () => {
                                     />
                                 </div>
                             </Grid>
-                            <hr />
+                            <hr/>
                             <Table stickyHeader aria-label="sticky table">
                                 <TableHead>
                                     <TableRow>
@@ -164,7 +156,7 @@ const Sections = () => {
                                             <TableCell
                                                 key={column.name}
                                                 align="left"
-                                                style={{ width: column.minWidth }}
+                                                style={{width: column.minWidth}}
                                             >
                                                 {column.label}
                                             </TableCell>
@@ -192,26 +184,20 @@ const Sections = () => {
                                     })}
                                 </TableBody>
                                 <TablePagination
-                                    rowsPerPageOptions={[10, 25, 100]}
+                                    rowsPerPageOptions={[5, 10, 25, 100]}
                                     count={queryData.length}
                                     rowsPerPage={rowsPerPage}
                                     page={page}
                                     onChangePage={handleChangePage}
                                     onChangeRowsPerPage={handleChangeRowsPerPage}
                                 />
-
                             </Table>
-
                         </Container>
                     </form>
                 </div>
             </main>
-
-
         </React.Fragment>
-
     );
-
 }
 
 
