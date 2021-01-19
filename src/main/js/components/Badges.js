@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Typography, Container, Grid, Box, MenuItem, TextField, Button, GridList } from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useEffect, useState} from "react";
+import {Container, Grid, GridList, Typography} from "@material-ui/core";
+import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import List from "@material-ui/core/List";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import StarIcon from "@material-ui/icons/Star";
 
 
 const useStyles = makeStyles(theme => ({
@@ -55,13 +60,22 @@ const Sections = () => {
                     <form noValidate>
                         <Container maxWidth="xl">
                             <Typography variant="h2" component="h1" align="center" color="textPrimary">
-                                Odznaki
+                                Przegląd wycieczek w układzie odznak
                             </Typography>
                             <Paper>
                             <Grid container flexWrap="wrap" direction="row" justify="space-evenly" alignItems="center">
                                 <GridList>
                                     <Typography variant="h3">
-                                        super
+                                        <List aria-label="Odznaki">
+                                            {[...Array(30).keys()].map(id =>
+                                            <ListItem button>
+                                                <ListItemIcon>
+                                                    <StarIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary="test" />
+                                            </ListItem>
+                                            )}
+                                        </List>
                                     </Typography>
                                 </GridList>
                                 <GridList>
