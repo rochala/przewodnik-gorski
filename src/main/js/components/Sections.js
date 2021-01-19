@@ -80,6 +80,7 @@ const Sections = () => {
         setMountainRange(event.target.value);
         loadData(url + event.target.value);
         setName('');
+        setMinPoints([0,50])
         setPage(0);
     };
 
