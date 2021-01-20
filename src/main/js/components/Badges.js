@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
         scrollbarColor: 'rgb(107, 107, 107) rgb(43, 43, 43)'
     },
     element: {
-        height: '60vh',
+        height: '63vh',
     },
     spacedText: {
         padding: '5px'
