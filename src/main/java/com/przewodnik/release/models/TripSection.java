@@ -1,6 +1,7 @@
 package com.przewodnik.release.models;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "trip_sections")
@@ -55,5 +56,19 @@ public class TripSection {
                 ", direction=" + direction +
                 ", section=" + section +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TripSection that = (TripSection) o;
+        return direction.equals(that.direction) &&
+                section.equals(that.section);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(direction, section);
     }
 }

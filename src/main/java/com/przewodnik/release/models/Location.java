@@ -3,6 +3,7 @@ package com.przewodnik.release.models;
 import javax.persistence.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 @Entity
@@ -55,5 +56,20 @@ public class Location {
 
     public String getLocationName() {
         return locationName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Location location = (Location) o;
+        return locationName.equals(location.locationName) &&
+                mountainRange == location.mountainRange &&
+                height.equals(location.height);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(locationName, mountainRange, height);
     }
 }

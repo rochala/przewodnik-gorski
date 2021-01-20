@@ -1,6 +1,7 @@
 package com.przewodnik.release.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +30,8 @@ public class Badge {
 
     @Column()
     private Date dateAcquired;
+
+    private int sumPointsForBadge;
 
     @Column()
     private int pointsNeeded;
@@ -69,9 +72,31 @@ public class Badge {
         return dateAcquired;
     }
 
+
+    public int getSumPointForBadge(){
+        List<TripSection> sameSections = new ArrayList<>();
+        int sumPoints = 0;
+        for(Trip trip: this.getTrips()){
+            for(TripSection tripSection : trip.getTripSection()){
+                if(!sameSections.contains(tripSection)) {
+                    sameSections.add(tripSection);
+                    boolean direction = tripSection.getDirection();
+                    if(direction){
+                        sumPoints+=tripSection.getSection().getStartToEndPoints();
+                    }
+                    else {
+                        sumPoints+=tripSection.getSection().getEndToStartPoints();
+                    }
+                }
+            }
+        }
+        return sumPoints;
+    }
+
     public int getPointsNeeded() {
         return pointsNeeded;
     }
+
 
     @Override
     public String toString() {
@@ -79,7 +104,9 @@ public class Badge {
                 "id=" + id +
                 ", grade=" + grade +
                 ", dateAcquired=" + dateAcquired +
+                ", actualBadgePoints=" + sumPointsForBadge +
                 ", pointsNeeded=" + pointsNeeded +
+                ", trips=" + trips +
                 '}';
     }
 }

@@ -3,6 +3,7 @@ package com.przewodnik.release.models;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "sections")
@@ -70,5 +71,22 @@ public class Section {
                 ", start=" + start +
                 ", end=" + end +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Section section = (Section) o;
+        return startToEndPoints.equals(section.startToEndPoints) &&
+                endToStartPoints.equals(section.endToStartPoints) &&
+                length.equals(section.length) &&
+                start.equals(section.start) &&
+                end.equals(section.end);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(startToEndPoints, endToStartPoints, length, start, end);
     }
 }
