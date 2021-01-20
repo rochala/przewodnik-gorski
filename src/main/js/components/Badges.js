@@ -8,6 +8,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import StarIcon from "@material-ui/icons/Star";
 import TableCell from "@material-ui/core/TableCell";
+import {Backspace} from "@material-ui/icons";
 
 
 
@@ -36,23 +37,63 @@ const useStyles = makeStyles(theme => ({
 
 const Sections = () => {
     const [badges, setBadges] = useState([]);
+    const [badgeData, setBadgeData] = useState([]);
+    const [selectedBadge, setSelectedBadge] = useState(-1)
 
     const url = 'http://127.0.0.1:8080/api/users/badges/?email=b.duda11@wp.pl';
 
     const classes = useStyles()
 
     useEffect(() => {
-        loadData(url);
+        fetch(url)
+            .then((response) => response.json())
+            .then(json => setBadges(json))
     }, []);
 
-    const loadData = async (url) => {
-        const response = await fetch(url, {
-            method: 'GET',
-            mode: 'cors',
-            credentials: 'same-origin',
-        });
-        const data = await response.json()
-        setBadges(data);
+    const handleBadgeSelect = (event, value) => {
+        fetch("http://127.0.0.1:8080/api/badges/?tripsBadgeId=" + badges[value].id)
+            .then((response) => response.json())
+            .then(json => setBadgeData(json))
+        setSelectedBadge(value)
+    }
+
+    const BadgeInformation = () => {
+        return (
+            <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '45%'}}>
+                {selectedBadge >= 0 &&
+                <Typography variant="h3" align="center">
+                    {badges[selectedBadge].grade}
+                </Typography>
+                }
+            </Paper>
+        )
+    }
+
+    const BadgeList = () => {
+        return (
+        <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '20%'}}>
+            <Typography variant="h3" align="center">
+                Odznaki
+            </Typography>
+            <hr />
+            <List aria-label="Odznaki" className={classes.list} p={2}>
+                {badges.map((badge, index) =>
+                    <ListItem button
+                              className={classes.list}
+                              onClick={(event) => handleBadgeSelect(event, index)}
+                              selected={selectedBadge === index}
+                    >
+                        <ListItemIcon>
+                            {badge.dateAcquired != null &&
+                            <StarIcon />
+                            }
+                        </ListItemIcon>
+                        <ListItemText primary={badge.grade} />
+                    </ListItem>
+                )}
+            </List>
+        </Paper>
+        )
     }
 
     return (
@@ -66,26 +107,35 @@ const Sections = () => {
                             </Typography>
                             <Paper>
                                 <hr/><br/>
-                            <Grid container flexWrap="wrap" direction="row" justify="space-evenly" alignItems="center">
+                            <Grid container className={classes.element} flexWrap="wrap" direction="row" justify="space-evenly" alignItems="center">
                                 <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '20%'}}>
                                     <Typography variant="h3" align="center">
                                         Odznaki
                                     </Typography>
-                                    <List aria-label="Odznaki" className={classes.list} p={2} >
-                                        {badges.map(badge =>
-                                        <ListItem button className={classes.list}>
-                                            <ListItemIcon>
-                                                {`${(badge.dateAcquired != null) ? '<StarIcon />' : ''}`}
-                                            </ListItemIcon>
-                                            <ListItemText primary={badge.grade} />
-                                        </ListItem>
+                                    <hr />
+                                    <List aria-label="Odznaki" className={classes.list} p={2}>
+                                        {badges.map((badge, index) =>
+                                            <ListItem button
+                                                      className={classes.list}
+                                                      onClick={(event) => handleBadgeSelect(event, index)}
+                                                      selected={selectedBadge === index}
+                                            >
+                                                <ListItemIcon>
+                                                    {badge.dateAcquired != null &&
+                                                    <StarIcon />
+                                                    }
+                                                </ListItemIcon>
+                                                <ListItemText primary={badge.grade} />
+                                            </ListItem>
                                         )}
                                     </List>
                                 </Paper>
                                 <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '45%'}}>
+                                    {selectedBadge >= 0 &&
                                     <Typography variant="h3" align="center">
-                                        super
+                                        {badges[selectedBadge].grade}
                                     </Typography>
+                                    }
                                 </Paper>
                                 <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '35%'}}>
                                     <Typography variant="h3" align="center">
@@ -98,8 +148,6 @@ const Sections = () => {
                     </form>
                 </div>
             </main>
-
-
         </React.Fragment>
 
     );
