@@ -132,9 +132,17 @@ const Sections = () => {
                                 </Paper>
                                 <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '45%'}}>
                                     {selectedBadge >= 0 &&
-                                    <Typography variant="h3" align="center">
-                                        {badges[selectedBadge].grade}
-                                    </Typography>
+                                        <Container>
+                                        <Typography variant="h3" align="center">
+                                            {badges[selectedBadge].grade}
+                                        </Typography> &&
+                                        <Typography variant="h5" align="left">
+                                        {badges[selectedBadge].sumPointForBadge} / {badges[selectedBadge].pointsNeeded}
+                                        </Typography> &&
+                                        <Typography variant="h5" align="left">
+                                        {(badges[selectedBadge].dateAcquired != null) ? "Odznaka zdobyta dnia: " + badges[selectedBadge].dateAcquired : "Odznaka nie jest zdobyta"}
+                                        </Typography>
+                                        </Container>
                                     }
                                 </Paper>
                                 <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '35%'}}>
