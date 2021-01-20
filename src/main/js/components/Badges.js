@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Typography, Container, Grid, Box, MenuItem, TextField, Button, GridList } from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useEffect, useState} from "react";
+import {Container, Grid, GridList, Typography} from "@material-ui/core";
+import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import List from "@material-ui/core/List";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import StarIcon from "@material-ui/icons/Star";
+import TableCell from "@material-ui/core/TableCell";
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -16,21 +23,23 @@ const useStyles = makeStyles(theme => ({
         "& .MuiInput-underline::before": {
             borderColor: "red",
         },
+    },
+    list: {
+        width: '100% !important',
+    },
+    element: {
+        height: '60vh'
     }
 
 }));
 
 
 const Sections = () => {
-    const [data, setData] = useState([]);
+    const [badges, setBadges] = useState([]);
 
-    const columns = [
-        { id: 'date', label: 'Date' },
-        { id: 'value', label: 'Value' },
-        { id: 'interpolated', label: 'Interpolated' },
-    ];
+    const url = 'http://127.0.0.1:8080/api/users/badges/?email=b.duda11@wp.pl';
 
-    const url = 'http://127.0.0.1:8080/api/sections/';
+    const classes = useStyles()
 
     useEffect(() => {
         loadData(url);
@@ -43,10 +52,8 @@ const Sections = () => {
             credentials: 'same-origin',
         });
         const data = await response.json()
-        setData(data);
+        setBadges(data);
     }
-
-    const classes = useStyles()
 
     return (
         <React.Fragment>
@@ -54,26 +61,37 @@ const Sections = () => {
                 <div className={classes.heroContent}>
                     <form noValidate>
                         <Container maxWidth="xl">
-                            <Typography variant="h2" component="h1" align="center" color="textPrimary">
-                                Odznaki
+                            <Typography variant="h2" component="h2" align="center" color="textPrimary">
+                                Przegląd wycieczek w układzie odznak
                             </Typography>
                             <Paper>
+                                <hr/><br/>
                             <Grid container flexWrap="wrap" direction="row" justify="space-evenly" alignItems="center">
-                                <GridList>
-                                    <Typography variant="h3">
+                                <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '20%'}}>
+                                    <Typography variant="h3" align="center">
+                                        Odznaki
+                                    </Typography>
+                                    <List aria-label="Odznaki" className={classes.list} p={2} >
+                                        {badges.map(badge =>
+                                        <ListItem button className={classes.list}>
+                                            <ListItemIcon>
+                                                {`${(badge.dateAcquired != null) ? '<StarIcon />' : ''}`}
+                                            </ListItemIcon>
+                                            <ListItemText primary={badge.grade} />
+                                        </ListItem>
+                                        )}
+                                    </List>
+                                </Paper>
+                                <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '45%'}}>
+                                    <Typography variant="h3" align="center">
                                         super
                                     </Typography>
-                                </GridList>
-                                <GridList>
-                                    <Typography variant="h3">
+                                </Paper>
+                                <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '35%'}}>
+                                    <Typography variant="h3" align="center">
                                         super
                                     </Typography>
-                                </GridList>
-                                <GridList>
-                                    <Typography variant="h3">
-                                        super
-                                    </Typography>
-                                </GridList>
+                                </Paper>
                             </Grid>
                             </Paper>
                         </Container>
