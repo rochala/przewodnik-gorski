@@ -59,7 +59,6 @@ const Sections = () => {
         <React.Fragment>
             <main>
                 <div className={classes.heroContent}>
-                    <form noValidate>
                         <Container maxWidth="xl">
                             <Typography variant="h2" component="h2" align="center" color="textPrimary">
                                 Przegląd wycieczek w układzie odznak
@@ -278,7 +277,6 @@ const Sections = () => {
                                 </Grid>
                             </Paper>
                         </Container>
-                    </form>
                 </div>
             </main>
         </React.Fragment>
