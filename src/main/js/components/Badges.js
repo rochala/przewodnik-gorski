@@ -9,6 +9,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import StarIcon from "@material-ui/icons/Star";
 import TableCell from "@material-ui/core/TableCell";
 import {Backspace} from "@material-ui/icons";
+import Divider from "@material-ui/core/Divider";
 
 
 
@@ -25,7 +26,7 @@ const useStyles = makeStyles(theme => ({
         height: '60vh',
     },
     spacedText: {
-        padding: '15px'
+        padding: '5px'
     }
 
 }));
@@ -49,6 +50,7 @@ const Sections = () => {
 
     const handleBadgeSelect = (event, value) => {
         setSelectedBadge(value)
+        setSelectedTrip(-1)
     }
 
     const handleTripSelect = (event, value) => {
@@ -255,6 +257,7 @@ const Sections = () => {
                                                               >
                                                          <ListItemText primary="Dodaj nową wycieczkę"/>
                                                     </ListItem>
+                                                    <hr/>
                                                     {badges[selectedBadge].trips.map((trip, index) =>
                                                         <ListItem button
                                                                   className={classes.list}
@@ -270,9 +273,29 @@ const Sections = () => {
                                         }
                                     </Paper>
                                     <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '35%'}}>
-                                        <Typography variant="h3" align="center">
-                                            super
-                                        </Typography>
+                                        {selectedTrip >= 0 &&
+                                        <div>
+                                            <Container style={{height: '30%'}}>
+                                                <Typography variant="h3" align="center">
+                                                    Wycieczka
+                                                </Typography>
+                                                <hr/>
+                                                <Typography variant="h5" align="left" className={classes.spacedText}>
+                                                    Liczba punktów: {badges[selectedBadge].trips[selectedTrip].sumPoints}
+                                                </Typography>
+                                                <Typography variant="h5" align="left" className={classes.spacedText}>
+                                                    Data odbycia: {badges[selectedBadge].trips[selectedTrip].startDate}
+                                                </Typography>
+                                               <Typography variant="h5" align="left" className={classes.spacedText}>
+                                                    Status: {badges[selectedBadge].trips[selectedTrip].status}
+                                                </Typography>
+                                                <Typography variant="h5" align="left" className={classes.spacedText}>
+                                                    Obecność przodownika: {badges[selectedBadge].trips[selectedTrip].leaderAttendance ? " Tak" : " Nie"}
+                                                </Typography>
+                                                <hr/>
+                                            </Container>
+                                        </div>
+                                        }
                                     </Paper>
                                 </Grid>
                             </Paper>
