@@ -17,19 +17,16 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.background.paper,
         padding: theme.spacing(8, 0, 6),
     },
-    textField: {
-        "& .MuiFormLabel-root": {
-            color: "red",
-        },
-        "& .MuiInput-underline::before": {
-            borderColor: "red",
-        },
-    },
     list: {
         width: '100% !important',
+        overflow: 'auto',
     },
     element: {
-        height: '60vh'
+        height: '60vh',
+        maxHeight: '60vh'
+    },
+    spacedText: {
+        padding: '15px'
     }
 
 }));
@@ -39,6 +36,7 @@ const Sections = () => {
     const [badges, setBadges] = useState([]);
     const [badgeData, setBadgeData] = useState([]);
     const [selectedBadge, setSelectedBadge] = useState(-1)
+    const [selectedTrip, setSelectedTrip] = useState(-1)
 
     const url = 'http://127.0.0.1:8080/api/users/badges/?email=b.duda11@wp.pl';
 
@@ -51,49 +49,11 @@ const Sections = () => {
     }, []);
 
     const handleBadgeSelect = (event, value) => {
-        fetch("http://127.0.0.1:8080/api/badges/?tripsBadgeId=" + badges[value].id)
-            .then((response) => response.json())
-            .then(json => setBadgeData(json))
         setSelectedBadge(value)
     }
 
-    const BadgeInformation = () => {
-        return (
-            <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '45%'}}>
-                {selectedBadge >= 0 &&
-                <Typography variant="h3" align="center">
-                    {badges[selectedBadge].grade}
-                </Typography>
-                }
-            </Paper>
-        )
-    }
-
-    const BadgeList = () => {
-        return (
-        <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '20%'}}>
-            <Typography variant="h3" align="center">
-                Odznaki
-            </Typography>
-            <hr />
-            <List aria-label="Odznaki" className={classes.list} p={2}>
-                {badges.map((badge, index) =>
-                    <ListItem button
-                              className={classes.list}
-                              onClick={(event) => handleBadgeSelect(event, index)}
-                              selected={selectedBadge === index}
-                    >
-                        <ListItemIcon>
-                            {badge.dateAcquired != null &&
-                            <StarIcon />
-                            }
-                        </ListItemIcon>
-                        <ListItemText primary={badge.grade} />
-                    </ListItem>
-                )}
-            </List>
-        </Paper>
-        )
+    const handleTripSelect = (event, value) => {
+        setSelectedTrip(value)
     }
 
     return (
@@ -107,14 +67,140 @@ const Sections = () => {
                             </Typography>
                             <Paper>
                                 <hr/><br/>
-                            <Grid container className={classes.element} flexWrap="wrap" direction="row" justify="space-evenly" alignItems="center">
-                                <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '20%'}}>
-                                    <Typography variant="h3" align="center">
-                                        Odznaki
-                                    </Typography>
-                                    <hr />
-                                    <List aria-label="Odznaki" className={classes.list} p={2}>
-                                        {badges.map((badge, index) =>
+                                <Grid container className={classes.element} flexWrap="wrap" direction="row" justify="space-evenly" alignItems="center">
+                                    <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '20%'}}>
+                                        <Container style={{maxHeight: 'inherit'}}>
+                                        <Typography variant="h3" align="center">
+                                            Odznaki
+                                        </Typography>
+                                        <hr />
+                                        <List aria-label="Odznaki" className={classes.list} p={2}>
+                                            {badges.map((badge, index) =>
+                                                <ListItem button
+                                                          className={classes.list}
+                                                          onClick={(event) => handleBadgeSelect(event, index)}
+                                                          selected={selectedBadge === index}
+                                                >
+                                                    <ListItemIcon>
+                                                        {badge.dateAcquired != null &&
+                                                        <StarIcon />
+                                                        }
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={badge.grade} />
+                                                </ListItem>
+                                            )}
+                                            {badges.map((badge, index) =>
+                                                <ListItem button
+                                                          className={classes.list}
+                                                          onClick={(event) => handleBadgeSelect(event, index)}
+                                                          selected={selectedBadge === index}
+                                                >
+                                                    <ListItemIcon>
+                                                        {badge.dateAcquired != null &&
+                                                        <StarIcon />
+                                                        }
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={badge.grade} />
+                                                </ListItem>
+                                            )}
+                                            {badges.map((badge, index) =>
+                                                <ListItem button
+                                                          className={classes.list}
+                                                          onClick={(event) => handleBadgeSelect(event, index)}
+                                                          selected={selectedBadge === index}
+                                                >
+                                                    <ListItemIcon>
+                                                        {badge.dateAcquired != null &&
+                                                        <StarIcon />
+                                                        }
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={badge.grade} />
+                                                </ListItem>
+                                            )}
+                                            {badges.map((badge, index) =>
+                                                <ListItem button
+                                                          className={classes.list}
+                                                          onClick={(event) => handleBadgeSelect(event, index)}
+                                                          selected={selectedBadge === index}
+                                                >
+                                                    <ListItemIcon>
+                                                        {badge.dateAcquired != null &&
+                                                        <StarIcon />
+                                                        }
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={badge.grade} />
+                                                </ListItem>
+                                            )}
+                                            {badges.map((badge, index) =>
+                                                <ListItem button
+                                                          className={classes.list}
+                                                          onClick={(event) => handleBadgeSelect(event, index)}
+                                                          selected={selectedBadge === index}
+                                                >
+                                                    <ListItemIcon>
+                                                        {badge.dateAcquired != null &&
+                                                        <StarIcon />
+                                                        }
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={badge.grade} />
+                                                </ListItem>
+                                            )}
+                                            {badges.map((badge, index) =>
+                                                <ListItem button
+                                                          className={classes.list}
+                                                          onClick={(event) => handleBadgeSelect(event, index)}
+                                                          selected={selectedBadge === index}
+                                                >
+                                                    <ListItemIcon>
+                                                        {badge.dateAcquired != null &&
+                                                        <StarIcon />
+                                                        }
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={badge.grade} />
+                                                </ListItem>
+                                            )}
+                                            {badges.map((badge, index) =>
+                                                <ListItem button
+                                                          className={classes.list}
+                                                          onClick={(event) => handleBadgeSelect(event, index)}
+                                                          selected={selectedBadge === index}
+                                                >
+                                                    <ListItemIcon>
+                                                        {badge.dateAcquired != null &&
+                                                        <StarIcon />
+                                                        }
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={badge.grade} />
+                                                </ListItem>
+                                            )}
+                                            {badges.map((badge, index) =>
+                                                <ListItem button
+                                                          className={classes.list}
+                                                          onClick={(event) => handleBadgeSelect(event, index)}
+                                                          selected={selectedBadge === index}
+                                                >
+                                                    <ListItemIcon>
+                                                        {badge.dateAcquired != null &&
+                                                        <StarIcon />
+                                                        }
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={badge.grade} />
+                                                </ListItem>
+                                            )}
+                                            {badges.map((badge, index) =>
+                                                <ListItem button
+                                                          className={classes.list}
+                                                          onClick={(event) => handleBadgeSelect(event, index)}
+                                                          selected={selectedBadge === index}
+                                                >
+                                                    <ListItemIcon>
+                                                        {badge.dateAcquired != null &&
+                                                        <StarIcon />
+                                                        }
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={badge.grade} />
+                                                </ListItem>
+                                            )}{badges.map((badge, index) =>
                                             <ListItem button
                                                       className={classes.list}
                                                       onClick={(event) => handleBadgeSelect(event, index)}
@@ -128,29 +214,67 @@ const Sections = () => {
                                                 <ListItemText primary={badge.grade} />
                                             </ListItem>
                                         )}
-                                    </List>
-                                </Paper>
-                                <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '45%'}}>
-                                    {selectedBadge >= 0 &&
-                                        <Container>
-                                        <Typography variant="h3" align="center">
-                                            {badges[selectedBadge].grade}
-                                        </Typography> &&
-                                        <Typography variant="h5" align="left">
-                                        {badges[selectedBadge].sumPointForBadge} / {badges[selectedBadge].pointsNeeded}
-                                        </Typography> &&
-                                        <Typography variant="h5" align="left">
-                                        {(badges[selectedBadge].dateAcquired != null) ? "Odznaka zdobyta dnia: " + badges[selectedBadge].dateAcquired : "Odznaka nie jest zdobyta"}
-                                        </Typography>
+                                            {badges.map((badge, index) =>
+                                                <ListItem button
+                                                          className={classes.list}
+                                                          onClick={(event) => handleBadgeSelect(event, index)}
+                                                          selected={selectedBadge === index}
+                                                >
+                                                    <ListItemIcon>
+                                                        {badge.dateAcquired != null &&
+                                                        <StarIcon />
+                                                        }
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={badge.grade} />
+                                                </ListItem>
+                                            )}
+                                        </List>
                                         </Container>
-                                    }
-                                </Paper>
-                                <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '35%'}}>
-                                    <Typography variant="h3" align="center">
-                                        super
-                                    </Typography>
-                                </Paper>
-                            </Grid>
+                                    </Paper>
+                                    <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '45%'}}>
+                                        {selectedBadge >= 0 &&
+                                        <div>
+                                            <Container style={{height: '30%'}}>
+                                                <Typography variant="h3" align="center">
+                                                    {badges[selectedBadge].grade}
+                                                </Typography>
+                                                <hr/>
+                                                <Typography variant="h5" align="left" className={classes.spacedText}>
+                                                    Liczba punktów: {badges[selectedBadge].sumPointForBadge} / {badges[selectedBadge].pointsNeeded}
+                                                </Typography>
+                                                <Typography variant="h5" align="left" className={classes.spacedText}>
+                                                    {(badges[selectedBadge].dateAcquired != null) ? "Odznaka zdobyta dnia: " + badges[selectedBadge].dateAcquired.slice(0,10) : "Odznaka nie jest zdobyta"}
+                                                </Typography>
+                                                <hr/>
+                                            </Container>
+                                            <Container style={{height: '70%'}}>
+                                                <List aria-label="Odznaki" className={classes.list} p={2}>
+                                                    <ListItem button
+                                                              className={classes.list}
+                                                              onClick={(event) => alert("Tutaj bedzie dodanie wycieczki")}
+                                                              >
+                                                         <ListItemText primary="Dodaj nową wycieczkę"/>
+                                                    </ListItem>
+                                                    {badges[selectedBadge].trips.map((trip, index) =>
+                                                        <ListItem button
+                                                                  className={classes.list}
+                                                                  onClick={(event) => handleTripSelect(event, index)}
+                                                                  selected={selectedTrip === index}
+                                                        >
+                                                            <ListItemText primary={trip.startDate} />
+                                                        </ListItem>
+                                                    )}
+                                                </List>
+                                            </Container>
+                                        </div>
+                                        }
+                                    </Paper>
+                                    <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '35%'}}>
+                                        <Typography variant="h3" align="center">
+                                            super
+                                        </Typography>
+                                    </Paper>
+                                </Grid>
                             </Paper>
                         </Container>
                     </form>
