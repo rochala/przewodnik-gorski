@@ -18,4 +18,9 @@ public class MainController {
     public String sections() {
         return "index";
     }
+
+    @RequestMapping(value= "/trips")
+    public String trips() {
+        return "index";
+    }
 }

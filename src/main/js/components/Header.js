@@ -1,8 +1,8 @@
 import React from "react";
 import { AppBar, Toolbar, IconButton, List, ListItem, ListItemText, Container } from "@material-ui/core";
-import { Home } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from 'react-router-dom';
+import Avatar from "@material-ui/core/Avatar";
 
 
 
@@ -19,6 +19,13 @@ const useStyles = makeStyles({
         textDecoration: 'none',
         textTransform: 'uppercase',
         color: 'white'
+    },
+    navColor: {
+        background : '#296b3a'
+    },
+    navIcon: {
+        width: '50px',
+        height: '50px'
     }
 })
 
@@ -26,13 +33,9 @@ const Header = (props) => {
     const classes = useStyles();
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" className={classes.navColor}>
             <Toolbar>
                 <Container className={classes.navbarDisplayFlex}>
-                    <IconButton edge="start" color="inherit" aria-label="home" component={ Link } to="/">
-                        <Home fontSize="large" />
-                        <Link to='/'/>
-                    </IconButton>
                     { /* zastapic a zmaina linka */}
                     <List component="nav" aria-labelledby="main navigation" className={classes.navDisplayFlex}>
                         {props.navLinks.map(({ title, path }) => (
