@@ -70,7 +70,7 @@ const Sections = () => {
                                     <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '30%'}}>
                                         <Container>
                                         <Container>
-                                            <Typography variant="h3" align="center">
+                                            <Typography variant="h4" align="center">
                                                 Odznaki
                                             </Typography>
                                             <hr />
@@ -97,7 +97,7 @@ const Sections = () => {
                                         {selectedBadge >= 0 &&
                                         <div>
                                             <Container style={{height: '30%'}}>
-                                                <Typography variant="h3" align="center">
+                                                <Typography variant="h4" align="center">
                                                     {badges[selectedBadge].grade}
                                                 </Typography>
                                                 <hr/>
@@ -138,7 +138,7 @@ const Sections = () => {
                                         {selectedTrip >= 0 &&
                                         <div>
                                             <Container style={{height: '30%'}}>
-                                                <Typography variant="h3" align="center">
+                                                <Typography variant="h4" align="center">
                                                     Wycieczka
                                                 </Typography>
                                                 <hr/>
