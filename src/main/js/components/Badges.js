@@ -146,7 +146,11 @@ const Sections = () => {
                                                     Liczba punktów: {badges[selectedBadge].trips[selectedTrip].sumPoints}
                                                 </Typography>
                                                 <Typography variant="h6" align="left" className={classes.spacedText}>
-                                                    Data odbycia: {(trip.startDate === trip.endDate ? trip.startDate : trip.startDate + ' - ' + trip.endDate  )}
+                                                    Data odbycia: {(badges[selectedBadge].trips[selectedTrip].startDate ===
+                                                badges[selectedBadge].trips[selectedTrip].endDate ?
+                                                    badges[selectedBadge].trips[selectedTrip].startDate :
+                                                    badges[selectedBadge].trips[selectedTrip].startDate + ' - ' +
+                                                    badges[selectedBadge].trips[selectedTrip].endDate  )}
                                                 </Typography>
                                                <Typography variant="h6" align="left" className={classes.spacedText}>
                                                     Status: {badges[selectedBadge].trips[selectedTrip].status}
