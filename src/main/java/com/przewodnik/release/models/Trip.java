@@ -2,6 +2,7 @@ package com.przewodnik.release.models;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 enum Status {
@@ -30,6 +31,9 @@ public class Trip {
 
     @Column()
     private boolean leaderAttendance;
+
+    @Transient()
+    private String tripName;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -73,6 +77,17 @@ public class Trip {
 
     public Status getStatus() {
         return status;
+    }
+
+    public String getTripName() {
+        String tripName ="";
+        List<TripSection> sections = this.getTripSection();
+        if (sections.size() >= 1)
+        {
+            tripName+= sections.get(0).getSection().getStart().getLocationName() + " - "
+                    + sections.get(sections.size()-1).getSection().getEnd().getLocationName();
+        }
+        return tripName;
     }
 
     public boolean isLeaderAttendance() {
