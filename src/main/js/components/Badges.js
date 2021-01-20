@@ -26,7 +26,11 @@ const useStyles = makeStyles(theme => ({
     },
     spacedText: {
         padding: '15px'
+    },
+    badgeList: {
+        maxHeight: '90%'
     }
+
 
 }));
 
@@ -57,179 +61,107 @@ const Sections = () => {
 
     return (
         <React.Fragment>
-            <main>
                 <div className={classes.heroContent}>
-                    <form noValidate>
                         <Container maxWidth="xl">
                             <Typography variant="h2" component="h2" align="center" color="textPrimary">
                                 Przegląd wycieczek w układzie odznak
                             </Typography>
-                            <Paper>
-                                <hr/><br/>
+                            <hr/><br/>
                                 <Grid container className={classes.element} flexWrap="wrap" direction="row" justify="space-evenly" alignItems="center">
                                     <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '20%'}}>
                                         <Container>
-                                        <Typography variant="h3" align="center">
-                                            Odznaki
-                                        </Typography>
-                                        <hr />
+                                        <Container>
+                                            <Typography variant="h3" align="center">
+                                                Odznaki
+                                            </Typography>
+                                            <hr />
                                         </Container>
-                                        <Container fluid>
-                                        <List aria-label="Odznaki" className={classes.list} style={{height: '100%'}}>
-                                            {badges.map((badge, index) =>
-                                                <ListItem button
-                                                          className={classes.list}
-                                                          onClick={(event) => handleBadgeSelect(event, index)}
-                                                          selected={selectedBadge === index}
-                                                >
-                                                    <ListItemIcon>
-                                                        {badge.dateAcquired != null &&
-                                                        <StarIcon />
-                                                        }
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={badge.grade} />
-                                                </ListItem>
-                                            )}
-                                            {badges.map((badge, index) =>
-                                                <ListItem button
-                                                          className={classes.list}
-                                                          onClick={(event) => handleBadgeSelect(event, index)}
-                                                          selected={selectedBadge === index}
-                                                >
-                                                    <ListItemIcon>
-                                                        {badge.dateAcquired != null &&
-                                                        <StarIcon />
-                                                        }
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={badge.grade} />
-                                                </ListItem>
-                                            )}
-                                            {badges.map((badge, index) =>
-                                                <ListItem button
-                                                          className={classes.list}
-                                                          onClick={(event) => handleBadgeSelect(event, index)}
-                                                          selected={selectedBadge === index}
-                                                >
-                                                    <ListItemIcon>
-                                                        {badge.dateAcquired != null &&
-                                                        <StarIcon />
-                                                        }
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={badge.grade} />
-                                                </ListItem>
-                                            )}
-                                            {badges.map((badge, index) =>
-                                                <ListItem button
-                                                          className={classes.list}
-                                                          onClick={(event) => handleBadgeSelect(event, index)}
-                                                          selected={selectedBadge === index}
-                                                >
-                                                    <ListItemIcon>
-                                                        {badge.dateAcquired != null &&
-                                                        <StarIcon />
-                                                        }
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={badge.grade} />
-                                                </ListItem>
-                                            )}
-                                            {badges.map((badge, index) =>
-                                                <ListItem button
-                                                          className={classes.list}
-                                                          onClick={(event) => handleBadgeSelect(event, index)}
-                                                          selected={selectedBadge === index}
-                                                >
-                                                    <ListItemIcon>
-                                                        {badge.dateAcquired != null &&
-                                                        <StarIcon />
-                                                        }
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={badge.grade} />
-                                                </ListItem>
-                                            )}
-                                            {badges.map((badge, index) =>
-                                                <ListItem button
-                                                          className={classes.list}
-                                                          onClick={(event) => handleBadgeSelect(event, index)}
-                                                          selected={selectedBadge === index}
-                                                >
-                                                    <ListItemIcon>
-                                                        {badge.dateAcquired != null &&
-                                                        <StarIcon />
-                                                        }
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={badge.grade} />
-                                                </ListItem>
-                                            )}
-                                            {badges.map((badge, index) =>
-                                                <ListItem button
-                                                          className={classes.list}
-                                                          onClick={(event) => handleBadgeSelect(event, index)}
-                                                          selected={selectedBadge === index}
-                                                >
-                                                    <ListItemIcon>
-                                                        {badge.dateAcquired != null &&
-                                                        <StarIcon />
-                                                        }
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={badge.grade} />
-                                                </ListItem>
-                                            )}
-                                            {badges.map((badge, index) =>
-                                                <ListItem button
-                                                          className={classes.list}
-                                                          onClick={(event) => handleBadgeSelect(event, index)}
-                                                          selected={selectedBadge === index}
-                                                >
-                                                    <ListItemIcon>
-                                                        {badge.dateAcquired != null &&
-                                                        <StarIcon />
-                                                        }
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={badge.grade} />
-                                                </ListItem>
-                                            )}
-                                            {badges.map((badge, index) =>
-                                                <ListItem button
-                                                          className={classes.list}
-                                                          onClick={(event) => handleBadgeSelect(event, index)}
-                                                          selected={selectedBadge === index}
-                                                >
-                                                    <ListItemIcon>
-                                                        {badge.dateAcquired != null &&
-                                                        <StarIcon />
-                                                        }
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={badge.grade} />
-                                                </ListItem>
-                                            )}{badges.map((badge, index) =>
-                                            <ListItem button
-                                                      className={classes.list}
-                                                      onClick={(event) => handleBadgeSelect(event, index)}
-                                                      selected={selectedBadge === index}
-                                            >
-                                                <ListItemIcon>
-                                                    {badge.dateAcquired != null &&
-                                                    <StarIcon />
-                                                    }
-                                                </ListItemIcon>
-                                                <ListItemText primary={badge.grade} />
-                                            </ListItem>
-                                        )}
-                                            {badges.map((badge, index) =>
-                                                <ListItem button
-                                                          className={classes.list}
-                                                          onClick={(event) => handleBadgeSelect(event, index)}
-                                                          selected={selectedBadge === index}
-                                                >
-                                                    <ListItemIcon>
-                                                        {badge.dateAcquired != null &&
-                                                        <StarIcon />
-                                                        }
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={badge.grade} />
-                                                </ListItem>
-                                            )}
-                                        </List>
+                                                <List aria-label="Odznaki" className={classes.list} style={{height:'50vh'}}>
+                                                    {badges.map((badge, index) =>
+                                                        <ListItem button
+                                                                  className={classes.list}
+                                                                  onClick={(event) => handleBadgeSelect(event, index)}
+                                                                  selected={selectedBadge === index}
+                                                        >
+                                                            <ListItemIcon>
+                                                                {badge.dateAcquired != null &&
+                                                                <StarIcon />
+                                                                }
+                                                            </ListItemIcon>
+                                                            <ListItemText primary={badge.grade} />
+                                                        </ListItem>
+                                                    )}
+                                                    {badges.map((badge, index) =>
+                                                        <ListItem button
+                                                                  className={classes.list}
+                                                                  onClick={(event) => handleBadgeSelect(event, index)}
+                                                                  selected={selectedBadge === index}
+                                                        >
+                                                            <ListItemIcon>
+                                                                {badge.dateAcquired != null &&
+                                                                <StarIcon />
+                                                                }
+                                                            </ListItemIcon>
+                                                            <ListItemText primary={badge.grade} />
+                                                        </ListItem>
+                                                    )}
+                                                    {badges.map((badge, index) =>
+                                                        <ListItem button
+                                                                  className={classes.list}
+                                                                  onClick={(event) => handleBadgeSelect(event, index)}
+                                                                  selected={selectedBadge === index}
+                                                        >
+                                                            <ListItemIcon>
+                                                                {badge.dateAcquired != null &&
+                                                                <StarIcon />
+                                                                }
+                                                            </ListItemIcon>
+                                                            <ListItemText primary={badge.grade} />
+                                                        </ListItem>
+                                                    )}
+                                                    {badges.map((badge, index) =>
+                                                        <ListItem button
+                                                                  className={classes.list}
+                                                                  onClick={(event) => handleBadgeSelect(event, index)}
+                                                                  selected={selectedBadge === index}
+                                                        >
+                                                            <ListItemIcon>
+                                                                {badge.dateAcquired != null &&
+                                                                <StarIcon />
+                                                                }
+                                                            </ListItemIcon>
+                                                            <ListItemText primary={badge.grade} />
+                                                        </ListItem>
+                                                    )}
+                                                    {badges.map((badge, index) =>
+                                                        <ListItem button
+                                                                  className={classes.list}
+                                                                  onClick={(event) => handleBadgeSelect(event, index)}
+                                                                  selected={selectedBadge === index}
+                                                        >
+                                                            <ListItemIcon>
+                                                                {badge.dateAcquired != null &&
+                                                                <StarIcon />
+                                                                }
+                                                            </ListItemIcon>
+                                                            <ListItemText primary={badge.grade} />
+                                                        </ListItem>
+                                                    )}
+                                                    {badges.map((badge, index) =>
+                                                        <ListItem button
+                                                                  className={classes.list}
+                                                                  onClick={(event) => handleBadgeSelect(event, index)}
+                                                                  selected={selectedBadge === index}
+                                                        >
+                                                            <ListItemIcon>
+                                                                {badge.dateAcquired != null &&
+                                                                <StarIcon />
+                                                                }
+                                                            </ListItemIcon>
+                                                            <ListItemText primary={badge.grade} />
+                                                        </ListItem>
+                                                    )}
+                                                </List>
                                         </Container>
                                     </Paper>
                                     <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '45%'}}>
@@ -276,11 +208,8 @@ const Sections = () => {
                                         </Typography>
                                     </Paper>
                                 </Grid>
-                            </Paper>
                         </Container>
-                    </form>
                 </div>
-            </main>
         </React.Fragment>
 
     );
