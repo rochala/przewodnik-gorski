@@ -110,7 +110,7 @@ const Sections = () => {
                                                 <hr/>
                                             </Container>
                                             <Container style={{height: '70%'}}>
-                                                <List aria-label="Odznaki" className={classes.list} p={2} style={{height:'35%'}}>
+                                                <List aria-label="Odznaki" className={classes.list} p={2} style={{height:'38vh'}}>
                                                     <ListItem button
                                                               className={classes.list}
                                                               onClick={(event) => alert("Tutaj bedzie dodanie wycieczki")}
