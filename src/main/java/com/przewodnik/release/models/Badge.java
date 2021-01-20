@@ -31,6 +31,7 @@ public class Badge {
     @Column()
     private Date dateAcquired;
 
+    @Transient
     private int sumPointsForBadge;
 
     @Column()
