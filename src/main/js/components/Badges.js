@@ -23,7 +23,6 @@ const useStyles = makeStyles(theme => ({
     },
     element: {
         height: '60vh',
-        maxHeight: '60vh'
     },
     spacedText: {
         padding: '15px'
@@ -69,12 +68,14 @@ const Sections = () => {
                                 <hr/><br/>
                                 <Grid container className={classes.element} flexWrap="wrap" direction="row" justify="space-evenly" alignItems="center">
                                     <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '20%'}}>
-                                        <Container style={{maxHeight: 'inherit'}}>
+                                        <Container>
                                         <Typography variant="h3" align="center">
                                             Odznaki
                                         </Typography>
                                         <hr />
-                                        <List aria-label="Odznaki" className={classes.list} p={2}>
+                                        </Container>
+                                        <Container fluid>
+                                        <List aria-label="Odznaki" className={classes.list} style={{height: '100%'}}>
                                             {badges.map((badge, index) =>
                                                 <ListItem button
                                                           className={classes.list}
