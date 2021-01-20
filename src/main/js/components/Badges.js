@@ -21,12 +21,13 @@ const useStyles = makeStyles(theme => ({
     list: {
         width: '100% !important',
         overflow: 'auto',
+        scrollbarColor: 'rgb(107, 107, 107) rgb(43, 43, 43)'
     },
     element: {
         height: '60vh',
     },
     spacedText: {
-        padding: '15px'
+        padding: '5px'
     }
 
 }));
@@ -60,13 +61,13 @@ const Sections = () => {
     return (
         <React.Fragment>
                 <div className={classes.heroContent}>
-                        <Container maxWidth="xl">
+                        <Container maxWidth="lg">
                             <Typography variant="h2" component="h2" align="center" color="textPrimary">
                                 Przegląd wycieczek w układzie odznak
                             </Typography>
                             <hr/><br/>
                                 <Grid container className={classes.element} flexWrap="wrap" direction="row" justify="space-evenly" alignItems="center">
-                                    <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '20%'}}>
+                                    <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '30%'}}>
                                         <Container>
                                         <Container>
                                             <Typography variant="h3" align="center">
@@ -92,7 +93,7 @@ const Sections = () => {
                                                 </List>
                                         </Container>
                                     </Paper>
-                                    <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '45%'}}>
+                                    <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '35%'}}>
                                         {selectedBadge >= 0 &&
                                         <div>
                                             <Container style={{height: '30%'}}>
@@ -103,13 +104,13 @@ const Sections = () => {
                                                 <Typography variant="h6" align="left" className={classes.spacedText}>
                                                     Liczba punktów: {badges[selectedBadge].sumPointForBadge} / {badges[selectedBadge].pointsNeeded}
                                                 </Typography>
-                                                <Typography variant="h5" align="left" className={classes.spacedText}>
+                                                <Typography variant="h6" align="left" className={classes.spacedText}>
                                                     {(badges[selectedBadge].dateAcquired != null) ? "Odznaka zdobyta dnia: " + badges[selectedBadge].dateAcquired.slice(0,10) : "Odznaka nie jest zdobyta"}
                                                 </Typography>
                                                 <hr/>
                                             </Container>
                                             <Container style={{height: '70%'}}>
-                                                <List aria-label="Odznaki" className={classes.list} p={2} style={{height:'32vh'}}>
+                                                <List aria-label="Odznaki" className={classes.list} p={2} style={{height:'35%'}}>
                                                     <ListItem button
                                                               className={classes.list}
                                                               onClick={(event) => alert("Tutaj bedzie dodanie wycieczki")}
@@ -123,7 +124,9 @@ const Sections = () => {
                                                                   onClick={(event) => handleTripSelect(event, index)}
                                                                   selected={selectedTrip === index}
                                                         >
-                                                            <ListItemText primary={trip.startDate} />
+                                                            <ListItemText primary={trip.tripName} secondary={
+                                                                "Data wycieczki: " + (trip.startDate === trip.endDate ? trip.startDate : trip.startDate + ' - ' + trip.endDate  )
+                                                            }/>
                                                         </ListItem>
                                                     )}
                                                 </List>
@@ -139,19 +142,33 @@ const Sections = () => {
                                                     Wycieczka
                                                 </Typography>
                                                 <hr/>
-                                                <Typography variant="h5" align="left" className={classes.spacedText}>
+                                                <Typography variant="h6" align="left" className={classes.spacedText}>
                                                     Liczba punktów: {badges[selectedBadge].trips[selectedTrip].sumPoints}
                                                 </Typography>
-                                                <Typography variant="h5" align="left" className={classes.spacedText}>
-                                                    Data odbycia: {badges[selectedBadge].trips[selectedTrip].startDate}
+                                                <Typography variant="h6" align="left" className={classes.spacedText}>
+                                                    Data odbycia: {(trip.startDate === trip.endDate ? trip.startDate : trip.startDate + ' - ' + trip.endDate  )}
                                                 </Typography>
-                                               <Typography variant="h5" align="left" className={classes.spacedText}>
+                                               <Typography variant="h6" align="left" className={classes.spacedText}>
                                                     Status: {badges[selectedBadge].trips[selectedTrip].status}
                                                 </Typography>
-                                                <Typography variant="h5" align="left" className={classes.spacedText}>
+                                                <Typography variant="h6" align="left" className={classes.spacedText}>
                                                     Obecność przodownika: {badges[selectedBadge].trips[selectedTrip].leaderAttendance ? " Tak" : " Nie"}
                                                 </Typography>
                                                 <hr/>
+                                            </Container>
+                                            <Container style={{height: '70%'}}>
+                                                <List aria-label="Odznaki" className={classes.list} p={2} style={{height:'32vh'}}>
+                                                    {badges[selectedBadge].trips[selectedTrip].tripSection.map((trip) =>
+                                                        <ListItem button
+                                                                  className={classes.list}
+                                                        >
+                                                            <ListItemText primary={
+                                                                (trip.direction ? trip.section.start.locationName + ' - ' + trip.section.end.locationName : trip.section.end.locationName + ' - ' + trip.section.start.locationName)
+                                                            } secondary={"Liczba punktów: " + (trip.direction ? trip.section.startToEndPoints : trip.section.endToStartPoints )}
+                                                            />
+                                                        </ListItem>
+                                                    )}
+                                                </List>
                                             </Container>
                                         </div>
                                         }
