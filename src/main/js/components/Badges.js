@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Container, Grid, GridList, Box, Typography} from "@material-ui/core";
+import {Container, Grid, GridList, Box, Typography, MenuItem} from "@material-ui/core";
 import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import List from "@material-ui/core/List";
@@ -17,6 +17,10 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
+import InputLabel from "@material-ui/core/InputLabel";
+import Slider from "@material-ui/core/Slider";
+import Sections from "./Sections";
+import TripCreator from "./TripCreator";
 
 
 
@@ -36,17 +40,25 @@ const useStyles = makeStyles(theme => ({
     },
     spacedText: {
         padding: '5px'
-    }
-
+    },
+    filterInputs: {
+        width: "30%"
+    },
+    sliderFix: {
+        padding: "15px 0px 0px"
+    },
 }));
 
 
-const Sections = () => {
+const Badges = () => {
     const [badges, setBadges] = useState([]);
     const [badgeData, setBadgeData] = useState([]);
     const [selectedBadge, setSelectedBadge] = useState(-1)
     const [selectedTrip, setSelectedTrip] = useState(-1)
     const [open, setOpen] = useState(false);
+    const [mountainRange, setMountainRange] = useState("TATRY");
+    const [minPoints, setMinPoints] = useState([0, 50]);
+    const [name, setName] = useState('');
 
     const url = 'http://127.0.0.1:8080/api/users/badges/?email=b.duda11@wp.pl';
 
@@ -124,34 +136,9 @@ const Sections = () => {
                                                     {(badges[selectedBadge].dateAcquired != null) ? "Odznaka zdobyta dnia: " + badges[selectedBadge].dateAcquired.slice(0,10) : "Odznaka nie jest zdobyta"}
                                                 </Typography>
                                                 <hr/>
-                                            <Button fullWidth={true} variant="outlined" onClick={handleNewTripDialogOpen()} >
+                                            <Button fullWidth={true} variant="outlined" onClick={handleNewTripDialogOpen} >
                                                 Dodaj nową wycieczkę
                                             </Button>
-                                                <Dialog open={open} onClose={event => alert("you did it")} aria-labelledby="form-dialog-title">
-                                                    <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-                                                    <DialogContent>
-                                                        <DialogContentText>
-                                                            To subscribe to this website, please enter your email address here. We will send updates
-                                                            occasionally.
-                                                        </DialogContentText>
-                                                        <TextField
-                                                            autoFocus
-                                                            margin="dense"
-                                                            id="name"
-                                                            label="Email Address"
-                                                            type="email"
-                                                            fullWidth
-                                                        />
-                                                    </DialogContent>
-                                                    <DialogActions>
-                                                        <Button onClick={handleNewTripDialogClose()} color="primary">
-                                                            Cancel
-                                                        </Button>
-                                                        <Button onClick={handleNewTripDialogClose()} color="primary">
-                                                            Subscribe
-                                                        </Button>
-                                                    </DialogActions>
-                                                </Dialog>
                                                 <hr/>
                                             </div>
                                             <List aria-label="Odznaki" className={classes.list} style={{height: 'calc(100% - 210px)'}}>
@@ -213,6 +200,7 @@ const Sections = () => {
                                 </Grid>
                         </Container>
                 </div>
+            <TripCreator open={open} onOpen={handleNewTripDialogOpen} onClose={handleNewTripDialogClose} />
         </React.Fragment>
 
     );
@@ -220,4 +208,4 @@ const Sections = () => {
 }
 
 
-export default Sections;
+export default Badges;

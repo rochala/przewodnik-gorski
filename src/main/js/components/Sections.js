@@ -90,6 +90,7 @@ const Sections = () => {
                 && (parseInt(element.endToStartPoints, 10) + parseInt(element.startToEndPoints, 10) <= parseInt(minPoints[1], 10))
             ));
         }
+        setPage(0)
     }
 
     const handleChangeName = (event) => {
@@ -106,7 +107,6 @@ const Sections = () => {
         <React.Fragment>
             <main>
                 <div className={classes.heroContent}>
-                    <form noValidate>
                         <Container maxWidth="lg">
                             <Typography variant="h2" component="h1" align="center" color="textPrimary">
                                 Przeglądanie tras punktowanych
@@ -193,7 +193,6 @@ const Sections = () => {
                                 />
                             </Table>
                         </Container>
-                    </form>
                 </div>
             </main>
         </React.Fragment>
