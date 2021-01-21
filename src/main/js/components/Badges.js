@@ -11,6 +11,12 @@ import TableCell from "@material-ui/core/TableCell";
 import {Backspace} from "@material-ui/icons";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
+import DialogActions from "@material-ui/core/DialogActions";
+import TextField from "@material-ui/core/TextField";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
 
 
 
@@ -40,6 +46,7 @@ const Sections = () => {
     const [badgeData, setBadgeData] = useState([]);
     const [selectedBadge, setSelectedBadge] = useState(-1)
     const [selectedTrip, setSelectedTrip] = useState(-1)
+    const [open, setOpen] = useState(false);
 
     const url = 'http://127.0.0.1:8080/api/users/badges/?email=b.duda11@wp.pl';
 
@@ -60,7 +67,15 @@ const Sections = () => {
         setSelectedTrip(value)
     }
 
-    return (
+    const handleNewTripDialogOpen = (event) => {
+        setOpen(true)
+    }
+    const handleNewTripDialogClose = (event) => {
+        setOpen(false)
+    }
+
+
+        return (
         <React.Fragment>
                 <div className={classes.heroContent}>
                         <Container maxWidth="lg">
@@ -109,9 +124,34 @@ const Sections = () => {
                                                     {(badges[selectedBadge].dateAcquired != null) ? "Odznaka zdobyta dnia: " + badges[selectedBadge].dateAcquired.slice(0,10) : "Odznaka nie jest zdobyta"}
                                                 </Typography>
                                                 <hr/>
-                                            <Button fullWidth={true} variant="outlined" onClick={(event) => alert("Tutaj bedzie dodanie wycieczki")} >
+                                            <Button fullWidth={true} variant="outlined" onClick={handleNewTripDialogOpen()} >
                                                 Dodaj nową wycieczkę
                                             </Button>
+                                                <Dialog open={open} onClose={event => alert("you did it")} aria-labelledby="form-dialog-title">
+                                                    <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+                                                    <DialogContent>
+                                                        <DialogContentText>
+                                                            To subscribe to this website, please enter your email address here. We will send updates
+                                                            occasionally.
+                                                        </DialogContentText>
+                                                        <TextField
+                                                            autoFocus
+                                                            margin="dense"
+                                                            id="name"
+                                                            label="Email Address"
+                                                            type="email"
+                                                            fullWidth
+                                                        />
+                                                    </DialogContent>
+                                                    <DialogActions>
+                                                        <Button onClick={handleNewTripDialogClose()} color="primary">
+                                                            Cancel
+                                                        </Button>
+                                                        <Button onClick={handleNewTripDialogClose()} color="primary">
+                                                            Subscribe
+                                                        </Button>
+                                                    </DialogActions>
+                                                </Dialog>
                                                 <hr/>
                                             </div>
                                             <List aria-label="Odznaki" className={classes.list} style={{height: 'calc(100% - 210px)'}}>
