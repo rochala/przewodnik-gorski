@@ -20,7 +20,7 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
     footer: {
-        padding: theme.spacing(6),
+        padding: theme.spacing(1),
     },
 }));
 
@@ -30,9 +30,6 @@ const Footer = () => {
 
     return (
         <footer className={classes.footer}>
-            <Typography variant="h6" align="center">
-                Przewodnik Górski
-            </Typography>
             <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
                 Jędrzej Rochala, Bartłomiej Duda
             </Typography>
