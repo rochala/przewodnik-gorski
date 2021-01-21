@@ -9,7 +9,7 @@ import Main from "./components/Main"
 const navLinks = [
     { title: 'Odznaki', path: '/' },
     { title: 'Trasy', path: '/sections' },
-    { title: 'Nowa wycieczka', path: '/trip' },
+    { title: 'Nowa wycieczka', path: '/trips' },
 ]
 
 class App extends Component {

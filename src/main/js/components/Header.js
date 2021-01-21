@@ -20,9 +20,6 @@ const useStyles = makeStyles({
         textTransform: 'uppercase',
         color: 'white'
     },
-    navColor: {
-        background : '#296b3a'
-    },
     navIcon: {
         width: '50px',
         height: '50px'

@@ -69,7 +69,7 @@ const Sections = () => {
                             </Typography>
                             <hr/><br/>
                                 <Grid container className={classes.element} flexWrap="wrap" direction="row" justify="space-evenly" alignItems="center">
-                                    <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '30%'}}>
+                                    <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '25%'}}>
                                         <Container style={{height: '100%', overflow: 'clip'}}>
                                         <div>
                                             <Typography variant="h4" align="center">
@@ -94,7 +94,7 @@ const Sections = () => {
                                                 </List>
                                         </Container>
                                     </Paper>
-                                    <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '35%'}}>
+                                    <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '40%'}}>
                                         {selectedBadge >= 0 &&
                                         <Container style={{height: '100%', overflow: 'clip'}}>
                                             <div>
