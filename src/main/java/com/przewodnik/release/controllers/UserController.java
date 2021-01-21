@@ -50,21 +50,25 @@ public class UserController {
     }
 
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping(value= "/api/users")
     List<User> all() {
         return repository.findAll();
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value= "/api/users")
     User newUser(@RequestBody User newSection) {
         return repository.save(newSection);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/api/users/{id}")
     User one(@PathVariable Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/api/users_email/{email}")
     User getByEmail(@PathVariable String email){
         User user = repository.findByEmail(email);
@@ -74,10 +78,14 @@ public class UserController {
         return user;
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/api/users/badges")
     List<Badge> userBadges(@RequestParam Optional<String> email){
         if (email.isPresent()){
             User selectedUser = repository.findByEmail(email.get());
+            if(selectedUser == null){
+                throw new UserEmailNotFoundException(email.get());
+            }
             return selectedUser.getBadges();
         }
         else return new ArrayList<>();
