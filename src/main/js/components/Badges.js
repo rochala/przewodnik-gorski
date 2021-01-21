@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Container, Grid, GridList, Typography} from "@material-ui/core";
+import {Container, Grid, GridList, Box, Typography} from "@material-ui/core";
 import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import List from "@material-ui/core/List";
@@ -10,6 +10,7 @@ import StarIcon from "@material-ui/icons/Star";
 import TableCell from "@material-ui/core/TableCell";
 import {Backspace} from "@material-ui/icons";
 import Divider from "@material-ui/core/Divider";
+import Button from "@material-ui/core/Button";
 
 
 
@@ -21,10 +22,11 @@ const useStyles = makeStyles(theme => ({
     list: {
         width: '100% !important',
         overflow: 'auto',
-        scrollbarColor: 'rgb(107, 107, 107) rgb(43, 43, 43)'
+        scrollbarColor: 'rgb(107, 107, 107) rgb(43, 43, 43)',
     },
     element: {
         height: '60vh',
+        minHeight: '400px',
     },
     spacedText: {
         padding: '5px'
@@ -68,17 +70,16 @@ const Sections = () => {
                             <hr/><br/>
                                 <Grid container className={classes.element} flexWrap="wrap" direction="row" justify="space-evenly" alignItems="center">
                                     <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '30%'}}>
-                                        <Container>
-                                        <Container>
+                                        <Container style={{height: '100%', overflow: 'clip'}}>
+                                        <div>
                                             <Typography variant="h4" align="center">
                                                 Odznaki
                                             </Typography>
                                             <hr />
-                                        </Container>
-                                                <List aria-label="Odznaki" className={classes.list} style={{height:'50vh'}}>
+                                        </div>
+                                                <List aria-label="Odznaki" className={classes.list} style={{height: 'calc(100% - 60px)'}}>
                                                     {badges.map((badge, index) =>
                                                         <ListItem button
-                                                                  className={classes.list}
                                                                   onClick={(event) => handleBadgeSelect(event, index)}
                                                                   selected={selectedBadge === index}
                                                         >
@@ -95,8 +96,8 @@ const Sections = () => {
                                     </Paper>
                                     <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '35%'}}>
                                         {selectedBadge >= 0 &&
-                                        <div>
-                                            <Container style={{height: '30%'}}>
+                                        <Container style={{height: '100%', overflow: 'clip'}}>
+                                            <div>
                                                 <Typography variant="h4" align="center">
                                                     {badges[selectedBadge].grade}
                                                 </Typography>
@@ -108,36 +109,31 @@ const Sections = () => {
                                                     {(badges[selectedBadge].dateAcquired != null) ? "Odznaka zdobyta dnia: " + badges[selectedBadge].dateAcquired.slice(0,10) : "Odznaka nie jest zdobyta"}
                                                 </Typography>
                                                 <hr/>
-                                            </Container>
-                                            <Container style={{height: '70%'}}>
-                                                <List aria-label="Odznaki" className={classes.list} p={2} style={{height:'38vh'}}>
+                                            <Button fullWidth={true} variant="outlined" onClick={(event) => alert("Tutaj bedzie dodanie wycieczki")} >
+                                                Dodaj nową wycieczkę
+                                            </Button>
+                                                <hr/>
+                                            </div>
+                                            <List aria-label="Odznaki" className={classes.list} style={{height: 'calc(100% - 210px)'}}>
+                                                {badges[selectedBadge].trips.map((trip, index) =>
                                                     <ListItem button
                                                               className={classes.list}
-                                                              onClick={(event) => alert("Tutaj bedzie dodanie wycieczki")}
-                                                              >
-                                                         <ListItemText primary="Dodaj nową wycieczkę"/>
+                                                              onClick={(event) => handleTripSelect(event, index)}
+                                                              selected={selectedTrip === index}
+                                                    >
+                                                        <ListItemText primary={trip.tripName} secondary={
+                                                            "Data wycieczki: " + (trip.startDate === trip.endDate ? trip.startDate : trip.startDate + ' - ' + trip.endDate  )
+                                                        }/>
                                                     </ListItem>
-                                                    <hr/>
-                                                    {badges[selectedBadge].trips.map((trip, index) =>
-                                                        <ListItem button
-                                                                  className={classes.list}
-                                                                  onClick={(event) => handleTripSelect(event, index)}
-                                                                  selected={selectedTrip === index}
-                                                        >
-                                                            <ListItemText primary={trip.tripName} secondary={
-                                                                "Data wycieczki: " + (trip.startDate === trip.endDate ? trip.startDate : trip.startDate + ' - ' + trip.endDate  )
-                                                            }/>
-                                                        </ListItem>
-                                                    )}
-                                                </List>
-                                            </Container>
-                                        </div>
+                                                )}
+                                            </List>
+                                        </Container>
                                         }
                                     </Paper>
                                     <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '35%'}}>
                                         {selectedTrip >= 0 &&
-                                        <div>
-                                            <Container style={{height: '30%'}}>
+                                            <Container style={{height: '100%', overflow: 'clip'}}>
+                                                <div>
                                                 <Typography variant="h4" align="center">
                                                     Wycieczka
                                                 </Typography>
@@ -159,12 +155,10 @@ const Sections = () => {
                                                     Obecność przodownika: {badges[selectedBadge].trips[selectedTrip].leaderAttendance ? " Tak" : " Nie"}
                                                 </Typography>
                                                 <hr/>
-                                            </Container>
-                                            <Container style={{height: '70%'}}>
-                                                <List aria-label="Odznaki" className={classes.list} p={2} style={{height:'32vh'}}>
+                                            </div>
+                                                <List aria-label="Trasy wycieczki" className={classes.list} style={{height: 'calc(100% - 242px'}}>
                                                     {badges[selectedBadge].trips[selectedTrip].tripSection.map((trip) =>
                                                         <ListItem button
-                                                                  className={classes.list}
                                                         >
                                                             <ListItemText primary={
                                                                 (trip.direction ? trip.section.start.locationName + ' - ' + trip.section.end.locationName : trip.section.end.locationName + ' - ' + trip.section.start.locationName)
@@ -174,7 +168,6 @@ const Sections = () => {
                                                     )}
                                                 </List>
                                             </Container>
-                                        </div>
                                         }
                                     </Paper>
                                 </Grid>
