@@ -60,4 +60,12 @@ public class TripController {
         }
         return repository.save(newTrip);
     }
+
+    @PutMapping (value = "/api/trips")
+    Trip updateTrip(@RequestBody Trip newTrip) {
+        for(TripSection tripSection: newTrip.getTripSection()){
+            tripSection.setTrip(newTrip);
+        }
+        return repository.save(newTrip);
+    }
 }
