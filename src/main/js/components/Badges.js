@@ -85,6 +85,7 @@ const Badges = () => {
     const handleNewTripDialogOpen = (event) => {
         setOpen(true)
     }
+
     const handleNewTripDialogClose = (event) => {
         setOpen(false)
         setModifying([])

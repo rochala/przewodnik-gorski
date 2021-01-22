@@ -45,13 +45,12 @@ public class Trip {
     @JoinColumn(name = "badge_id", nullable = false)
     private Badge badge;
 
-    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.MERGE)
     private List<TripSection> tripSection;
 
-    public Trip(Date startDate, Date endDate, int sumPoints, Status status, boolean leaderAttendance, User user, Badge badge) {
+    public Trip(Date startDate, Date endDate, Status status, boolean leaderAttendance, User user, Badge badge) {
         this.startDate = startDate;
         this.endDate = endDate;
-        this.sumPoints = sumPoints;
         this.status = status;
         this.leaderAttendance = leaderAttendance;
         this.user = user;
