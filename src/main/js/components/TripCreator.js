@@ -237,7 +237,7 @@ const TripCreator = (props) => {
             })
         } else {
             fetch('http://127.0.0.1:8080/api/trips', {
-                method: 'UPDATE',
+                method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
