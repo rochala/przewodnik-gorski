@@ -74,6 +74,7 @@ const TripCreator = (props) => {
     const [tripSections, setTripSections] = useState( []);
     const [previousValue, setPreviousValue] = useState([]);
     const [modifyingState, setModifyingState] = useState(false);
+    const [tripID, setTripID] = useState(0);
 
     if (props.modifying !== previousValue) {
         setPreviousValue(props.modifying)
@@ -83,6 +84,7 @@ const TripCreator = (props) => {
             setLeaderAttendance(props.modifying.leaderAttendance);
             setTripSections(props.modifying.tripSection)
             setModifyingState(true)
+            setTripID(props.modifying.id)
         }
     }
 
@@ -214,21 +216,44 @@ const TripCreator = (props) => {
         fnc()
     }
     const handleSendEvent = (event, fnc) => {
-        const sections = tripSections.map((trip, index) => ({...trip, order: index}))
-        fetch('http://127.0.0.1:8080/api/trips', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                startDate: startDate,
-                endDate: endDate,
-                status: "Niezatwierdzona",
-                leaderAttendance: leaderAttendance,
-                tripSection: sections
+        const sections = tripSections.map((trip, index) => ({...trip, sectionOrder: index}))
+        if (modifyingState) {
+            fetch('http://127.0.0.1:8080/api/trips', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: 0,
+                    startDate: startDate,
+                    endDate: endDate,
+                    status: "Niezatwierdzona",
+                    leaderAttendance: leaderAttendance,
+                    badge: {badge: props.requestData[1]},
+                    user: {badge: props.requestData[0]},
+                    tripSection: sections
+                })
             })
-        })
+        } else {
+            fetch('http://127.0.0.1:8080/api/trips', {
+                method: 'UPDATE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: tripID,
+                    startDate: startDate,
+                    endDate: endDate,
+                    status: "Niezatwierdzona",
+                    leaderAttendance: leaderAttendance,
+                    badge: {badge: props.requestData[1]},
+                    user: {badge: props.requestData[0]},
+                    tripSection: sections
+                })
+            })
+        }
         fnc()
     }
 
@@ -517,7 +542,7 @@ const TripCreator = (props) => {
                 <Button onClick={event => handleCloseEvent(event,props.onClose)} color="primary">
                     Anuluj
                 </Button>
-                <Button onClick={event => handleSendEvent(event,props.onClose)} color="primary">
+                <Button onClick={event => handleSendEvent(event,props.onSend)} color="primary">
                     {modifyingState ? "Modyfikuj wycieczkę" : "Dodaj nową wycieczkę"}
                 </Button>
             </DialogActions>

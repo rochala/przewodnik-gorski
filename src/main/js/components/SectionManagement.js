@@ -11,6 +11,7 @@ import Container from "@material-ui/core/Container";
 import Slider from '@material-ui/core/Slider';
 import InputLabel from '@material-ui/core/InputLabel'
 import Button from "@material-ui/core/Button";
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 
 const useStyles = makeStyles(theme => ({
@@ -38,6 +39,7 @@ const SectionManagement = () => {
     const url = 'http://127.0.0.1:8080/api/sections/?range=';
     const [selectedTrip, setSelectedTrip] = useState([]);
     const [locations, setLocations] = useState([]);
+    const [startingLocation, setStartingLocation] = useState({})
 
     const columns = [
         {id: 'name', label: 'Nazwa odcinka', minWidth: "50%"},
@@ -52,6 +54,11 @@ const SectionManagement = () => {
 
     useEffect(() => {
         loadData(url + mountainRange);
+        fetch("http://127.0.0.1:8080/api/locations")
+            .then((response) => response.json())
+            .then(json => {
+                setLocations(json);
+            });
     }, []);
 
     const loadData = async (url) => {
@@ -120,10 +127,11 @@ const SectionManagement = () => {
         <React.Fragment>
             <div className={classes.heroContent}>
                 <Container maxWidth="lg">
-                    <Grid container direction="row" justify="space-evenly" alignItems="center">
-                            <Typography variant="h2" component="h1" align="center" color="textPrimary">
-                                Zarządzanie trasami punktowanymi
-                            </Typography>
+                    <Typography variant="h2" component="h1" align="center" color="textPrimary">
+                        Zarządzanie trasami punktowanymi
+                    </Typography>
+                    <hr/>
+                    <Grid paper container direction="row" justify="space-evenly">
                             <Grid container direction="row" justify="space-evenly" alignItems="center" style={{width: '50%'}} fullWidth={true}>
                             <Grid container direction="row" justify="space-evenly" alignItems="center">
                                 <TextField
@@ -211,18 +219,17 @@ const SectionManagement = () => {
                             </Table>
                         </Grid>
                         <Grid container direction="row" justify="space-evenly" alignItems="center" style={{width: '50%'}} fullWidth={true}>
-                            {
-                                Array.isArray(selectedTrip)?
-                                    <Fragment>
-                                        Supcio
-                                    </Fragment>
-                                    :
-                                    <Fragment>
-                                        <Typography>
-                                            {selectedTrip.start.locationName} - {selectedTrip.end.locationName}
-                                        </Typography>
-                                    </Fragment>
-                            }
+                            <Typography variant="h3" align="center" className={classes.spacedText}>
+                                    {Array.isArray(selectedTrip) ? "Dodawanie nowej trasy punktowanej" : "Modyfikacja trasy punktowanej"}
+                            </Typography>
+                            <hr style={{width: '100%'}}/>
+                            <Autocomplete
+                                id="combo-box-demo"
+                                options={locations}
+                                getOptionLabel={(option) => option.locationName + " - " + option.mountainRange}
+                                style={{ width: '90%'}}
+                                renderInput={(params) => <TextField {...params} label="Punkt początkowy" variant="outlined" />}
+                            />
                         </Grid>
                     </Grid>
                 </Container>

@@ -5,6 +5,7 @@ import com.przewodnik.release.models.TripSection;
 import com.przewodnik.release.models.User;
 import com.przewodnik.release.services.TripRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

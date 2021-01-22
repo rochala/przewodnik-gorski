@@ -54,6 +54,7 @@ const useStyles = makeStyles(theme => ({
 
 const Badges = () => {
     const [badges, setBadges] = useState([]);
+    const [userID, setUserID] = useState("");
     const [badgeData, setBadgeData] = useState([]);
     const [selectedBadge, setSelectedBadge] = useState(-1)
     const [selectedTrip, setSelectedTrip] = useState(-1)
@@ -63,14 +64,17 @@ const Badges = () => {
     const [name, setName] = useState('');
     const [modifying, setModifying] = useState([]);
 
-    const url = 'http://127.0.0.1:8080/api/users/badges/?email=b.duda11@wp.pl';
+    const url = 'http://127.0.0.1:8080/api/users/?email=b.duda11@wp.pl';
 
     const classes = useStyles()
 
     useEffect(() => {
         fetch(url)
             .then((response) => response.json())
-            .then(json => setBadges(json))
+            .then(json => {
+                setBadges(json[0].badges);
+                setUserID(json[0].id);
+            })
     }, []);
 
     const handleBadgeSelect = (event, value) => {
@@ -94,6 +98,16 @@ const Badges = () => {
     const handleModyifing = (event) => {
         setModifying(badges[selectedBadge].trips[selectedTrip])
         setOpen(true)
+    }
+
+    const handleSendData = (event) => {
+        fetch(url)
+            .then((response) => response.json())
+            .then(json => {
+                setBadges(json[0].badges);
+                setUserID(json[0].id);
+            });
+        setSelectedTrip(-1);
     }
 
     return (
@@ -216,7 +230,7 @@ const Badges = () => {
                     </Grid>
                 </Container>
             </div>
-            <TripCreator open={open} modifying={modifying} onOpen={handleNewTripDialogOpen} onClose={handleNewTripDialogClose} style={{height: '75vh', maxHeight: '75vh'}} />
+            <TripCreator onSend={handleSendData} open={open} modifying={modifying} requestData={[userID,  selectedBadge > 0 ? badges[selectedBadge].id : ""]} onOpen={handleNewTripDialogOpen} onClose={handleNewTripDialogClose} style={{height: '75vh', maxHeight: '75vh'}} />
         </React.Fragment>
 
     );

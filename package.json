@@ -34,6 +34,7 @@
   },
   "homepage": "https://github.com/rochala/przewodnik-gorski#readme",
   "dependencies": {
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "rest": "^2.0.0"
   }
 }

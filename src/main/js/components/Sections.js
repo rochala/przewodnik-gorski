@@ -33,7 +33,7 @@ const Sections = () => {
     const [name, setName] = useState('');
     const [queryData, setQueryData] = useState([])
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(8);
     const url = 'http://127.0.0.1:8080/api/sections/?range=';
 
     const columns = [
@@ -184,7 +184,7 @@ const Sections = () => {
                                     })}
                                 </TableBody>
                                 <TablePagination
-                                    rowsPerPageOptions={[5, 10, 25, 100]}
+                                    rowsPerPageOptions={[8, 10, 25, 100]}
                                     count={queryData.length}
                                     rowsPerPage={rowsPerPage}
                                     page={page}
