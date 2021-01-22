@@ -217,7 +217,7 @@ const TripCreator = (props) => {
     }
     const handleSendEvent = (event, fnc) => {
         const sections = tripSections.map((trip, index) => ({...trip, sectionOrder: index}))
-        if (modifyingState) {
+        if (!modifyingState) {
             fetch('http://127.0.0.1:8080/api/trips', {
                 method: 'POST',
                 headers: {
