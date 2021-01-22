@@ -214,6 +214,7 @@ const TripCreator = (props) => {
         fnc()
     }
     const handleSendEvent = (event, fnc) => {
+        const sections = tripSections.map((trip, index) => ({...trip, order: index}))
         fetch('http://127.0.0.1:8080/api/trips', {
             method: 'POST',
             headers: {
@@ -225,7 +226,7 @@ const TripCreator = (props) => {
                 endDate: endDate,
                 status: "Niezatwierdzona",
                 leaderAttendance: leaderAttendance,
-                tripSection: tripSections
+                tripSection: sections
             })
         })
         fnc()
