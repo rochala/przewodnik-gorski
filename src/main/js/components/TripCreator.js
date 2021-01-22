@@ -63,13 +63,28 @@ const TripCreator = (props) => {
     const [name, setName] = useState('');
     const [queryData, setQueryData] = useState([])
     const [page, setPage] = useState(0);
+    const [tripPage, setTripPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(4);
     const [autosuggestions, setAutosuggestions] = useState(false);
     const url = 'http://127.0.0.1:8080/api/sections/?range=';
 
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState( "");
+    const [leaderAttendance, setLeaderAttendance] = useState(false)
+    const [tripSections, setTripSections] = useState( []);
+    const [previousValue, setPreviousValue] = useState([]);
+    const [modifyingState, setModifyingState] = useState(false);
 
-
-    const [tripSections, setTripSections] = useState([]);
+    if (props.modifying !== previousValue) {
+        setPreviousValue(props.modifying)
+        if (!Array.isArray(props.modifying)) {
+            setStartDate(props.modifying.startDate);
+            setEndDate(props.modifying.endDate);
+            setLeaderAttendance(props.modifying.leaderAttendance);
+            setTripSections(props.modifying.tripSection)
+            setModifyingState(true)
+        }
+    }
 
     const columns = [
         {id: 'name', label: 'Nazwa odcinka', minWidth: "50%"},
@@ -78,10 +93,10 @@ const TripCreator = (props) => {
     ]
 
     const tripSectionsColumns = [
-        {id: 'name', label: 'Nazwa odcinka', minWidth: '50%'},
-        {id: 'points', label: 'Punkty', minWidth: "20%"},
-        {id: 'length', label: 'Długość', minWidth: "20%"},
-        {id: 'delete', label: 'Usuń', minWidth: "10%"},
+        {id: 'name', label: 'Nazwa odcinka', minWidth: '50%', align: 'left'},
+        {id: 'points', label: 'Punkty', minWidth: "20%", align: 'right'},
+        {id: 'length', label: 'Długość', minWidth: "20%", align: 'right'},
+        {id: 'delete', label: 'Usuń', minWidth: "10%", align: 'center'},
     ]
 
     const classes = useStyles()
@@ -100,8 +115,12 @@ const TripCreator = (props) => {
         setQueryData(data);
     }
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
+    const handleChangePage = (event, newValue) => {
+        setPage(newValue);
+    };
+
+    const handleChangeTripPage = (event, newValue) => {
+        setTripPage(newValue);
     };
 
     const handleChangeMountainRange = (event) => {
@@ -146,7 +165,7 @@ const TripCreator = (props) => {
             setName('');
             setMinPoints([0, 50])
             setPage(0);
-            let endPoint = tripSections[tripSections.length - 1].direction ? tripSections[tripSections.length - 1].end.locationName : tripSections[tripSections.length - 1].start.locationName
+            let endPoint = tripSections[tripSections.length - 1].direction ? tripSections[tripSections.length - 1].section.end.locationName : tripSections[tripSections.length - 1].section.start.locationName
             setQueryData(data.filter(e => (e.start.locationName === endPoint) ||
                 (e.end.locationName === endPoint)))
         } else {
@@ -164,7 +183,7 @@ const TripCreator = (props) => {
             setName('');
             setMinPoints([0, 50])
             setPage(0);
-            let endPoint = row.direction ? row.end.locationName : row.start.locationName
+            let endPoint = row.direction ? row.section.end.locationName : row.section.start.locationName
             setQueryData(data.filter(e => (e.start.locationName === endPoint) ||
                 (e.end.locationName === endPoint)))
         }
@@ -174,10 +193,38 @@ const TripCreator = (props) => {
         setTripSections(tripSections.filter((e, i) => i !== rowId))
     }
 
-    return (
-        <Dialog style={{scrollbarColor: 'rgb(107, 107, 107) rgb(43, 43, 43)'}} open={props.open} onClose={props.onClose} aria-labelledby="form-dialog-title" maxWidth={"lg"} fullWidth={true}>
+    const handleChangeStartDate = (event) => {
+        setStartDate(event.target.value)
+    }
 
-            <DialogTitle id="form-dialog-title">Dodaj nową wycieczkę</DialogTitle>
+    const handleChangeEndDate = (event) => {
+        setEndDate(event.target.value)
+    }
+
+    const handleCloseEvent = (event, fnc) => {
+        setTripSections([])
+        setName('');
+        setMinPoints([0, 50])
+        setPage(0);
+        setTripPage(0);
+        setStartDate("");
+        setEndDate("");
+        setQueryData(data);
+        setModifyingState(false);
+        fnc()
+    }
+
+    const handleChangeLeaderAttendance = (event) => {
+        setLeaderAttendance(!leaderAttendance)
+    }
+
+
+    return (
+        <Dialog style={{scrollbarColor: 'rgb(107, 107, 107) rgb(43, 43, 43)' ,height: '100vh',maxHeight: '100vh'}}
+                open={props.open}
+                onClose={event => handleCloseEvent(event,props.onClose)} aria-labelledby="form-dialog-title" maxWidth={"lg"} fullWidth={true}>
+
+            <DialogTitle id="form-dialog-title">{modifyingState ? "Modyfikacja wycieczki" : "Dodaj nową wycieczkę"}</DialogTitle>
             <DialogContent>
                 <Grid container direction="row" justify="space-evenly" alignItems="flex-start">
                     <Grid container direction="row" justify="space-evenly" alignItems="center" style={{width: '50%'}} fullWidth={true}>
@@ -187,7 +234,9 @@ const TripCreator = (props) => {
                             id="startDate"
                             label="Data rozpoczęcia"
                             type="date"
-                            className={classes.filterInputs}
+                            style={{width: '30%'}}
+                            value={startDate}
+                            onChange={handleChangeStartDate}
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -198,10 +247,18 @@ const TripCreator = (props) => {
                             id="endDate"
                             label="Data zakończenia"
                             type="date"
-                            className={classes.filterInputs}
+                            style={{width: '30%'}}
+                            value={endDate}
+                            onChange={handleChangeEndDate}
                             InputLabelProps={{
                                 shrink: true,
                             }}
+                        />
+                        <FormControlLabel style={{width: '30%'}}
+                            control={<Switch
+                                checked={leaderAttendance}
+                                onChange={handleChangeLeaderAttendance} name="checkedA" />}
+                            label="o. Przodownika"
                         />
                         <Table size="small" stickyHeader aria-label="sticky table" style={{maxHeight: '440px'}}>
                             <TableHead>
@@ -209,7 +266,7 @@ const TripCreator = (props) => {
                                     {tripSectionsColumns.map((column) => (
                                         <TableCell
                                             key={column.name}
-                                            align="left"
+                                            align={column.align}
                                             style={{width: column.minWidth}}
                                         >
                                             {column.label}
@@ -218,20 +275,20 @@ const TripCreator = (props) => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {tripSections.map((row, id) => {
+                                {tripSections.slice(tripPage * rowsPerPage * 2, tripPage * rowsPerPage * 2 + rowsPerPage * 2).map((row, id) => {
                                     if (row.direction) {
                                     return(
                                         <TableRow hover role="checkbox"
                                                   tabIndex={-1} key={data.description}
-                                                  style={{height: '53px'}}>
+                                                  style={{height: '61px'}}>
                                             <TableCell key="name" align="left">
-                                                {row.start.locationName} - {row.end.locationName}
+                                                {row.section.start.locationName} - {row.section.end.locationName}
                                             </TableCell>
-                                            <TableCell key="points" align="left">
-                                                {row.startToEndPoints}
+                                            <TableCell key="points" align="right">
+                                                {row.section.startToEndPoints}
                                             </TableCell>
-                                            <TableCell key="length" align="left">
-                                                {row.length}
+                                            <TableCell key="length" align="right">
+                                                {row.section.length}
                                             </TableCell>
                                             <TableCell key="delete" align="center">
                                                 <IconButton aria-label="delete" onClick={event => handleRemoveTripSection(event, id)}>
@@ -244,15 +301,15 @@ const TripCreator = (props) => {
                                     return(
                                         <TableRow hover role="checkbox"
                                                   tabIndex={-1} key={data.description}
-                                                  style={{height: '53px'}}>
+                                                  style={{height: '61px'}}>
                                             <TableCell key="name" align="left">
-                                                {row.end.locationName} - {row.start.locationName}
+                                                {row.section.end.locationName} - {row.section.start.locationName}
                                             </TableCell>
-                                            <TableCell key="points" align="left">
-                                                {row.endToStartPoints}
+                                            <TableCell key="points" align="right">
+                                                {row.section.endToStartPoints}
                                             </TableCell>
-                                            <TableCell key="length" align="left">
-                                                {row.length}
+                                            <TableCell key="length" align="right">
+                                                {row.section.length}
                                             </TableCell>
                                             <TableCell>
                                             <IconButton aria-label="delete" onClick={event => handleRemoveTripSection(event, id)}>
@@ -263,6 +320,28 @@ const TripCreator = (props) => {
                                     }
                                 }
                             )}
+                            <TableRow>
+                                <TableCell colSpan={1} align="right">Suma</TableCell>
+                                <TableCell align="right">{(tripSections.length > 0) ?
+                                        tripSections.reduce((sum, trip) => {
+                                           return sum + ((trip.direction) ? trip.section.startToEndPoints : trip.section.endToStartPoints);
+                                        }, 0) : 0 }
+                                </TableCell>
+                                <TableCell align="right">{(tripSections.length > 0) ?
+                                    tripSections.reduce((sum, trip) => {
+                                        return sum + trip.section.length
+                                    }, 0) : 0
+                                }
+                                </TableCell>
+                            </TableRow>
+                            <TablePagination
+                                rowsPerPageOptions={[]}
+                                count={tripSections.length}
+                                rowsPerPage={rowsPerPage * 2}
+                                page={tripPage}
+                                onChangePage={handleChangeTripPage}
+                            />
+
                             </TableBody>
                         </Table>
                     </Grid>
@@ -329,13 +408,13 @@ const TripCreator = (props) => {
                                     {(autosuggestions && tripSections.length > 0) ?
                                         queryData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                                             if (row.start.locationName ===
-                                                (tripSections[tripSections.length - 1].direction ? tripSections[tripSections.length - 1].end.locationName :
-                                                    tripSections[tripSections.length - 1].start.locationName)) {
+                                                (tripSections[tripSections.length - 1].direction ? tripSections[tripSections.length - 1].section.end.locationName :
+                                                    tripSections[tripSections.length - 1].section.start.locationName)) {
                                                 return (
-                                                    <TableRow onClick={event => handleAddNewTripSection(event,{...row, direction: 1})}
+                                                    <TableRow onClick={event => handleAddNewTripSection(event,{section: row, direction: 1})}
                                                               hover role="checkbox"
                                                               tabIndex={-1} key={data.description}
-                                                              style={{height: '53px'}}>
+                                                              style={{height: '61px'}}>
                                                         <TableCell key="name" align="left">
                                                             {row.start.locationName} - {row.end.locationName}
                                                         </TableCell>
@@ -349,10 +428,10 @@ const TripCreator = (props) => {
                                                 )
                                             } else {
                                                 return (
-                                                    <TableRow onClick={event => handleAddNewTripSection(event, {...row, direction: 0})}
+                                                    <TableRow onClick={event => handleAddNewTripSection(event, {section: row, direction: 0})}
                                                               hover role="checkbox"
                                                               tabIndex={-1} key={data.description}
-                                                              style={{height: '53px'}}>
+                                                              style={{height: '61px'}}>
                                                         <TableCell key="name" align="left">
                                                             {row.end.locationName} - {row.start.locationName}
                                                         </TableCell>
@@ -369,10 +448,10 @@ const TripCreator = (props) => {
                                         (queryData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                                                 return (
                                                     <Fragment>
-                                                        <TableRow onClick={event => handleAddNewTripSection(event,{...row, direction: 1})}
+                                                        <TableRow onClick={event => handleAddNewTripSection(event,{section: row, direction: 1})}
                                                                   hover role="checkbox"
                                                                   tabIndex={-1} key={data.description}
-                                                                  style={{height: '53px'}}>
+                                                                  style={{height: '61px'}}>
                                                             <TableCell key="name" align="left">
                                                                 {row.start.locationName} - {row.end.locationName}
                                                             </TableCell>
@@ -383,10 +462,10 @@ const TripCreator = (props) => {
                                                                 {row.length}
                                                             </TableCell>
                                                         </TableRow>
-                                                        <TableRow onClick={event => handleAddNewTripSection(event,{...row, direction: 0})}
+                                                        <TableRow onClick={event => handleAddNewTripSection(event,{ direction: 0, section: row})}
                                                                   hover role="checkbox"
                                                                   tabIndex={-1} key={data.description}
-                                                                  style={{height: '53px'}}>
+                                                                  style={{height: '61px'}}>
                                                             <TableCell key="name" align="left">
                                                                 {row.end.locationName} - {row.start.locationName}
                                                             </TableCell>
@@ -405,8 +484,8 @@ const TripCreator = (props) => {
                                         </TableBody>
                                 <TablePagination
                                     rowsPerPageOptions={[]}
-                                    count={autosuggestions ? queryData.length : 2 * queryData.length}
-                                    rowsPerPage={rowsPerPage}
+                                    count={queryData.length}
+                                    rowsPerPage={autosuggestions ? 2 * rowsPerPage : rowsPerPage}
                                     page={page}
                                     onChangePage={handleChangePage}
                                 />
@@ -417,11 +496,11 @@ const TripCreator = (props) => {
                 </Grid>
             </DialogContent>
             <DialogActions>
-                <Button onClick={props.onClose} color="primary">
+                <Button onClick={event => handleCloseEvent(event,props.onClose)} color="primary">
                     Anuluj
                 </Button>
                 <Button onClick={props.onClose} color="primary">
-                    Dodaj nową wycieczkę
+                    {modifyingState ? "Modyfikuj wycieczkę" : "Dodaj nową wycieczkę"}
                 </Button>
             </DialogActions>
         </Dialog>
