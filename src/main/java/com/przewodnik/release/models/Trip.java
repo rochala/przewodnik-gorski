@@ -35,11 +35,11 @@ public class Trip {
     @Transient()
     private String tripName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "badge_id", nullable = false)
     private Badge badge;
 

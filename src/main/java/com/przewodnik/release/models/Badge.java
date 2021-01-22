@@ -43,7 +43,7 @@ public class Badge {
     @Column()
     private int pointsNeeded;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
