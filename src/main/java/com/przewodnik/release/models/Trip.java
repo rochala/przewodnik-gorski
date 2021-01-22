@@ -90,10 +90,10 @@ public class Trip {
         for (TripSection tripSection : this.getTripSection()){
             boolean direction = tripSection.getDirection();
             if(direction){
-                sumPoints+=tripSection.getSection().getStartToEndPoints();
+                sum+=tripSection.getSection().getStartToEndPoints();
             }
             else {
-                sumPoints+=tripSection.getSection().getEndToStartPoints();
+                sum+=tripSection.getSection().getEndToStartPoints();
             }
         }
         return sum;
