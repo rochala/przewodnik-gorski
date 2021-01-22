@@ -114,7 +114,7 @@ const Badges = () => {
             }), 1000);
         setSelectedTrip(-1);
         setTimeout(() => setLoading(false), 1500);
-        setOpen(false);
+        setTimeout(() => setOpen(false), 1500);
     }
 
     return (
@@ -200,7 +200,7 @@ const Badges = () => {
                                         <Typography variant="h4" align="center">
                                             Wycieczka
                                         </Typography>
-                                        <IconButton aria-label="delete" onClick={handleModyifing} disabled={badges[selectedBadge].trips[selectedTrip].status === "Zatwierdzona"} >
+                                        <IconButton aria-label="delete" onClick={handleModyifing} disabled={(badges[selectedBadge].dateAcquired != null) || (badges[selectedBadge].trips[selectedTrip].status === "Zatwierdzona")} >
                                             <EditIcon />
                                         </IconButton>
                                     </Grid>
