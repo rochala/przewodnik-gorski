@@ -21,7 +21,7 @@ enum Grade {
 @Table(name="badges")
 public class Badge {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)

@@ -10,7 +10,7 @@ import java.util.Objects;
 @Table(name = "locations")
 public class Location {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -23,18 +23,21 @@ public class Location {
     @Column(nullable = false)
     private Double height;
 
-    @OneToMany(mappedBy = "start", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "start", cascade = CascadeType.MERGE)
     private List<Section> starts  = new ArrayList<>();
 
-    @OneToMany(mappedBy = "end", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "end", cascade = CascadeType.MERGE)
     private List<Section> ends  = new ArrayList<>();
 
     protected Location() {
     }
 
-    public Location(MountainRange mountainRange, Double height) {
+
+    public Location(MountainRange mountainRange, Double height, List<Section> starts, List<Section> ends) {
         this.mountainRange = mountainRange;
         this.height = height;
+        this.starts = starts;
+        this.ends=ends;
     }
 
     @Override
