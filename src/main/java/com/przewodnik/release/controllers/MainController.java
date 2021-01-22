@@ -19,7 +19,7 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping(value= "/sections/manage")
+    @RequestMapping(value= "/manage/sections")
     public String trips() {
         return "index";
     }

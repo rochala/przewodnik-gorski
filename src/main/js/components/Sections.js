@@ -149,7 +149,7 @@ const Sections = () => {
                                 </div>
                             </Grid>
                             <hr/>
-                            <Table stickyHeader aria-label="sticky table">
+                            <Table stickyHeader aria-label="sticky table" size="small">
                                 <TableHead>
                                     <TableRow>
                                         {columns.map((column) => (
@@ -166,7 +166,7 @@ const Sections = () => {
                                 <TableBody>
                                     {queryData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                                         return (
-                                            <TableRow hover role="checkbox" tabIndex={-1} key={data.description}>
+                                            <TableRow hover role="checkbox" tabIndex={-1} key={data.description} style={{height: '61px'}}>
                                                 <TableCell key="name" align="left">
                                                     {row.start.locationName} - {row.end.locationName}
                                                 </TableCell>

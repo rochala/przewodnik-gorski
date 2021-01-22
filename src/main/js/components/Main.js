@@ -2,7 +2,7 @@ import { Switch, Route } from 'react-router-dom'
 import * as React from "react";
 import Badges from "./Badges";
 import Sections from "./Sections";
-import SectionManagment from "./SectionManagement";
+import SectionManagement from "./SectionManagement";
 
 const Main = () => {
     return (
@@ -14,8 +14,8 @@ const Main = () => {
                 <Route path='/sections'>
                     <Sections/>
                 </Route>
-                <Route path='/sections/manage'>
-                    <SectionManagment/>
+                <Route path='/manage/sections'>
+                    <SectionManagement/>
                 </Route>
             </Switch>
         </main>
