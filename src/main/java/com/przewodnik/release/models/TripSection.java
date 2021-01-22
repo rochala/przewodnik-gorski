@@ -21,7 +21,7 @@ public class TripSection {
     @JoinColumn(name="section_id")
     private Section section;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="trip_id")
     private Trip trip;
 

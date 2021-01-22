@@ -47,10 +47,10 @@ public class User {
     @Column(nullable = false, length = 10)
     private String role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
     private List<Trip> trips  = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
     private List<Badge> badges = new ArrayList<>();
 
     public Long getId() {

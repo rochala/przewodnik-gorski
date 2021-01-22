@@ -48,7 +48,7 @@ public class Badge {
         return trips;
     }
 
-    @OneToMany(mappedBy = "badge", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "badge", cascade = CascadeType.MERGE)
     private List<Trip> trips;
 
     public Badge(Long id, Grade grade, Date dateAcquired, int pointsNeeded, User user, List<Trip> trips) {
