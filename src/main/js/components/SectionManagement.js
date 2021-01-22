@@ -12,6 +12,8 @@ import Slider from '@material-ui/core/Slider';
 import InputLabel from '@material-ui/core/InputLabel'
 import Button from "@material-ui/core/Button";
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
 
 
 const useStyles = makeStyles(theme => ({
@@ -24,7 +26,11 @@ const useStyles = makeStyles(theme => ({
     },
     sliderFix: {
         padding: "15px 0px 0px"
-    }
+    },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    },
 }));
 
 
@@ -39,7 +45,10 @@ const SectionManagement = () => {
     const url = 'http://127.0.0.1:8080/api/sections/?range=';
     const [selectedTrip, setSelectedTrip] = useState([]);
     const [locations, setLocations] = useState([]);
-    const [startingLocation, setStartingLocation] = useState({})
+    const [startingLocation, setStartingLocation] = useState({locationName: '', mountainRange: ''});
+    const [endLocation, setEndingLocation] = useState({locationName: '', mountainRange: ''});
+    const [points, setPoints] = useState([0,0]);
+    const [loading, setLoading] = useState(false);
 
     const columns = [
         {id: 'name', label: 'Nazwa odcinka', minWidth: "50%"},
@@ -116,15 +125,67 @@ const SectionManagement = () => {
     }
 
     const handleNewSection = (event) => {
+        setPoints([0,0]);
+        setStartingLocation({locationName: '', mountainRange: ''});
+        setEndingLocation({locationName: '', mountainRange: ''});
         setSelectedTrip([]);
     }
 
     const handleModifyTrip = (event, id) => {
         setSelectedTrip(queryData[id]);
+        setStartingLocation(queryData[id].start);
+        setEndingLocation(queryData[id].end);
+        setPoints([queryData[id].startToEndPoints, queryData[id].endToStartPoints]);
+    }
+
+    const handleRequestSubmit = (event) => {
+        if (Array.isArray(selectedTrip)) {
+            fetch('http://127.0.0.1:8080/api/sections', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: 0,
+                    startToEndPoints: points[0],
+                    endToStartPoints: points[1],
+                    length: 0,
+                    start: startingLocation,
+                    end: endLocation
+                })
+            })
+        } else {
+            fetch('http://127.0.0.1:8080/api/sections', {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: selectedTrip.id,
+                    startToEndPoints: points[0],
+                    endToStartPoints: points[1],
+                    length: 0,
+                    start: startingLocation,
+                    end: endLocation
+                })
+            })
+        }
+        setLoading(true);
+        setPoints([0,0]);
+        setStartingLocation({locationName: '', mountainRange: ''});
+        setEndingLocation({locationName: '', mountainRange: ''});
+        setSelectedTrip([]);
+        setTimeout(() => loadData(url+ mountainRange), 1000);
+        setTimeout(() => setLoading(false), 1500);
     }
 
     return (
         <React.Fragment>
+            <Backdrop className={classes.backdrop} open={loading}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
             <div className={classes.heroContent}>
                 <Container maxWidth="lg">
                     <Typography variant="h2" component="h1" align="center" color="textPrimary">
@@ -218,52 +279,77 @@ const SectionManagement = () => {
                                 />
                             </Table>
                         </Container>
-                    <Container style={{width: '50%'}} fullWidth={true}>
+                        <Container style={{width: '50%'}} fullWidth={true}>
                             <Typography variant="h3" align="center" className={classes.spacedText}>
-                                    {Array.isArray(selectedTrip) ? "Dodawanie nowej trasy punktowanej" : "Modyfikacja trasy punktowanej"}
+                                {Array.isArray(selectedTrip) ? "Dodawanie nowej trasy punktowanej" : "Modyfikacja trasy punktowanej"}
                             </Typography>
-                        <hr/>
+                            <hr/>
                             <Autocomplete
-                                id="combo-box-demo"
+                                required={true}
+                                value={startingLocation}
+                                onChange={(event, newValue) => {
+                                    setStartingLocation(newValue)
+                                }}
                                 options={locations}
-                                getOptionLabel={(option) => option.locationName + " - " + option.mountainRange}
+                                getOptionLabel={(option) => (option.locationName === '') ? 'Wybierz punkt początkowy' : option.locationName + " - " + option.mountainRange}
                                 style={{ width: '100%', scrollbarColor: 'rgb(107, 107, 107) rgb(43, 43, 43)' }}
                                 renderInput={(params) => <TextField {...params} label="Punkt początkowy" variant="outlined" />}
                             />
                             <hr/>
-                        <Autocomplete
-                            id="combo-box-demo"
-                            options={locations}
-                            getOptionLabel={(option) => option.locationName + " - " + option.mountainRange}
-                            style={{ width: '100%', scrollbarColor: 'rgb(107, 107, 107) rgb(43, 43, 43)' }}
-                            renderInput={(params) => <TextField {...params} label="Punkt końcowy" variant="outlined" />}
-                        />
-                    <hr/>
-                        <Grid container direction="row" justify="space-evenly" alignItems="center">
-                            <TextField
-                                error={false}
-                                id="standard-error-helper-text"
-                                label="Punkty A-B"
-                                defaultValue={0}
-                                type="number"
-                                helperText="Incorrect entry."
-                                style={{width: '45%'}}
+                            <Autocomplete
+                                required={true}
+                                value={endLocation}
+                                onChange={(event, newValue
+                                ) => {
+                                    setEndingLocation(newValue)
+                                }}
+                                options={locations}
+                                getOptionLabel={(option) => (option.locationName === '') ? 'Wybierz punkt końcowy' : option.locationName + " - " + option.mountainRange}
+                                style={{ width: '100%', scrollbarColor: 'rgb(107, 107, 107) rgb(43, 43, 43)' }}
+                                renderInput={(params) => <TextField {...params} label="Punkt końcowy" variant="outlined" />}
                             />
-                            <TextField
-                                error={false}
-                                id="standard-error-helper-text"
-                                label="Punkty B-A"
-                                defaultValue={0}
-                                type="number"
-                                helperText="Incorrect entry."
-                                style={{width: '45%'}}
-                            />
-                        </Grid>
-                        <hr/>
-                        <Button fullWidth={true} variant="outlined">
-                            Zatwierdź nową trasę
-                        </Button>
-                    </Container>
+                            <hr/>
+                            <Grid container direction="row" justify="space-evenly" alignItems="center">
+                                <TextField
+                                    required={true}
+                                    label="Punkty A-B"
+                                    defaultValue={0}
+                                    value={points[0]}
+                                    onChange={(event) => {
+                                        if (event.target.value >= 0) {
+                                            setPoints([event.target.value, points[1]])
+                                        }
+                                    }
+                                    }
+                                    type="number"
+                                    style={{width: '45%'}}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                />
+                                <TextField
+                                    required={true}
+                                    value={points[1]}
+                                    onChange={(event) => {
+                                        if (event.target.value >= 0) {
+                                            setPoints([points[0], event.target.value])
+                                        }
+                                    }
+                                    }
+                                    label="Punkty B-A"
+                                    defaultValue={0}
+                                    type="number"
+                                    style={{width: '45%'}}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                />
+                            </Grid>
+                            <hr/>
+                            <Button fullWidth={true} variant="outlined" onClick={handleRequestSubmit}>
+                                {Array.isArray(selectedTrip) ? "Zatwierdź nową trasę" : "Modyfikuj trasę"}
+                            </Button>
+                        </Container>
                     </Grid>
                 </Container>
             </div>

@@ -283,7 +283,6 @@ const TripCreator = (props) => {
                             InputLabelProps={{
                                 shrink: true,
                             }}
-
                         />
                         <TextField
                             margin="dense"
