@@ -61,4 +61,7 @@ public class SectionController {
         return repository.save(newSection);
     }
 
+    @PutMapping( value = "/api/sections")
+    Section updateSection(@RequestBody Section newSection) { return repository.save(newSection);}
+
 }
