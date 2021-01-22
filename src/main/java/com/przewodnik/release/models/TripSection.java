@@ -21,9 +21,14 @@ public class TripSection {
     @JoinColumn(name="section_id")
     private Section section;
 
+
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="trip_id")
+    @JoinColumn(name="trip_id", nullable = false)
     private Trip trip;
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
+    }
 
     protected TripSection() {}
 

@@ -54,6 +54,9 @@ public class TripController {
 
     @PostMapping(value= "/api/trips")
     Trip newTrip(@RequestBody Trip newTrip) {
+        for(TripSection tripSection: newTrip.getTripSection()){
+            tripSection.setTrip(newTrip);
+        }
         return repository.save(newTrip);
     }
 }

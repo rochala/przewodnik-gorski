@@ -46,15 +46,16 @@ public class Trip {
     private Badge badge;
 
     @OneToMany(mappedBy = "trip", cascade = CascadeType.MERGE)
-    private List<TripSection> tripSection;
+    private List<TripSection> tripSection = new ArrayList<>();
 
-    public Trip(Date startDate, Date endDate, Status status, boolean leaderAttendance, User user, Badge badge) {
+    public Trip(Date startDate, Date endDate, Status status, boolean leaderAttendance, User user, Badge badge, List<TripSection> tripSection) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
         this.leaderAttendance = leaderAttendance;
         this.user = user;
         this.badge = badge;
+        this.tripSection = tripSection;
     }
     public Trip(){
 
@@ -78,6 +79,10 @@ public class Trip {
 
     public void setBadge(Badge badge) {
         this.badge = badge;
+    }
+
+    public void setTripSection(List<TripSection> tripSection) {
+        this.tripSection = tripSection;
     }
 
     public int getSumPoints() {
