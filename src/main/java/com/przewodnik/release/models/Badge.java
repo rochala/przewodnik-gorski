@@ -1,6 +1,8 @@
 package com.przewodnik.release.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -8,18 +10,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 enum Grade {
-    POPULARNA("Popularna"),
-    MALA_BRAZOWA("Mała Brązowa");
-
-    String fullName;
-    Grade(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
+    @JsonProperty("Popularna")
+    POPULARNA,
+    @JsonProperty("Mała Brązowa")
+    MALA_BRAZOWA;
 }
 @Entity
 @Table(name="badges")
@@ -68,8 +64,8 @@ public class Badge {
         return id;
     }
 
-    public String getGrade() {
-        return grade.getFullName();
+    public Grade getGrade() {
+        return grade;
     }
 
     public Date getDateAcquired() {

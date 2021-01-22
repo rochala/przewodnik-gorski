@@ -1,24 +1,22 @@
 package com.przewodnik.release.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import java.util.stream.Stream;
 
 public enum MountainRange {
-    TATRY("Tatry") ,
-    BESKIDY_ZACHODNIE("Beskidy Zachodnie"),
-    BESKIDY_WSCHODNIE("Beskidy Wschodnie"),
-    SUDETY("Sudety"),
-    GORY_SWIETOKRZYSKIE("Góry Świętokrzyskie");
-
-    String fullName;
-    Integer id;
-    MountainRange(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
+    @JsonProperty("Tatry")
+    TATRY,
+    @JsonProperty("Beskidy Zachodnie")
+    BESKIDY_ZACHODNIE,
+    @JsonProperty("Beskidy Wschodnie")
+    BESKIDY_WSCHODNIE,
+    @JsonProperty("Sudety")
+    SUDETY,
+    @JsonProperty("Góry Świętokrzyskie")
+    GORY_SWIETOKRZYSKIE;
 }
 

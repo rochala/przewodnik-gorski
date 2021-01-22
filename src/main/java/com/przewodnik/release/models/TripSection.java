@@ -15,33 +15,30 @@ public class TripSection {
     private Boolean direction;
 
     @Column()
-    private Integer orderSection;
+    private Integer sectionOrder;
 
     @ManyToOne
     @JoinColumn(name="section_id")
     private Section section;
 
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="trip_id", nullable = false)
     private Trip trip;
 
-    public void setTrip(Trip trip) {
-        this.trip = trip;
-    }
+    public TripSection() {}
 
-    protected TripSection() {}
-
-    public TripSection(Boolean direction, Section section, Trip trip, Integer orderSection) {
+    public TripSection(Boolean direction, Section section, Trip trip, Integer sectionOrder) {
         this.direction = direction;
         this.section = section;
         this.trip = trip;
-        this.orderSection = orderSection;
+        this.sectionOrder = sectionOrder;
     }
 
     public Long getId() {
         return id;
     }
+
+    public Integer getSectionOrder() { return sectionOrder;}
 
     public Boolean getDirection() {
         return direction;
@@ -51,13 +48,15 @@ public class TripSection {
         return section;
     }
 
-    public Integer getOrder() { return orderSection;}
+    public void setTrip(Trip trip) {
+        this.trip = trip;
+    }
 
     @Override
     public String toString() {
         return "TripSection{" +
                 "id=" + id +
-                ", orderSection=" + orderSection +
+                ", orderSection=" + sectionOrder +
                 ", direction=" + direction +
                 ", section=" + section +
                 '}';
