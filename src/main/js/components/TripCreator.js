@@ -213,6 +213,23 @@ const TripCreator = (props) => {
         setModifyingState(false);
         fnc()
     }
+    const handleSendEvent = (event, fnc) => {
+        fetch('http://127.0.0.1:8080/api/trips', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                startDate: startDate,
+                endDate: endDate,
+                status: "Niezatwierdzona",
+                leaderAttendance: leaderAttendance,
+                tripSection: tripSections
+            })
+        })
+        fnc()
+    }
 
     const handleChangeLeaderAttendance = (event) => {
         setLeaderAttendance(!leaderAttendance)
@@ -499,7 +516,7 @@ const TripCreator = (props) => {
                 <Button onClick={event => handleCloseEvent(event,props.onClose)} color="primary">
                     Anuluj
                 </Button>
-                <Button onClick={props.onClose} color="primary">
+                <Button onClick={event => handleSendEvent(event,props.onClose)} color="primary">
                     {modifyingState ? "Modyfikuj wycieczkę" : "Dodaj nową wycieczkę"}
                 </Button>
             </DialogActions>

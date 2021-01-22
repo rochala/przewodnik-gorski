@@ -23,7 +23,7 @@ public class Trip {
     @Column()
     private Date endDate;
 
-    @Column()
+    @Transient
     private int sumPoints;
 
     @Column()
@@ -72,7 +72,17 @@ public class Trip {
     }
 
     public int getSumPoints() {
-        return sumPoints;
+        int sum = 0;
+        for (TripSection tripSection : this.getTripSection()){
+            boolean direction = tripSection.getDirection();
+            if(direction){
+                sumPoints+=tripSection.getSection().getStartToEndPoints();
+            }
+            else {
+                sumPoints+=tripSection.getSection().getEndToStartPoints();
+            }
+        }
+        return sum;
     }
 
     public Status getStatus() {

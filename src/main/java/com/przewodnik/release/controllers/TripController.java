@@ -2,6 +2,7 @@ package com.przewodnik.release.controllers;
 
 import com.przewodnik.release.models.Trip;
 import com.przewodnik.release.models.TripSection;
+import com.przewodnik.release.models.User;
 import com.przewodnik.release.services.TripRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -49,5 +50,10 @@ public class TripController {
             return selectedTrip.getTripSection();
         }
         return new ArrayList<>();
+    }
+
+    @PostMapping(value= "/api/trips")
+    Trip newTrip(@RequestBody Trip newTrip) {
+        return repository.save(newTrip);
     }
 }
