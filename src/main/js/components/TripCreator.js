@@ -230,8 +230,8 @@ const TripCreator = (props) => {
                     endDate: endDate,
                     status: "Niezatwierdzona",
                     leaderAttendance: leaderAttendance,
-                    badge: {badge: props.requestData[1]},
-                    user: {badge: props.requestData[0]},
+                    badge: {id: props.requestData[1]},
+                    user: {id: props.requestData[0]},
                     tripSection: sections
                 })
             })
@@ -254,7 +254,7 @@ const TripCreator = (props) => {
                 })
             })
         }
-        fnc()
+        handleCloseEvent(event, fnc);
     }
 
     const handleChangeLeaderAttendance = (event) => {

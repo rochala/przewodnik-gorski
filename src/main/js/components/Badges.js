@@ -24,6 +24,8 @@ import TripCreator from "./TripCreator";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from '@material-ui/icons/Edit';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
 
 
 const useStyles = makeStyles(theme => ({
@@ -49,20 +51,21 @@ const useStyles = makeStyles(theme => ({
     sliderFix: {
         padding: "15px 0px 0px"
     },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    },
 }));
 
 
 const Badges = () => {
     const [badges, setBadges] = useState([]);
     const [userID, setUserID] = useState("");
-    const [badgeData, setBadgeData] = useState([]);
     const [selectedBadge, setSelectedBadge] = useState(-1)
     const [selectedTrip, setSelectedTrip] = useState(-1)
     const [open, setOpen] = useState(false);
-    const [mountainRange, setMountainRange] = useState("TATRY");
-    const [minPoints, setMinPoints] = useState([0, 50]);
-    const [name, setName] = useState('');
     const [modifying, setModifying] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const url = 'http://127.0.0.1:8080/api/users/?email=b.duda11@wp.pl';
 
@@ -101,17 +104,24 @@ const Badges = () => {
     }
 
     const handleSendData = (event) => {
+        setLoading(true);
+        setTimeout(() =>
         fetch(url)
             .then((response) => response.json())
             .then(json => {
                 setBadges(json[0].badges);
                 setUserID(json[0].id);
-            });
+            }), 1000);
         setSelectedTrip(-1);
+        setTimeout(() => setLoading(false), 1500);
+        setOpen(false);
     }
 
     return (
         <React.Fragment>
+            <Backdrop className={classes.backdrop} open={loading}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
             <div className={classes.heroContent}>
                 <Container maxWidth="lg">
                     <Typography variant="h2" component="h2" align="center" color="textPrimary">
@@ -230,7 +240,7 @@ const Badges = () => {
                     </Grid>
                 </Container>
             </div>
-            <TripCreator onSend={handleSendData} open={open} modifying={modifying} requestData={[userID,  selectedBadge > 0 ? badges[selectedBadge].id : ""]} onOpen={handleNewTripDialogOpen} onClose={handleNewTripDialogClose} style={{height: '75vh', maxHeight: '75vh'}} />
+            <TripCreator onSend={handleSendData} open={open} modifying={modifying} requestData={[userID,  selectedBadge >= 0 ? badges[selectedBadge].id : ""]} onOpen={handleNewTripDialogOpen} onClose={handleNewTripDialogClose} style={{height: '75vh', maxHeight: '75vh'}} />
         </React.Fragment>
 
     );

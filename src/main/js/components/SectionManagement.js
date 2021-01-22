@@ -35,7 +35,7 @@ const SectionManagement = () => {
     const [name, setName] = useState('');
     const [queryData, setQueryData] = useState([])
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(7);
+    const [rowsPerPage, setRowsPerPage] = useState(6);
     const url = 'http://127.0.0.1:8080/api/sections/?range=';
     const [selectedTrip, setSelectedTrip] = useState([]);
     const [locations, setLocations] = useState([]);
@@ -44,8 +44,8 @@ const SectionManagement = () => {
     const columns = [
         {id: 'name', label: 'Nazwa odcinka', minWidth: "50%"},
         {id: 'range', label: 'Pasmo', minWidth: "25%"},
-        {id: 'points', label: 'Punkty', minWidth: "12.5%"},
-        {id: 'length', label: 'Długość', minWidth: "12.5%"},
+        {id: 'points', label: 'Punkty', minWidth: "15%"},
+        {id: 'length', label: 'Długość', minWidth: "10%"},
     ]
 
 
@@ -132,7 +132,7 @@ const SectionManagement = () => {
                     </Typography>
                     <hr/>
                     <Grid paper container direction="row" justify="space-evenly">
-                            <Grid container direction="row" justify="space-evenly" alignItems="center" style={{width: '50%'}} fullWidth={true}>
+                        <Container style={{width: '50%'}} fullWidth={true}>
                             <Grid container direction="row" justify="space-evenly" alignItems="center">
                                 <TextField
                                     className={classes.filterInputs}
@@ -209,7 +209,7 @@ const SectionManagement = () => {
                                     })}
                                 </TableBody>
                                 <TablePagination
-                                    rowsPerPageOptions={[7, 10, 25, 100]}
+                                    rowsPerPageOptions={[6, 10, 25, 100]}
                                     count={queryData.length}
                                     rowsPerPage={rowsPerPage}
                                     page={page}
@@ -217,20 +217,53 @@ const SectionManagement = () => {
                                     onChangeRowsPerPage={handleChangeRowsPerPage}
                                 />
                             </Table>
-                        </Grid>
-                        <Grid container direction="row" justify="space-evenly" alignItems="center" style={{width: '50%'}} fullWidth={true}>
+                        </Container>
+                    <Container style={{width: '50%'}} fullWidth={true}>
                             <Typography variant="h3" align="center" className={classes.spacedText}>
                                     {Array.isArray(selectedTrip) ? "Dodawanie nowej trasy punktowanej" : "Modyfikacja trasy punktowanej"}
                             </Typography>
-                            <hr style={{width: '100%'}}/>
+                        <hr/>
                             <Autocomplete
                                 id="combo-box-demo"
                                 options={locations}
                                 getOptionLabel={(option) => option.locationName + " - " + option.mountainRange}
-                                style={{ width: '90%'}}
+                                style={{ width: '100%', scrollbarColor: 'rgb(107, 107, 107) rgb(43, 43, 43)' }}
                                 renderInput={(params) => <TextField {...params} label="Punkt początkowy" variant="outlined" />}
                             />
+                            <hr/>
+                        <Autocomplete
+                            id="combo-box-demo"
+                            options={locations}
+                            getOptionLabel={(option) => option.locationName + " - " + option.mountainRange}
+                            style={{ width: '100%', scrollbarColor: 'rgb(107, 107, 107) rgb(43, 43, 43)' }}
+                            renderInput={(params) => <TextField {...params} label="Punkt końcowy" variant="outlined" />}
+                        />
+                    <hr/>
+                        <Grid container direction="row" justify="space-evenly" alignItems="center">
+                            <TextField
+                                error={false}
+                                id="standard-error-helper-text"
+                                label="Punkty A-B"
+                                defaultValue={0}
+                                type="number"
+                                helperText="Incorrect entry."
+                                style={{width: '45%'}}
+                            />
+                            <TextField
+                                error={false}
+                                id="standard-error-helper-text"
+                                label="Punkty B-A"
+                                defaultValue={0}
+                                type="number"
+                                helperText="Incorrect entry."
+                                style={{width: '45%'}}
+                            />
                         </Grid>
+                        <hr/>
+                        <Button fullWidth={true} variant="outlined">
+                            Zatwierdź nową trasę
+                        </Button>
+                    </Container>
                     </Grid>
                 </Container>
             </div>
