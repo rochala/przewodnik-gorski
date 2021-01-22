@@ -125,6 +125,9 @@ const SectionManagement = () => {
     }
 
     const handleNewSection = (event) => {
+        setPoints([0,0]);
+        setStartingLocation({locationName: '', mountainRange: ''});
+        setEndingLocation({locationName: '', mountainRange: ''});
         setSelectedTrip([]);
     }
 
@@ -282,6 +285,7 @@ const SectionManagement = () => {
                             </Typography>
                             <hr/>
                             <Autocomplete
+                                required={true}
                                 value={startingLocation}
                                 onChange={(event, newValue) => {
                                     setStartingLocation(newValue)
@@ -293,6 +297,7 @@ const SectionManagement = () => {
                             />
                             <hr/>
                             <Autocomplete
+                                required={true}
                                 value={endLocation}
                                 onChange={(event, newValue
                                 ) => {
@@ -306,6 +311,7 @@ const SectionManagement = () => {
                             <hr/>
                             <Grid container direction="row" justify="space-evenly" alignItems="center">
                                 <TextField
+                                    required={true}
                                     label="Punkty A-B"
                                     defaultValue={0}
                                     value={points[0]}
@@ -322,8 +328,9 @@ const SectionManagement = () => {
                                     }}
                                 />
                                 <TextField
+                                    required={true}
                                     value={points[1]}
-                                    onChange={(event, newValue) => {
+                                    onChange={(event) => {
                                         if (event.target.value >= 0) {
                                             setPoints([points[0], event.target.value])
                                         }

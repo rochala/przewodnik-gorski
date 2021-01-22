@@ -169,7 +169,7 @@ const Badges = () => {
                                         {(badges[selectedBadge].dateAcquired != null) ? "Odznaka zdobyta dnia: " + badges[selectedBadge].dateAcquired.slice(0,10) : "Odznaka nie jest zdobyta"}
                                     </Typography>
                                     <hr/>
-                                    <Button fullWidth={true} variant="outlined" onClick={handleNewTripDialogOpen} >
+                                    <Button fullWidth={true} variant="outlined" onClick={handleNewTripDialogOpen} disabled={badges[selectedBadge].dateAcquired != null}>
                                         Dodaj nową wycieczkę
                                     </Button>
                                     <hr/>
@@ -200,7 +200,7 @@ const Badges = () => {
                                         <Typography variant="h4" align="center">
                                             Wycieczka
                                         </Typography>
-                                        <IconButton aria-label="delete" onClick={handleModyifing} >
+                                        <IconButton aria-label="delete" onClick={handleModyifing} disabled={badges[selectedBadge].trips[selectedTrip].status === "Zatwierdzona"} >
                                             <EditIcon />
                                         </IconButton>
                                     </Grid>
