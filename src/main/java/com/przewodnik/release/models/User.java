@@ -89,10 +89,6 @@ public class User {
         return role;
     }
 
-    public List<Trip> getTrips() {
-        return trips;
-    }
-
     public List<Badge> getBadges() {
         return badges;
     }

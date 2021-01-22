@@ -23,9 +23,6 @@ enum Grade {
 }
 @Entity
 @Table(name="badges")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 public class Badge {
     @Id
     @GeneratedValue

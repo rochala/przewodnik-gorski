@@ -35,9 +35,11 @@ public class Trip {
     @Transient()
     private String tripName;
 
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "badge_id", nullable = false)
@@ -69,6 +71,14 @@ public class Trip {
 
     public Date getEndDate() {
         return endDate;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setBadge(Badge badge) {
+        this.badge = badge;
     }
 
     public int getSumPoints() {
