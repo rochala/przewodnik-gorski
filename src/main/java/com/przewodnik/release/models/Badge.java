@@ -1,5 +1,8 @@
 package com.przewodnik.release.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +23,9 @@ enum Grade {
 }
 @Entity
 @Table(name="badges")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Badge {
     @Id
     @GeneratedValue

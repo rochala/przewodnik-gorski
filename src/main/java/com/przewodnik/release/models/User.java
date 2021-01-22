@@ -1,5 +1,8 @@
 package com.przewodnik.release.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -12,6 +15,9 @@ enum Gender{
 
 @Entity
 @Table(name="users")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class User {
     @Id
     @GeneratedValue
