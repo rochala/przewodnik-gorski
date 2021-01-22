@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Section {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer startToEndPoints;
     private Integer endToStartPoints;
