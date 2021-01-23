@@ -113,8 +113,8 @@ const Badges = () => {
                 setUserID(json[0].id);
             }), 1000);
         setSelectedTrip(-1);
+        setOpen(false);
         setTimeout(() => setLoading(false), 1500);
-        setTimeout(() => setOpen(false), 1500);
     }
 
     return (
