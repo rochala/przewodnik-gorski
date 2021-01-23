@@ -1,9 +1,12 @@
 package com.przewodnik.release.controllers;
 
+import com.przewodnik.release.models.Badge;
 import com.przewodnik.release.models.Trip;
 import com.przewodnik.release.models.TripSection;
 import com.przewodnik.release.models.User;
+import com.przewodnik.release.services.BadgeRepository;
 import com.przewodnik.release.services.TripRepository;
+import com.przewodnik.release.services.TripSectionRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,9 +33,10 @@ class TripNotFoundAdvice {
 @RestController
 public class TripController {
     private final TripRepository repository;
-
-    public TripController(TripRepository repository){
+    private final TripSectionRepository tripSectionRepository;
+    public TripController(TripRepository repository, TripSectionRepository tripSectionRepository){
         this.repository = repository;
+        this.tripSectionRepository = tripSectionRepository;
     }
 
     @GetMapping(value = "/api/trips")
@@ -63,6 +67,8 @@ public class TripController {
 
     @PutMapping (value = "/api/trips")
     Trip updateTrip(@RequestBody Trip newTrip) {
+        Optional<Trip> selectedTrip = repository.findById(newTrip.getId());
+        tripSectionRepository.deleteAll();
         for(TripSection tripSection: newTrip.getTripSection()){
             tripSection.setTrip(newTrip);
         }
