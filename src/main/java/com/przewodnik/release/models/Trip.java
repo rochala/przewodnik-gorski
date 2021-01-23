@@ -1,5 +1,7 @@
 package com.przewodnik.release.models;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
