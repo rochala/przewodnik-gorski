@@ -346,7 +346,8 @@ const SectionManagement = () => {
                                 />
                             </Grid>
                             <hr/>
-                            <Button fullWidth={true} variant="outlined" onClick={handleRequestSubmit}>
+                            <Button fullWidth={true} variant="outlined" onClick={handleRequestSubmit}
+                            disabled={!(startingLocation.locationName && endLocation.locationName && points[0] >= 0 && points[1] >= 0)}>
                                 {Array.isArray(selectedTrip) ? "Zatwierdź nową trasę" : "Modyfikuj trasę"}
                             </Button>
                         </Container>

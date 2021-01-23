@@ -285,6 +285,7 @@ const TripCreator = (props) => {
                             }}
                         />
                         <TextField
+                            error={new Date(endDate) < new Date(startDate)}
                             margin="dense"
                             id="endDate"
                             label="Data zakończenia"
