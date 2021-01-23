@@ -9,6 +9,7 @@ import com.przewodnik.release.services.TripRepository;
 import com.przewodnik.release.services.TripSectionRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -67,8 +68,7 @@ public class TripController {
 
     @PutMapping (value = "/api/trips")
     Trip updateTrip(@RequestBody Trip newTrip) {
-        Optional<Trip> selectedTrip = repository.findById(newTrip.getId());
-        tripSectionRepository.deleteAll();
+        tripSectionRepository.deleteAllByTripId(newTrip.getId());
         for(TripSection tripSection: newTrip.getTripSection()){
             tripSection.setTrip(newTrip);
         }
