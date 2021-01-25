@@ -2,6 +2,7 @@ package com.przewodnik.release.controllers;
 
 import com.przewodnik.release.models.MountainRange;
 import com.przewodnik.release.models.Section;
+import com.przewodnik.release.models.Trip;
 import com.przewodnik.release.services.SectionRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -63,5 +64,16 @@ public class SectionController {
 
     @PutMapping( value = "/api/sections")
     Section updateSection(@RequestBody Section newSection) { return repository.save(newSection);}
+
+    @DeleteMapping (value = "/api/sections")
+    void deleteTrip(@RequestParam Long id){
+        Optional<Section> section = repository.findById(id);
+        if(section.isPresent()) {
+            repository.deleteById(section.get().getId());
+        }
+        else {
+            throw new TripNotFoundException(id);
+        }
+    }
 
 }

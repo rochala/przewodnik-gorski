@@ -75,13 +75,12 @@ public class TripController {
         return repository.save(newTrip);
     }
 
-    @DeleteMapping
-    Trip deleteTrip(@RequestBody Long id){
+    @DeleteMapping (value = "/api/trips")
+    void deleteTrip(@RequestParam Long id){
         Optional<Trip> trip = repository.findById(id);
         if(trip.isPresent()) {
             tripSectionRepository.deleteAllByTripId(trip.get().getId());
             repository.deleteById(trip.get().getId());
-            return trip.get();
         }
         else {
             throw new TripNotFoundException(id);
