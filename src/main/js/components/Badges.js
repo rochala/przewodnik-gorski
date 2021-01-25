@@ -55,6 +55,10 @@ const useStyles = makeStyles(theme => ({
         zIndex: theme.zIndex.drawer + 1,
         color: '#fff',
     },
+    tab: {
+        height: '100%',
+        overflow: 'clip',
+    }
 }));
 
 
@@ -129,8 +133,8 @@ const Badges = () => {
                     </Typography>
                     <hr/><br/>
                     <Grid container className={classes.element} flexWrap="wrap" direction="row" justify="space-evenly" alignItems="center">
-                        <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '25%'}}>
-                            <Container style={{height: '100%', overflow: 'clip'}}>
+                        <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '25%', minWidth: '300px'}}>
+                            <Container className={classes.tab}>
                                 <div>
                                     <Typography variant="h4" align="center">
                                         Odznaki
@@ -154,9 +158,9 @@ const Badges = () => {
                                 </List>
                             </Container>
                         </Paper>
-                        <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '40%'}}>
+                        <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '40%', minWidth: '300px'}}>
                             {selectedBadge >= 0 &&
-                            <Container style={{height: '100%', overflow: 'clip'}}>
+                            <Container className={classes.tab}>
                                 <div>
                                     <Typography variant="h4" align="center">
                                         {badges[selectedBadge].grade}
@@ -190,9 +194,9 @@ const Badges = () => {
                             </Container>
                             }
                         </Paper>
-                        <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '35%'}}>
+                        <Paper elevation={3} className={classes.element} alignItems="center" style={{width: '35%', minWidth: '300px'}}>
                             {selectedTrip >= 0 &&
-                            <Container style={{height: '100%', overflow: 'clip'}}>
+                            <Container className={classes.tab}>
                                 <div>
                                     <Grid container direction="row" justify="space-between">
                                         <div>

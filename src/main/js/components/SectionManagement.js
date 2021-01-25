@@ -31,6 +31,11 @@ const useStyles = makeStyles(theme => ({
         zIndex: theme.zIndex.drawer + 1,
         color: '#fff',
     },
+    tab: {
+    height: '100%',
+    overflow: 'clip',
+    minWidth: '300px'
+}
 }));
 
 
@@ -193,7 +198,7 @@ const SectionManagement = () => {
                     </Typography>
                     <hr/>
                     <Grid paper container direction="row" justify="space-evenly">
-                        <Container style={{width: '50%'}} fullWidth={true}>
+                        <Container style={{width: '50%' ,minWidth: '300px'}} fullWidth={true}>
                             <Grid container direction="row" justify="space-evenly" alignItems="center">
                                 <TextField
                                     className={classes.filterInputs}
@@ -279,7 +284,7 @@ const SectionManagement = () => {
                                 />
                             </Table>
                         </Container>
-                        <Container style={{width: '50%'}} fullWidth={true}>
+                        <Container style={{width: '50%',minWidth: '300px'}} fullWidth={true}>
                             <Typography variant="h3" align="center" className={classes.spacedText}>
                                 {Array.isArray(selectedTrip) ? "Dodawanie nowej trasy punktowanej" : "Modyfikacja trasy punktowanej"}
                             </Typography>
@@ -288,7 +293,11 @@ const SectionManagement = () => {
                                 required={true}
                                 value={startingLocation}
                                 onChange={(event, newValue) => {
-                                    setStartingLocation(newValue)
+                                    if (newValue !== '') {
+                                        setStartingLocation(newValue)
+                                    } else {
+                                        setStartingLocation({locationName: '', mountainRange: ''});
+                                    }
                                 }}
                                 options={locations}
                                 getOptionLabel={(option) => (option.locationName === '') ? 'Wybierz punkt początkowy' : option.locationName + " - " + option.mountainRange}
@@ -301,7 +310,11 @@ const SectionManagement = () => {
                                 value={endLocation}
                                 onChange={(event, newValue
                                 ) => {
-                                    setEndingLocation(newValue)
+                                    if (newValue !== '') {
+                                        setEndingLocation(newValue)
+                                    } else {
+                                        setEndingLocation({locationName: '', mountainRange: ''});
+                                    }
                                 }}
                                 options={locations}
                                 getOptionLabel={(option) => (option.locationName === '') ? 'Wybierz punkt końcowy' : option.locationName + " - " + option.mountainRange}

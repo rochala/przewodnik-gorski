@@ -51,7 +51,8 @@ const useStyles = makeStyles(theme => ({
         width: "45%"
     },
     sliderFix: {
-        padding: "15px 0px 0px"
+        width: "45%",
+        padding: "10px"
     },
 }));
 
@@ -270,7 +271,7 @@ const TripCreator = (props) => {
             <DialogTitle id="form-dialog-title">{modifyingState ? "Modyfikacja wycieczki" : "Dodaj nową wycieczkę"}</DialogTitle>
             <DialogContent>
                 <Grid container direction="row" justify="space-evenly" alignItems="flex-start">
-                    <Grid container direction="row" justify="space-evenly" alignItems="center" style={{width: '50%'}} fullWidth={true}>
+                    <Grid container direction="row" justify="space-between" alignItems="center" style={{width: '50%'}} fullWidth={true}>
                         <TextField
                             autoFocus
                             margin="dense"
@@ -389,7 +390,7 @@ const TripCreator = (props) => {
                         </Table>
                     </Grid>
                     <Container style={{width: '50%'}} fullWidth={true}>
-                        <Grid container direction="row" justify="space-evenly" alignItems="center">
+                        <Grid container direction="row" justify="space-between" alignItems="center">
                             <TextField
                                 className={classes.filterInputs}
                                 fullWidth={true}
@@ -411,13 +412,12 @@ const TripCreator = (props) => {
                                 value={name}
                                 onChange={handleChangeName}
                             />
-                            <div className={classes.filterInputs}>
+                            <div className={classes.sliderFix}>
                                 <InputLabel id="slider">
                                     Zakres sumy punktów
                                 </InputLabel>
                                 <Slider
                                     disabled={autosuggestions}
-                                    style={{padding: "15px 0 0"}}
                                     value={minPoints}
                                     onChange={handleChangeMinPoints}
                                     valueLabelDisplay="auto"
