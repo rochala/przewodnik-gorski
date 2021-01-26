@@ -2,7 +2,6 @@ package com.przewodnik.release.controllers;
 
 import com.przewodnik.release.models.MountainRange;
 import com.przewodnik.release.models.Section;
-import com.przewodnik.release.models.Trip;
 import com.przewodnik.release.services.SectionRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +26,7 @@ class SectionNotFoundAdvice {
         return exception.getMessage();
     }
 }
+
 @CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
 @RestController
 public class SectionController {
@@ -37,8 +37,8 @@ public class SectionController {
         this.repository = repository;
     }
 
-    @GetMapping(value= "api/sections")
-    List<Section> getByRange(@RequestParam Optional<String> range){
+    @GetMapping(value = "api/sections")
+    List<Section> getByRange(@RequestParam Optional<String> range) {
         if (range.isPresent()) {
             if (Arrays.stream(MountainRange.values()).anyMatch(r -> r.name().equals(range.get().toUpperCase()))) {
                 List<Section> sections = repository.findByEnd_MountainRangeAndStart_MountainRange(
@@ -57,21 +57,22 @@ public class SectionController {
         }
     }
 
-    @PostMapping(value= "/api/sections")
+    @PostMapping(value = "/api/sections")
     Section newSection(@RequestBody Section newSection) {
         return repository.save(newSection);
     }
 
-    @PutMapping( value = "/api/sections")
-    Section updateSection(@RequestBody Section newSection) { return repository.save(newSection);}
+    @PutMapping(value = "/api/sections")
+    Section updateSection(@RequestBody Section newSection) {
+        return repository.save(newSection);
+    }
 
-    @DeleteMapping (value = "/api/sections")
-    void deleteTrip(@RequestParam Long id){
+    @DeleteMapping(value = "/api/sections")
+    void deleteTrip(@RequestParam Long id) {
         Optional<Section> section = repository.findById(id);
-        if(section.isPresent()) {
+        if (section.isPresent()) {
             repository.deleteById(section.get().getId());
-        }
-        else {
+        } else {
             throw new TripNotFoundException(id);
         }
     }

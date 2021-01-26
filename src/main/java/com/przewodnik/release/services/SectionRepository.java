@@ -8,6 +8,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "sections", path = "sections")
-public interface SectionRepository extends JpaRepository<Section,Long> {
+public interface SectionRepository extends JpaRepository<Section, Long> {
     List<Section> findByEnd_MountainRangeAndStart_MountainRange(MountainRange rangeEnd, MountainRange rangeStart);
 }

@@ -1,8 +1,8 @@
 package com.przewodnik.release.models;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -24,10 +24,10 @@ public class Location {
     private Double height;
 
     @OneToMany(mappedBy = "start", cascade = CascadeType.MERGE)
-    private List<Section> starts  = new ArrayList<>();
+    private List<Section> starts = new ArrayList<>();
 
     @OneToMany(mappedBy = "end", cascade = CascadeType.MERGE)
-    private List<Section> ends  = new ArrayList<>();
+    private List<Section> ends = new ArrayList<>();
 
     protected Location() {
     }
@@ -37,7 +37,7 @@ public class Location {
         this.mountainRange = mountainRange;
         this.height = height;
         this.starts = starts;
-        this.ends=ends;
+        this.ends = ends;
         this.locationName = locationName;
     }
 
@@ -54,12 +54,24 @@ public class Location {
         return mountainRange;
     }
 
+    public void setMountainRange(MountainRange mountainRange) {
+        this.mountainRange = mountainRange;
+    }
+
     public Double getHeight() {
         return height;
     }
 
+    public void setHeight(Double height) {
+        this.height = height;
+    }
+
     public String getLocationName() {
         return locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
     }
 
     @Override
@@ -75,18 +87,6 @@ public class Location {
     @Override
     public int hashCode() {
         return Objects.hash(locationName, mountainRange, height);
-    }
-
-    public void setLocationName(String locationName) {
-        this.locationName = locationName;
-    }
-
-    public void setMountainRange(MountainRange mountainRange) {
-        this.mountainRange = mountainRange;
-    }
-
-    public void setHeight(Double height) {
-        this.height = height;
     }
 }
 

@@ -1,9 +1,6 @@
 package com.przewodnik.release.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,10 +12,11 @@ enum Grade {
     @JsonProperty("Popularna")
     POPULARNA,
     @JsonProperty("Mała Brązowa")
-    MALA_BRAZOWA;
+    MALA_BRAZOWA
 }
+
 @Entity
-@Table(name="badges")
+@Table(name = "badges")
 public class Badge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,11 +37,6 @@ public class Badge {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
-    public List<Trip> getTrips() {
-        return trips;
-    }
-
     @OneToMany(mappedBy = "badge", cascade = CascadeType.PERSIST)
     private List<Trip> trips;
 
@@ -60,6 +53,10 @@ public class Badge {
 
     }
 
+    public List<Trip> getTrips() {
+        return trips;
+    }
+
     public Long getId() {
         return id;
     }
@@ -73,19 +70,18 @@ public class Badge {
     }
 
 
-    public int getSumPointForBadge(){
+    public int getSumPointForBadge() {
         List<TripSection> sameSections = new ArrayList<>();
         int sumPoints = 0;
-        for(Trip trip: this.getTrips()){
-            for(TripSection tripSection : trip.getTripSection()){
-                if(!sameSections.contains(tripSection)) {
+        for (Trip trip : this.getTrips()) {
+            for (TripSection tripSection : trip.getTripSection()) {
+                if (!sameSections.contains(tripSection)) {
                     sameSections.add(tripSection);
                     boolean direction = tripSection.getDirection();
-                    if(direction){
-                        sumPoints+=tripSection.getSection().getStartToEndPoints();
-                    }
-                    else {
-                        sumPoints+=tripSection.getSection().getEndToStartPoints();
+                    if (direction) {
+                        sumPoints += tripSection.getSection().getStartToEndPoints();
+                    } else {
+                        sumPoints += tripSection.getSection().getEndToStartPoints();
                     }
                 }
             }

@@ -1,8 +1,9 @@
 package com.przewodnik.release;
 
 import com.przewodnik.release.models.*;
-import org.junit.jupiter.api.*;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +21,7 @@ public class BadgeTests {
             new TripSection(true, section2, null, 1),
             new TripSection(false, section2, null, 2),
             new TripSection(false, section1, null, 3)
-            ));
+    ));
 
     ArrayList<TripSection> sections2 = new ArrayList<>(Arrays.asList(new TripSection(true, section1, null, 0),
             new TripSection(true, section2, null, 1),

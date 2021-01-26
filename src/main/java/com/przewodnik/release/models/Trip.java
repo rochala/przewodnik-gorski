@@ -1,7 +1,5 @@
 package com.przewodnik.release.models;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -61,7 +59,7 @@ public class Trip {
         this.tripSection = tripSection;
     }
 
-    public Trip(){
+    public Trip() {
 
     }
 
@@ -85,19 +83,14 @@ public class Trip {
         this.badge = badge;
     }
 
-    public void setTripSection(List<TripSection> tripSection) {
-        this.tripSection = tripSection;
-    }
-
     public int getSumPoints() {
         int sum = 0;
-        for (TripSection tripSection : this.getTripSection()){
+        for (TripSection tripSection : this.getTripSection()) {
             boolean direction = tripSection.getDirection();
-            if(direction){
-                sum+=tripSection.getSection().getStartToEndPoints();
-            }
-            else {
-                sum+=tripSection.getSection().getEndToStartPoints();
+            if (direction) {
+                sum += tripSection.getSection().getStartToEndPoints();
+            } else {
+                sum += tripSection.getSection().getEndToStartPoints();
             }
         }
         return sum;
@@ -108,12 +101,11 @@ public class Trip {
     }
 
     public String getTripName() {
-        String tripName ="";
+        String tripName = "";
         List<TripSection> sections = this.getTripSection();
-        if (sections.size() >= 1)
-        {
-            tripName+= sections.get(0).getSection().getStart().getLocationName() + " - "
-                    + sections.get(sections.size()-1).getSection().getEnd().getLocationName();
+        if (sections.size() >= 1) {
+            tripName += sections.get(0).getSection().getStart().getLocationName() + " - "
+                    + sections.get(sections.size() - 1).getSection().getEnd().getLocationName();
         }
         return tripName;
     }
@@ -124,6 +116,10 @@ public class Trip {
 
     public List<TripSection> getTripSection() {
         return tripSection;
+    }
+
+    public void setTripSection(List<TripSection> tripSection) {
+        this.tripSection = tripSection;
     }
 
     @Override

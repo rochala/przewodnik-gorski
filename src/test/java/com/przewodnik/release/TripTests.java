@@ -4,12 +4,8 @@ import com.przewodnik.release.models.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class TripTests {
     Location loc1 = new Location("punkt1", MountainRange.BESKIDY_WSCHODNIE, 1250.0, new ArrayList<Section>(), new ArrayList<Section>());
@@ -22,7 +18,7 @@ public class TripTests {
     ArrayList<TripSection> sections = new ArrayList<>();
 
 
-    Trip trip = new Trip(null,null, null,true,null,null, sections);
+    Trip trip = new Trip(null, null, null, true, null, null, sections);
 
     @AfterEach
     void resetTrip() {
@@ -31,7 +27,7 @@ public class TripTests {
 
     @Test
     void getTripNameManySections() {
-        sections.add(new TripSection(true ,section1,null,0));
+        sections.add(new TripSection(true, section1, null, 0));
         sections.add(new TripSection(true, section2, null, 1));
         Assertions.assertEquals(trip.getTripName(), "punkt1 - punkt3");
     }
@@ -43,13 +39,13 @@ public class TripTests {
 
     @Test
     void getTripNameOneTrip() {
-        sections.add(new TripSection(true ,section1,null,0));
+        sections.add(new TripSection(true, section1, null, 0));
         Assertions.assertEquals(trip.getTripName(), "punkt1 - punkt2");
     }
 
     @Test
     void getSumPointsManySections() {
-        sections.add(new TripSection(true ,section1,null,0));
+        sections.add(new TripSection(true, section1, null, 0));
         sections.add(new TripSection(true, section2, null, 1));
         Assertions.assertEquals(trip.getSumPoints(), 6);
     }
@@ -61,7 +57,7 @@ public class TripTests {
 
     @Test
     void getSumPointsOneSection() {
-        sections.add(new TripSection(true ,section1,null,0));
+        sections.add(new TripSection(true, section1, null, 0));
         Assertions.assertEquals(trip.getSumPoints(), 2);
     }
 }

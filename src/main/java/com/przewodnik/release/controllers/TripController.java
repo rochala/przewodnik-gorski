@@ -1,23 +1,20 @@
 package com.przewodnik.release.controllers;
 
-import com.przewodnik.release.models.Badge;
 import com.przewodnik.release.models.Trip;
 import com.przewodnik.release.models.TripSection;
-import com.przewodnik.release.models.User;
-import com.przewodnik.release.services.BadgeRepository;
 import com.przewodnik.release.services.TripRepository;
 import com.przewodnik.release.services.TripSectionRepository;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-class TripNotFoundException extends RuntimeException{
-    public TripNotFoundException(Long id) { super("Could not find trip " + id);}
+class TripNotFoundException extends RuntimeException {
+    public TripNotFoundException(Long id) {
+        super("Could not find trip " + id);
+    }
 }
 
 @ControllerAdvice
@@ -35,54 +32,55 @@ class TripNotFoundAdvice {
 public class TripController {
     private final TripRepository repository;
     private final TripSectionRepository tripSectionRepository;
-    public TripController(TripRepository repository, TripSectionRepository tripSectionRepository){
+
+    public TripController(TripRepository repository, TripSectionRepository tripSectionRepository) {
         this.repository = repository;
         this.tripSectionRepository = tripSectionRepository;
     }
 
     @GetMapping(value = "/api/trips")
-    List<Trip> all(){
+    List<Trip> all() {
         return repository.findAll();
     }
+
     @GetMapping(value = "/api/trips/{id}")
-    Trip one(@PathVariable Long id){
+    Trip one(@PathVariable Long id) {
         return repository.findById(id).orElseThrow(() -> new TripNotFoundException(id));
     }
 
-    @GetMapping(value ="/api/trips/")
-    List<TripSection> tripTripSection(@RequestParam Optional<Long> tripTripSectionId){
-        if(tripTripSectionId.isPresent()) {
+    @GetMapping(value = "/api/trips/")
+    List<TripSection> tripTripSection(@RequestParam Optional<Long> tripTripSectionId) {
+        if (tripTripSectionId.isPresent()) {
             Trip selectedTrip = one(tripTripSectionId.get());
             return selectedTrip.getTripSection();
         }
         return new ArrayList<>();
     }
 
-    @PostMapping(value= "/api/trips")
+    @PostMapping(value = "/api/trips")
     Trip newTrip(@RequestBody Trip newTrip) {
-        for(TripSection tripSection: newTrip.getTripSection()){
+        for (TripSection tripSection : newTrip.getTripSection()) {
             tripSection.setTrip(newTrip);
         }
         return repository.save(newTrip);
     }
 
-    @PutMapping (value = "/api/trips")
+    @PutMapping(value = "/api/trips")
     Trip updateTrip(@RequestBody Trip newTrip) {
         tripSectionRepository.deleteAllByTripId(newTrip.getId());
-        for(TripSection tripSection: newTrip.getTripSection()){
+        for (TripSection tripSection : newTrip.getTripSection()) {
             tripSection.setTrip(newTrip);
         }
         return repository.save(newTrip);
     }
 
-    @DeleteMapping (value = "/api/trips")
-    void deleteTrip(@RequestParam Long id){
+    @DeleteMapping(value = "/api/trips")
+    void deleteTrip(@RequestParam Long id) {
         Optional<Trip> trip = repository.findById(id);
-        if(trip.isPresent()) {
+        if (trip.isPresent()) {
             tripSectionRepository.deleteAllByTripId(trip.get().getId());
             repository.deleteById(trip.get().getId());
-        }
-        else {
+        } else {
             throw new TripNotFoundException(id);
         }
     }

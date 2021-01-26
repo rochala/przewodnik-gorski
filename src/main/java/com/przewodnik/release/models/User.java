@@ -1,26 +1,23 @@
 package com.przewodnik.release.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-enum Gender{
+enum Gender {
     M,
     K
 }
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private Long pesel;
 
     @Column()
@@ -45,10 +42,10 @@ public class User {
     private String role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
-    private List<Trip> trips  = new ArrayList<>();
+    private final List<Trip> trips = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
-    private List<Badge> badges = new ArrayList<>();
+    private final List<Badge> badges = new ArrayList<>();
 
     public Long getId() {
         return id;

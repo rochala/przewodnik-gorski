@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
 public class MainController {
 
-    @RequestMapping(value= "/")
+    @RequestMapping(value = "/")
     public String index() {
         return "index";
     }
 
-    @RequestMapping(value= "/sections")
+    @RequestMapping(value = "/sections")
     public String sections() {
         return "index";
     }
 
-    @RequestMapping(value= "/manage/sections")
+    @RequestMapping(value = "/manage/sections")
     public String trips() {
         return "index";
     }
