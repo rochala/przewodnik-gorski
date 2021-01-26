@@ -104,16 +104,4 @@ public class User {
                 ", role='" + role + '\'' +
                 '}';
     }
-
-    public User(Long id, Long pesel, Date birthDate, String name, String surname, Gender gender, String email, boolean isDisabled, String role) {
-        this.id = id;
-        this.pesel = pesel;
-        this.birthDate = birthDate;
-        this.name = name;
-        this.surname = surname;
-        this.gender = gender;
-        this.email = email;
-        this.isDisabled = isDisabled;
-        this.role = role;
-    }
 }
