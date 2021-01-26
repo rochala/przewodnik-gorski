@@ -542,7 +542,7 @@ const TripCreator = (props) => {
                 <Button onClick={event => handleCloseEvent(event,props.onClose)} color="primary">
                     Anuluj
                 </Button>
-                <Button onClick={event => handleSendEvent(event,props.onSend)} color="primary">
+                <Button onClick={event => handleSendEvent(event,props.onSend)} color="primary" disabled={new Date(endDate) < new Date(startDate)}>
                     {modifyingState ? "Modyfikuj wycieczkę" : "Dodaj nową wycieczkę"}
                 </Button>
             </DialogActions>

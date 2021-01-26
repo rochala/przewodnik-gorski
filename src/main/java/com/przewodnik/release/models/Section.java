@@ -89,4 +89,24 @@ public class Section {
     public int hashCode() {
         return Objects.hash(startToEndPoints, endToStartPoints, length, start, end);
     }
+
+    public void setStartToEndPoints(Integer startToEndPoints) {
+        this.startToEndPoints = startToEndPoints;
+    }
+
+    public void setEndToStartPoints(Integer endToStartPoints) {
+        this.endToStartPoints = endToStartPoints;
+    }
+
+    public void setLength(Double length) {
+        this.length = length;
+    }
+
+    public void setStart(Location start) {
+        this.start = start;
+    }
+
+    public void setEnd(Location end) {
+        this.end = end;
+    }
 }

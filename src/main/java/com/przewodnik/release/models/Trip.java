@@ -11,6 +11,7 @@ enum Status {
     Niezatwierdzona,
     Zatwierdzona
 }
+
 @Entity
 @Table(name = "trips")
 public class Trip {
@@ -59,6 +60,7 @@ public class Trip {
         this.badge = badge;
         this.tripSection = tripSection;
     }
+
     public Trip(){
 
     }
@@ -136,6 +138,4 @@ public class Trip {
                 ", tripSection=" + tripSection +
                 '}';
     }
-
-
 }
