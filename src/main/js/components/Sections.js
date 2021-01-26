@@ -107,92 +107,93 @@ const Sections = () => {
         <React.Fragment>
             <main>
                 <div className={classes.heroContent}>
-                        <Container maxWidth="lg">
-                            <Typography variant="h2" component="h1" align="center" color="textPrimary">
-                                Przeglądanie tras punktowanych
-                            </Typography>
-                            <hr/>
-                            <Grid container direction="row" justify="space-evenly" alignItems="center">
-                                <TextField
-                                    className={classes.filterInputs}
+                    <Container maxWidth="lg">
+                        <Typography variant="h2" component="h1" align="center" color="textPrimary">
+                            Przeglądanie tras punktowanych
+                        </Typography>
+                        <hr/>
+                        <Grid container direction="row" justify="space-evenly" alignItems="center">
+                            <TextField
+                                className={classes.filterInputs}
+                                fullWidth={true}
+                                label="Pasmo górskie"
+                                value={mountainRange}
+                                onChange={handleChangeMountainRange}
+                                select>
+                                <MenuItem value="TATRY">Tatry</MenuItem>
+                                <MenuItem value="BESKIDY_ZACHODNIE">Beskidy Zachodnie</MenuItem>
+                                <MenuItem value="BESKIDY_WSCHODNIE">Beskidy Wschodnie</MenuItem>
+                                <MenuItem value="SUDETY">Sudety</MenuItem>
+                            </TextField>
+                            <TextField
+                                className={classes.filterInputs}
+                                fullWidth={true}
+                                label="Nazwa punktu"
+                                value={name}
+                                onChange={handleChangeName}
+                            />
+                            <div className={classes.filterInputs}>
+                                <InputLabel id="slider">
+                                    Zakres sumy punktów
+                                </InputLabel>
+                                <Slider
+                                    style={{padding: "15px 0 0"}}
+                                    value={minPoints}
+                                    onChange={handleChangeMinPoints}
+                                    valueLabelDisplay="auto"
+                                    label="Zakres sumy punktów"
+                                    aria-labelledby="slider"
+                                    max={50}
                                     fullWidth={true}
-                                    label="Pasmo górskie"
-                                    value={mountainRange}
-                                    onChange={handleChangeMountainRange}
-                                    select>
-                                    <MenuItem value="TATRY">Tatry</MenuItem>
-                                    <MenuItem value="BESKIDY_ZACHODNIE">Beskidy Zachodnie</MenuItem>
-                                    <MenuItem value="BESKIDY_WSCHODNIE">Beskidy Wschodnie</MenuItem>
-                                    <MenuItem value="SUDETY">Sudety</MenuItem>
-                                </TextField>
-                                <TextField
-                                    className={classes.filterInputs}
-                                    fullWidth={true}
-                                    label="Nazwa punktu"
-                                    value={name}
-                                    onChange={handleChangeName}
                                 />
-                                <div className={classes.filterInputs}>
-                                    <InputLabel id="slider">
-                                        Zakres sumy punktów
-                                    </InputLabel>
-                                    <Slider
-                                        style={{padding: "15px 0 0"}}
-                                        value={minPoints}
-                                        onChange={handleChangeMinPoints}
-                                        valueLabelDisplay="auto"
-                                        label="Zakres sumy punktów"
-                                        aria-labelledby="slider"
-                                        max={50}
-                                        fullWidth={true}
-                                    />
-                                </div>
-                            </Grid>
-                            <hr/>
-                            <Table stickyHeader aria-label="sticky table" size="small">
-                                <TableHead>
-                                    <TableRow>
-                                        {columns.map((column) => (
-                                            <TableCell
-                                                key={column.name}
-                                                align="left"
-                                                style={{width: column.minWidth}}
-                                            >
-                                                {column.label}
+                            </div>
+                        </Grid>
+                        <hr/>
+                        <Table stickyHeader aria-label="sticky table" size="small">
+                            <TableHead>
+                                <TableRow>
+                                    {columns.map((column) => (
+                                        <TableCell
+                                            key={column.name}
+                                            align="left"
+                                            style={{width: column.minWidth}}
+                                        >
+                                            {column.label}
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {queryData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                                    return (
+                                        <TableRow hover role="checkbox" tabIndex={-1} key={data.description}
+                                                  style={{height: '61px'}}>
+                                            <TableCell key="name" align="left">
+                                                {row.start.locationName} - {row.end.locationName}
                                             </TableCell>
-                                        ))}
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {queryData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                                        return (
-                                            <TableRow hover role="checkbox" tabIndex={-1} key={data.description} style={{height: '61px'}}>
-                                                <TableCell key="name" align="left">
-                                                    {row.start.locationName} - {row.end.locationName}
-                                                </TableCell>
-                                                <TableCell key="range" align="left">
-                                                    {`${(row.start.mountainRange !== row.end.mountainRange) ? row.start.mountainRange + " - " + row.end.mountainRange : row.start.mountainRange}`}
-                                                </TableCell>
-                                                <TableCell key="points" align="left">
-                                                    {row.startToEndPoints} / {row.endToStartPoints}
-                                                </TableCell>
-                                                <TableCell key="length" align="left">
-                                                    {row.length}
-                                                </TableCell>
-                                            </TableRow>
-                                        )
-                                    })}
-                                </TableBody>
-                                <TablePagination
-                                    rowsPerPageOptions={[7, 10, 25, 100]}
-                                    count={queryData.length}
-                                    rowsPerPage={rowsPerPage}
-                                    page={page}
-                                    onChangePage={handleChangePage}
-                                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                                />
-                            </Table>
-                        </Container>
+                                            <TableCell key="range" align="left">
+                                                {`${(row.start.mountainRange !== row.end.mountainRange) ? row.start.mountainRange + " - " + row.end.mountainRange : row.start.mountainRange}`}
+                                            </TableCell>
+                                            <TableCell key="points" align="left">
+                                                {row.startToEndPoints} / {row.endToStartPoints}
+                                            </TableCell>
+                                            <TableCell key="length" align="left">
+                                                {row.length}
+                                            </TableCell>
+                                        </TableRow>
+                                    )
+                                })}
+                            </TableBody>
+                            <TablePagination
+                                rowsPerPageOptions={[7, 10, 25, 100]}
+                                count={queryData.length}
+                                rowsPerPage={rowsPerPage}
+                                page={page}
+                                onChangePage={handleChangePage}
+                                onChangeRowsPerPage={handleChangeRowsPerPage}
+                            />
+                        </Table>
+                    </Container>
                 </div>
             </main>
         </React.Fragment>

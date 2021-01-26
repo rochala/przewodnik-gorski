@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Grid, MenuItem, TextField, Typography} from "@material-ui/core";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -32,10 +32,10 @@ const useStyles = makeStyles(theme => ({
         color: '#fff',
     },
     tab: {
-    height: '100%',
-    overflow: 'clip',
-    minWidth: '300px'
-}
+        height: '100%',
+        overflow: 'clip',
+        minWidth: '300px'
+    }
 }));
 
 
@@ -52,7 +52,7 @@ const SectionManagement = () => {
     const [locations, setLocations] = useState([]);
     const [startingLocation, setStartingLocation] = useState({locationName: '', mountainRange: ''});
     const [endLocation, setEndingLocation] = useState({locationName: '', mountainRange: ''});
-    const [points, setPoints] = useState([0,0]);
+    const [points, setPoints] = useState([0, 0]);
     const [loading, setLoading] = useState(false);
 
     const columns = [
@@ -61,7 +61,6 @@ const SectionManagement = () => {
         {id: 'points', label: 'Punkty', minWidth: "15%"},
         {id: 'length', label: 'Długość', minWidth: "10%"},
     ]
-
 
 
     const classes = useStyles()
@@ -130,7 +129,7 @@ const SectionManagement = () => {
     }
 
     const handleNewSection = (event) => {
-        setPoints([0,0]);
+        setPoints([0, 0]);
         setStartingLocation({locationName: '', mountainRange: ''});
         setEndingLocation({locationName: '', mountainRange: ''});
         setSelectedTrip([]);
@@ -178,18 +177,18 @@ const SectionManagement = () => {
             })
         }
         setLoading(true);
-        setPoints([0,0]);
+        setPoints([0, 0]);
         setStartingLocation({locationName: '', mountainRange: ''});
         setEndingLocation({locationName: '', mountainRange: ''});
         setSelectedTrip([]);
-        setTimeout(() => loadData(url+ mountainRange), 1000);
+        setTimeout(() => loadData(url + mountainRange), 1000);
         setTimeout(() => setLoading(false), 1500);
     }
 
     return (
         <React.Fragment>
             <Backdrop className={classes.backdrop} open={loading}>
-                <CircularProgress color="inherit" />
+                <CircularProgress color="inherit"/>
             </Backdrop>
             <div className={classes.heroContent}>
                 <Container maxWidth="lg">
@@ -198,7 +197,7 @@ const SectionManagement = () => {
                     </Typography>
                     <hr/>
                     <Grid paper container direction="row" justify="space-evenly">
-                        <Container style={{width: '50%' ,minWidth: '300px'}} fullWidth={true}>
+                        <Container style={{width: '50%', minWidth: '300px'}} fullWidth={true}>
                             <Grid container direction="row" justify="space-evenly" alignItems="center">
                                 <TextField
                                     className={classes.filterInputs}
@@ -235,7 +234,7 @@ const SectionManagement = () => {
                                     />
                                 </div>
                                 <hr style={{width: '100%'}}/>
-                                <Button fullWidth={true} variant="outlined" onClick={handleNewSection} >
+                                <Button fullWidth={true} variant="outlined" onClick={handleNewSection}>
                                     Dodaj nową trasę
                                 </Button>
                             </Grid>
@@ -257,7 +256,9 @@ const SectionManagement = () => {
                                 <TableBody>
                                     {queryData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
                                         return (
-                                            <TableRow hover role="checkbox" tabIndex={-1} key={data.description} style={{height: '61px'}} onClick={event => handleModifyTrip(event, index)}>
+                                            <TableRow hover role="checkbox" tabIndex={-1} key={data.description}
+                                                      style={{height: '61px'}}
+                                                      onClick={event => handleModifyTrip(event, index)}>
                                                 <TableCell key="name" align="left">
                                                     {row.start.locationName} - {row.end.locationName}
                                                 </TableCell>
@@ -284,7 +285,7 @@ const SectionManagement = () => {
                                 />
                             </Table>
                         </Container>
-                        <Container style={{width: '50%',minWidth: '300px'}} fullWidth={true}>
+                        <Container style={{width: '50%', minWidth: '300px'}} fullWidth={true}>
                             <Typography variant="h3" align="center" className={classes.spacedText}>
                                 {Array.isArray(selectedTrip) ? "Dodawanie nowej trasy punktowanej" : "Modyfikacja trasy punktowanej"}
                             </Typography>
@@ -301,8 +302,9 @@ const SectionManagement = () => {
                                 }}
                                 options={locations}
                                 getOptionLabel={(option) => (option.locationName === '') ? 'Wybierz punkt początkowy' : option.locationName + " - " + option.mountainRange}
-                                style={{ width: '100%', scrollbarColor: 'rgb(107, 107, 107) rgb(43, 43, 43)' }}
-                                renderInput={(params) => <TextField {...params} label="Punkt początkowy" variant="outlined" />}
+                                style={{width: '100%', scrollbarColor: 'rgb(107, 107, 107) rgb(43, 43, 43)'}}
+                                renderInput={(params) => <TextField {...params} label="Punkt początkowy"
+                                                                    variant="outlined"/>}
                             />
                             <hr/>
                             <Autocomplete
@@ -318,8 +320,9 @@ const SectionManagement = () => {
                                 }}
                                 options={locations}
                                 getOptionLabel={(option) => (option.locationName === '') ? 'Wybierz punkt końcowy' : option.locationName + " - " + option.mountainRange}
-                                style={{ width: '100%', scrollbarColor: 'rgb(107, 107, 107) rgb(43, 43, 43)' }}
-                                renderInput={(params) => <TextField {...params} label="Punkt końcowy" variant="outlined" />}
+                                style={{width: '100%', scrollbarColor: 'rgb(107, 107, 107) rgb(43, 43, 43)'}}
+                                renderInput={(params) => <TextField {...params} label="Punkt końcowy"
+                                                                    variant="outlined"/>}
                             />
                             <hr/>
                             <Grid container direction="row" justify="space-evenly" alignItems="center">
@@ -360,7 +363,7 @@ const SectionManagement = () => {
                             </Grid>
                             <hr/>
                             <Button fullWidth={true} variant="outlined" onClick={handleRequestSubmit}
-                            disabled={!(startingLocation.locationName && endLocation.locationName && points[0] >= 0 && points[1] >= 0)}>
+                                    disabled={!(startingLocation.locationName && endLocation.locationName && points[0] >= 0 && points[1] >= 0)}>
                                 {Array.isArray(selectedTrip) ? "Zatwierdź nową trasę" : "Modyfikuj trasę"}
                             </Button>
                         </Container>

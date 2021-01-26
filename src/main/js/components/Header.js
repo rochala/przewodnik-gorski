@@ -1,9 +1,7 @@
 import React from "react";
-import { AppBar, Toolbar, IconButton, List, ListItem, ListItemText, Container } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { Link } from 'react-router-dom';
-import Avatar from "@material-ui/core/Avatar";
-
+import {AppBar, Container, List, ListItem, ListItemText, Toolbar} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
+import {Link} from 'react-router-dom';
 
 
 const useStyles = makeStyles({
@@ -35,10 +33,10 @@ const Header = (props) => {
                 <Container className={classes.navbarDisplayFlex}>
                     { /* zastapic a zmaina linka */}
                     <List component="nav" aria-labelledby="main navigation" className={classes.navDisplayFlex}>
-                        {props.navLinks.map(({ title, path }) => (
+                        {props.navLinks.map(({title, path}) => (
                             <Link key={title} to={path} className={classes.linkTextDisplay}>
                                 <ListItem button>
-                                    <ListItemText primary={title} />
+                                    <ListItemText primary={title}/>
                                 </ListItem>
                             </Link>
                         ))}

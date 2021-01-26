@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Typography, Link } from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
+import {Link, Typography} from "@material-ui/core";
+import {makeStyles} from '@material-ui/core/styles';
 
 
 function Copyright() {
@@ -33,7 +33,7 @@ const Footer = () => {
             <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
                 Jędrzej Rochala, Bartłomiej Duda
             </Typography>
-            <Copyright />
+            <Copyright/>
         </footer>
     )
 }
