@@ -1,0 +1,415 @@
+{
+	"info": {
+		"_postman_id": "18a42680-446c-48b5-bc5e-6186922313e5",
+		"name": "Sections",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Load sections webpage",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    for(var i = 0; i < jsonData.length; i++) {",
+							"        pm.expect(jsonData[i].start.mountainRange).to.eql('Tatry')",
+							"        pm.expect(jsonData[i].end.mountainRange).to.eql('Tatry')",
+							"    }",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/sections/?range=TATRY",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sections",
+						""
+					],
+					"query": [
+						{
+							"key": "range",
+							"value": "TATRY"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Mountain Range to BESKIDY_ZACHODNIE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].start.mountainRange).to.eql('Beskidy Zachodnie');",
+							"    pm.expect(jsonData[0].end.mountainRange).to.eql('Beskidy Zachodnie');",
+							"});",
+							"",
+							"var schema = [",
+							"  {",
+							"    \"id\": 0,",
+							"    \"startToEndPoints\": 0,",
+							"    \"endToStartPoints\": 0,",
+							"    \"length\": 0,",
+							"    \"start\": {",
+							"      \"id\": 0,",
+							"      \"locationName\": \"string\",",
+							"      \"mountainRange\": \"string\",",
+							"      \"height\": 0",
+							"    },",
+							"    \"end\": {",
+							"      \"id\": 0,",
+							"      \"locationName\": \"string\",",
+							"      \"mountainRange\": \"string\",",
+							"      \"height\": 0",
+							"    }",
+							"  }",
+							"]",
+							"",
+							"pm.test('Schema is valid', function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/sections/?range=BESKIDY_ZACHODNIE",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sections",
+						""
+					],
+					"query": [
+						{
+							"key": "range",
+							"value": "BESKIDY_ZACHODNIE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Mountain Range to SUDETY",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    for(var i = 0; i < jsonData.length; i++) {",
+							"        pm.expect(jsonData[i].start.mountainRange).to.eql('Sudety')",
+							"        pm.expect(jsonData[i].end.mountainRange).to.eql('Sudety')",
+							"    }",
+							"});",
+							"",
+							"var schema = [",
+							"  {",
+							"    \"id\": 0,",
+							"    \"startToEndPoints\": 0,",
+							"    \"endToStartPoints\": 0,",
+							"    \"length\": 0,",
+							"    \"start\": {",
+							"      \"id\": 0,",
+							"      \"locationName\": \"string\",",
+							"      \"mountainRange\": \"string\",",
+							"      \"height\": 0",
+							"    },",
+							"    \"end\": {",
+							"      \"id\": 0,",
+							"      \"locationName\": \"string\",",
+							"      \"mountainRange\": \"string\",",
+							"      \"height\": 0",
+							"    }",
+							"  }",
+							"]",
+							"",
+							"pm.test('Schema is valid', function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/sections/?range=SUDETY",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sections",
+						""
+					],
+					"query": [
+						{
+							"key": "range",
+							"value": "SUDETY"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Mountain Range to BESKIDY_WSCHODNIE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    for(var i = 0; i < jsonData.length; i++) {",
+							"        pm.expect(jsonData[i].start.mountainRange).to.eql('Beskidy Wschodnie')",
+							"        pm.expect(jsonData[i].end.mountainRange).to.eql('Beskidy Wschodnie')",
+							"    }",
+							"});",
+							"",
+							"var schema = [",
+							"  {",
+							"    \"id\": 0,",
+							"    \"startToEndPoints\": 0,",
+							"    \"endToStartPoints\": 0,",
+							"    \"length\": 0,",
+							"    \"start\": {",
+							"      \"id\": 0,",
+							"      \"locationName\": \"string\",",
+							"      \"mountainRange\": \"string\",",
+							"      \"height\": 0",
+							"    },",
+							"    \"end\": {",
+							"      \"id\": 0,",
+							"      \"locationName\": \"string\",",
+							"      \"mountainRange\": \"string\",",
+							"      \"height\": 0",
+							"    }",
+							"  }",
+							"]",
+							"",
+							"pm.test('Schema is valid', function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/sections/?range=BESKIDY_WSCHODNIE",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sections",
+						""
+					],
+					"query": [
+						{
+							"key": "range",
+							"value": "BESKIDY_WSCHODNIE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Mountain Range to TATRY",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    for(var i = 0; i < jsonData.length; i++) {",
+							"        pm.expect(jsonData[i].start.mountainRange).to.eql('Tatry')",
+							"        pm.expect(jsonData[i].end.mountainRange).to.eql('Tatry')",
+							"    }",
+							"",
+							"});",
+							"",
+							"var schema = [",
+							"  {",
+							"    \"id\": 0,",
+							"    \"startToEndPoints\": 0,",
+							"    \"endToStartPoints\": 0,",
+							"    \"length\": 0,",
+							"    \"start\": {",
+							"      \"id\": 0,",
+							"      \"locationName\": \"string\",",
+							"      \"mountainRange\": \"string\",",
+							"      \"height\": 0",
+							"    },",
+							"    \"end\": {",
+							"      \"id\": 0,",
+							"      \"locationName\": \"string\",",
+							"      \"mountainRange\": \"string\",",
+							"      \"height\": 0",
+							"    }",
+							"  }",
+							"]",
+							"",
+							"pm.test('Schema is valid', function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/sections/?range=TATRY",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sections",
+						""
+					],
+					"query": [
+						{
+							"key": "range",
+							"value": "TATRY"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"var schema = [",
+					"  {",
+					"    \"id\": 0,",
+					"    \"startToEndPoints\": 0,",
+					"    \"endToStartPoints\": 0,",
+					"    \"length\": 0,",
+					"    \"start\": {",
+					"      \"id\": 0,",
+					"      \"locationName\": \"string\",",
+					"      \"mountainRange\": \"string\",",
+					"      \"height\": 0",
+					"    },",
+					"    \"end\": {",
+					"      \"id\": 0,",
+					"      \"locationName\": \"string\",",
+					"      \"mountainRange\": \"string\",",
+					"      \"height\": 0",
+					"    }",
+					"  }",
+					"]",
+					"",
+					"pm.test('Schema is valid', function () {",
+					"    var jsonData = pm.response.json();",
+					"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+					"});",
+					"",
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					"",
+					""
+				]
+			}
+		}
+	]
+}

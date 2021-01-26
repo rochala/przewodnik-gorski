@@ -1,0 +1,491 @@
+{
+	"info": {
+		"_postman_id": "059278b3-9d6c-44ae-bce8-3309299a10dc",
+		"name": "Manage Sections",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Load sections webpage",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].start.mountainRange).to.eql('Tatry');",
+							"    pm.expect(jsonData[0].end.mountainRange).to.eql('Tatry');",
+							"});",
+							"",
+							"var schema = [",
+							"  {",
+							"    \"id\": 0,",
+							"    \"startToEndPoints\": 0,",
+							"    \"endToStartPoints\": 0,",
+							"    \"length\": 0,",
+							"    \"start\": {",
+							"      \"id\": 0,",
+							"      \"locationName\": \"string\",",
+							"      \"mountainRange\": \"string\",",
+							"      \"height\": 0",
+							"    },",
+							"    \"end\": {",
+							"      \"id\": 0,",
+							"      \"locationName\": \"string\",",
+							"      \"mountainRange\": \"string\",",
+							"      \"height\": 0",
+							"    }",
+							"  }",
+							"]",
+							"",
+							"pm.test('Schema is valid', function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/sections/?range=TATRY",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sections",
+						""
+					],
+					"query": [
+						{
+							"key": "range",
+							"value": "TATRY"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new section",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"section_id\", jsonData.id);",
+							"",
+							"var schema = {",
+							"  \"id\": 0,",
+							"  \"startToEndPoints\": 0,",
+							"  \"endToStartPoints\": 0,",
+							"  \"length\": 0,",
+							"  \"start\": {",
+							"    \"id\": 0,",
+							"    \"locationName\": \"string\",",
+							"    \"mountainRange\": \"Tatry\",",
+							"    \"height\": 0",
+							"  },",
+							"  \"end\": {",
+							"    \"id\": 0,",
+							"    \"locationName\": \"string\",",
+							"    \"mountainRange\": \"Tatry\",",
+							"    \"height\": 0",
+							"  }",
+							"}",
+							"",
+							"pm.test('Schema is valid', function () {",
+							"",
+							"    pm.response.to.have.jsonSchema",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 0,\n    \"startToEndPoints\": \"3\",\n    \"endToStartPoints\": \"4\",\n    \"length\": 0,\n    \"start\": {\n        \"id\": 4,\n        \"locationName\": \"Andrychów\",\n        \"mountainRange\": \"Beskidy Zachodnie\",\n        \"height\": 354\n    },\n    \"end\": {\n        \"id\": 6,\n        \"locationName\": \"Babia Góra\",\n        \"mountainRange\": \"Beskidy Zachodnie\",\n        \"height\": 1725\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/sections",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reload sections list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].start.mountainRange).to.eql('Tatry');",
+							"    pm.expect(jsonData[0].end.mountainRange).to.eql('Tatry');",
+							"});",
+							"",
+							"var schema = [",
+							"  {",
+							"    \"id\": 0,",
+							"    \"startToEndPoints\": 0,",
+							"    \"endToStartPoints\": 0,",
+							"    \"length\": 0,",
+							"    \"start\": {",
+							"      \"id\": 0,",
+							"      \"locationName\": \"string\",",
+							"      \"mountainRange\": \"string\",",
+							"      \"height\": 0",
+							"    },",
+							"    \"end\": {",
+							"      \"id\": 0,",
+							"      \"locationName\": \"string\",",
+							"      \"mountainRange\": \"string\",",
+							"      \"height\": 0",
+							"    }",
+							"  }",
+							"]",
+							"",
+							"pm.test('Schema is valid', function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});",
+							"",
+							"pm.test('Section added by POST'), function () {",
+							"    var properResponse = {",
+							"    \"id\": pm.environment.get(\"section_id\"),",
+							"    \"startToEndPoints\": 3,",
+							"    \"endToStartPoints\": 4,",
+							"    \"length\": 0.0,",
+							"    \"start\": {",
+							"        \"id\": 4,",
+							"        \"locationName\": \"Andrychów\",",
+							"        \"mountainRange\": \"Beskidy Zachodnie\",",
+							"        \"height\": 354.0",
+							"    },",
+							"    \"end\": {",
+							"        \"id\": 6,",
+							"        \"locationName\": \"Babia Góra\",",
+							"        \"mountainRange\": \"Beskidy Zachodnie\",",
+							"        \"height\": 1725.0",
+							"    }",
+							"}",
+							"    pm.expect(JSON.stringify(jsonData)).to.eql(JSON.stringify(properResponse))",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/sections/?range=TATRY",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sections",
+						""
+					],
+					"query": [
+						{
+							"key": "range",
+							"value": "TATRY"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update added trip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var schema = {",
+							"  \"id\": 0,",
+							"  \"startDate\": \"2021-01-25T11:49:54.990Z\",",
+							"  \"endDate\": \"2021-01-25T11:49:54.990Z\",",
+							"  \"sumPoints\": 0,",
+							"  \"status\": \"Niezatwierdzona\",",
+							"  \"leaderAttendance\": true,",
+							"  \"tripName\": \"string\",",
+							"  \"user\": {",
+							"    \"id\": 0,",
+							"    \"pesel\": 0,",
+							"    \"birthDate\": \"2021-01-25T11:49:54.990Z\",",
+							"    \"name\": \"string\",",
+							"    \"surname\": \"string\",",
+							"    \"gender\": \"M\",",
+							"    \"email\": \"string\",",
+							"    \"role\": \"string\",",
+							"    \"badges\": [",
+							"      {",
+							"        \"id\": 0,",
+							"        \"grade\": \"Popularna\",",
+							"        \"dateAcquired\": \"2021-01-25T11:49:54.990Z\",",
+							"        \"pointsNeeded\": 0,",
+							"        \"trips\": [",
+							"          null",
+							"        ],",
+							"        \"sumPointForBadge\": 0",
+							"      }",
+							"    ],",
+							"    \"disabled\": true",
+							"  },",
+							"  \"badge\": {",
+							"    \"id\": 0,",
+							"    \"grade\": \"Popularna\",",
+							"    \"dateAcquired\": \"2021-01-25T11:49:54.990Z\",",
+							"    \"pointsNeeded\": 0,",
+							"    \"trips\": [",
+							"      null",
+							"    ],",
+							"    \"sumPointForBadge\": 0",
+							"  },",
+							"  \"tripSection\": [",
+							"    {",
+							"      \"id\": 0,",
+							"      \"direction\": true,",
+							"      \"sectionOrder\": 0,",
+							"      \"section\": {",
+							"        \"id\": 0,",
+							"        \"startToEndPoints\": 0,",
+							"        \"endToStartPoints\": 0,",
+							"        \"length\": 0,",
+							"        \"start\": {",
+							"          \"id\": 0,",
+							"          \"locationName\": \"string\",",
+							"          \"mountainRange\": \"Tatry\",",
+							"          \"height\": 0",
+							"        },",
+							"        \"end\": {",
+							"          \"id\": 0,",
+							"          \"locationName\": \"string\",",
+							"          \"mountainRange\": \"Tatry\",",
+							"          \"height\": 0",
+							"        }",
+							"      }",
+							"    }",
+							"  ]",
+							"}",
+							"",
+							"pm.test('Schema is valid', function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": {{section_id}},\n    \"startToEndPoints\": \"4\",\n    \"endToStartPoints\": \"5\",\n    \"length\": 0,\n    \"start\": {\n        \"id\": 4,\n        \"locationName\": \"Andrychów\",\n        \"mountainRange\": \"Beskidy Zachodnie\",\n        \"height\": 354\n    },\n    \"end\": {\n        \"id\": 8,\n        \"locationName\": \"Babica Zachodnia\",\n        \"mountainRange\": \"Beskidy Zachodnie\",\n        \"height\": 600\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/sections",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reload section list after update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].start.mountainRange).to.eql('Beskidy Zachodnie');",
+							"    pm.expect(jsonData[0].end.mountainRange).to.eql('Beskidy Zachodnie');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/sections/?range=BESKIDY_ZACHODNIE",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sections",
+						""
+					],
+					"query": [
+						{
+							"key": "range",
+							"value": "BESKIDY_ZACHODNIE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clear test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.sendRequest(\"http://127.0.0.1:8080/api/users/?email=b.duda11@wp.pl\", function (err, response) {",
+							"",
+							"var jsonData = response.json();",
+							"",
+							"pm.test('Proper user returned', function () {",
+							"    pm.expect('b.duda11@wp.pl').to.eql('b.duda11@wp.pl')",
+							"})",
+							"",
+							"pm.test('Trip properly deleted by DELETE'), function () {",
+							"    pm.expect(jsonData[0].badges[1].trips[jsonData[0].badges[1].trips.length - 1]).to.not.eql(pm.environment.get(\"trip_id\"))",
+							"}",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/sections?id={{section_id}}",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sections"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{section_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "trip_id",
+			"value": "0"
+		}
+	]
+}

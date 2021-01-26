@@ -1,0 +1,866 @@
+{
+	"info": {
+		"_postman_id": "5a44fa21-40e9-4079-af57-876b5a6831a8",
+		"name": "Badges",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Load sections webpage",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].start.mountainRange).to.eql('Tatry');",
+							"    pm.expect(jsonData[0].end.mountainRange).to.eql('Tatry');",
+							"});",
+							"",
+							"var schema = [",
+							"  {",
+							"    \"id\": 0,",
+							"    \"startToEndPoints\": 0,",
+							"    \"endToStartPoints\": 0,",
+							"    \"length\": 0,",
+							"    \"start\": {",
+							"      \"id\": 0,",
+							"      \"locationName\": \"string\",",
+							"      \"mountainRange\": \"string\",",
+							"      \"height\": 0",
+							"    },",
+							"    \"end\": {",
+							"      \"id\": 0,",
+							"      \"locationName\": \"string\",",
+							"      \"mountainRange\": \"string\",",
+							"      \"height\": 0",
+							"    }",
+							"  }",
+							"]",
+							"",
+							"pm.test('Schema is valid', function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/sections/?range=TATRY",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sections",
+						""
+					],
+					"query": [
+						{
+							"key": "range",
+							"value": "TATRY"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Data fetch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var schema = {",
+							"  \"id\": 0,",
+							"  \"pesel\": 0,",
+							"  \"birthDate\": \"2021-01-25T11:36:28.984Z\",",
+							"  \"name\": \"string\",",
+							"  \"surname\": \"string\",",
+							"  \"gender\": \"M\",",
+							"  \"email\": \"string\",",
+							"  \"role\": \"string\",",
+							"  \"badges\": [",
+							"    {",
+							"      \"id\": 0,",
+							"      \"grade\": \"Popularna\",",
+							"      \"dateAcquired\": \"2021-01-25T11:36:28.984Z\",",
+							"      \"pointsNeeded\": 0,",
+							"      \"trips\": [",
+							"        {",
+							"          \"id\": 0,",
+							"          \"startDate\": \"2021-01-25T11:36:28.984Z\",",
+							"          \"endDate\": \"2021-01-25T11:36:28.984Z\",",
+							"          \"sumPoints\": 0,",
+							"          \"status\": \"Niezatwierdzona\",",
+							"          \"leaderAttendance\": true,",
+							"          \"tripName\": \"string\",",
+							"          \"tripSection\": [",
+							"            {",
+							"              \"id\": 0,",
+							"              \"direction\": true,",
+							"              \"sectionOrder\": 0,",
+							"              \"section\": {",
+							"                \"id\": 0,",
+							"                \"startToEndPoints\": 0,",
+							"                \"endToStartPoints\": 0,",
+							"                \"length\": 0,",
+							"                \"start\": {",
+							"                  \"id\": 0,",
+							"                  \"locationName\": \"string\",",
+							"                  \"mountainRange\": \"Tatry\",",
+							"                  \"height\": 0",
+							"                },",
+							"                \"end\": {",
+							"                  \"id\": 0,",
+							"                  \"locationName\": \"string\",",
+							"                  \"mountainRange\": \"Tatry\",",
+							"                  \"height\": 0",
+							"                }",
+							"              }",
+							"            }",
+							"          ]",
+							"        }",
+							"      ],",
+							"      \"sumPointForBadge\": 0",
+							"    }",
+							"  ],",
+							"  \"disabled\": true",
+							"}",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"",
+							"pm.test('Schema is valid', function () {",
+							"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});",
+							"",
+							"pm.test('Proper user returned', function () {",
+							"    pm.expect(jsonData[0].email).to.eql('b.duda11@wp.pl')",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/users/?email=b.duda11@wp.pl",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						""
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "b.duda11@wp.pl"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new trip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"trip_id\", jsonData.id);",
+							"",
+							"var schema = {",
+							"  \"id\": 0,",
+							"  \"startDate\": \"2021-01-25T11:49:28.470Z\",",
+							"  \"endDate\": \"2021-01-25T11:49:28.470Z\",",
+							"  \"sumPoints\": 0,",
+							"  \"status\": \"Niezatwierdzona\",",
+							"  \"leaderAttendance\": true,",
+							"  \"tripName\": \"string\",",
+							"  \"user\": {",
+							"    \"id\": 0,",
+							"    \"pesel\": 0,",
+							"    \"birthDate\": \"2021-01-25T11:49:28.470Z\",",
+							"    \"name\": \"string\",",
+							"    \"surname\": \"string\",",
+							"    \"gender\": \"M\",",
+							"    \"email\": \"string\",",
+							"    \"role\": \"string\",",
+							"    \"badges\": [",
+							"      {",
+							"        \"id\": 0,",
+							"        \"grade\": \"Popularna\",",
+							"        \"dateAcquired\": \"2021-01-25T11:49:28.470Z\",",
+							"        \"pointsNeeded\": 0,",
+							"        \"trips\": [",
+							"          null",
+							"        ],",
+							"        \"sumPointForBadge\": 0",
+							"      }",
+							"    ],",
+							"    \"disabled\": true",
+							"  },",
+							"  \"badge\": {",
+							"    \"id\": 0,",
+							"    \"grade\": \"Popularna\",",
+							"    \"dateAcquired\": \"2021-01-25T11:49:28.470Z\",",
+							"    \"pointsNeeded\": 0,",
+							"    \"trips\": [",
+							"      null",
+							"    ],",
+							"    \"sumPointForBadge\": 0",
+							"  },",
+							"  \"tripSection\": [",
+							"    {",
+							"      \"id\": 0,",
+							"      \"direction\": true,",
+							"      \"sectionOrder\": 0,",
+							"      \"section\": {",
+							"        \"id\": 0,",
+							"        \"startToEndPoints\": 0,",
+							"        \"endToStartPoints\": 0,",
+							"        \"length\": 0,",
+							"        \"start\": {",
+							"          \"id\": 0,",
+							"          \"locationName\": \"string\",",
+							"          \"mountainRange\": \"Tatry\",",
+							"          \"height\": 0",
+							"        },",
+							"        \"end\": {",
+							"          \"id\": 0,",
+							"          \"locationName\": \"string\",",
+							"          \"mountainRange\": \"Tatry\",",
+							"          \"height\": 0",
+							"        }",
+							"      }",
+							"    }",
+							"  ]",
+							"}",
+							"",
+							"pm.test('Schema is valid', function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 0,\n    \"startDate\": \"2021-01-12\",\n    \"endDate\": \"2021-01-13\",\n    \"status\": \"Niezatwierdzona\",\n    \"leaderAttendance\": true,\n    \"badge\": {\n        \"id\": 2\n    },\n    \"user\": {\n        \"id\": 1\n    },\n    \"tripSection\": [\n        {\n            \"section\": {\n                \"id\": 1897,\n                \"startToEndPoints\": 5,\n                \"endToStartPoints\": 3,\n                \"length\": 0,\n                \"start\": {\n                    \"id\": 96,\n                    \"locationName\": \"Brzeziny\",\n                    \"mountainRange\": \"Tatry\",\n                    \"height\": 1015\n                },\n                \"end\": {\n                    \"id\": 1191,\n                    \"locationName\": \"Psia Trawka\",\n                    \"mountainRange\": \"Tatry\",\n                    \"height\": 1185\n                }\n            },\n            \"direction\": 1,\n            \"sectionOrder\": 0\n        },\n        {\n            \"direction\": 0,\n            \"section\": {\n                \"id\": 1897,\n                \"startToEndPoints\": 5,\n                \"endToStartPoints\": 3,\n                \"length\": 0,\n                \"start\": {\n                    \"id\": 96,\n                    \"locationName\": \"Brzeziny\",\n                    \"mountainRange\": \"Tatry\",\n                    \"height\": 1015\n                },\n                \"end\": {\n                    \"id\": 1191,\n                    \"locationName\": \"Psia Trawka\",\n                    \"mountainRange\": \"Tatry\",\n                    \"height\": 1185\n                }\n            },\n            \"sectionOrder\": 1\n        },\n        {\n            \"section\": {\n                \"id\": 1957,\n                \"startToEndPoints\": 14,\n                \"endToStartPoints\": 9,\n                \"length\": 0,\n                \"start\": {\n                    \"id\": 147,\n                    \"locationName\": \"Chochołów\",\n                    \"mountainRange\": \"Tatry\",\n                    \"height\": 771\n                },\n                \"end\": {\n                    \"id\": 1640,\n                    \"locationName\": \"Toporowa Cyrhla\",\n                    \"mountainRange\": \"Tatry\",\n                    \"height\": 992\n                }\n            },\n            \"direction\": 1,\n            \"sectionOrder\": 2\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/trips",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"trips"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Data reload atfer POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var schema = {",
+							"  \"id\": 0,",
+							"  \"pesel\": 0,",
+							"  \"birthDate\": \"2021-01-25T11:36:28.984Z\",",
+							"  \"name\": \"string\",",
+							"  \"surname\": \"string\",",
+							"  \"gender\": \"M\",",
+							"  \"email\": \"string\",",
+							"  \"role\": \"string\",",
+							"  \"badges\": [",
+							"    {",
+							"      \"id\": 0,",
+							"      \"grade\": \"Popularna\",",
+							"      \"dateAcquired\": \"2021-01-25T11:36:28.984Z\",",
+							"      \"pointsNeeded\": 0,",
+							"      \"trips\": [",
+							"        {",
+							"          \"id\": 0,",
+							"          \"startDate\": \"2021-01-25T11:36:28.984Z\",",
+							"          \"endDate\": \"2021-01-25T11:36:28.984Z\",",
+							"          \"sumPoints\": 0,",
+							"          \"status\": \"Niezatwierdzona\",",
+							"          \"leaderAttendance\": true,",
+							"          \"tripName\": \"string\",",
+							"          \"tripSection\": [",
+							"            {",
+							"              \"id\": 0,",
+							"              \"direction\": true,",
+							"              \"sectionOrder\": 0,",
+							"              \"section\": {",
+							"                \"id\": 0,",
+							"                \"startToEndPoints\": 0,",
+							"                \"endToStartPoints\": 0,",
+							"                \"length\": 0,",
+							"                \"start\": {",
+							"                  \"id\": 0,",
+							"                  \"locationName\": \"string\",",
+							"                  \"mountainRange\": \"Tatry\",",
+							"                  \"height\": 0",
+							"                },",
+							"                \"end\": {",
+							"                  \"id\": 0,",
+							"                  \"locationName\": \"string\",",
+							"                  \"mountainRange\": \"Tatry\",",
+							"                  \"height\": 0",
+							"                }",
+							"              }",
+							"            }",
+							"          ]",
+							"        }",
+							"      ],",
+							"      \"sumPointForBadge\": 0",
+							"    }",
+							"  ],",
+							"  \"disabled\": true",
+							"}",
+							"",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"",
+							"",
+							"pm.test('Schema is valid', function () {",
+							"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});",
+							"",
+							"pm.test('Proper user returned', function () {",
+							"    pm.expect(jsonData[0].email).to.eql('b.duda11@wp.pl')",
+							"})",
+							"",
+							"",
+							"pm.test('Trip properly added by POST'), function () {",
+							"    var properResponse = {",
+							"        \"id\": pm.environment.get(\"trip_id\"),",
+							"    \"startDate\": \"2021-01-12\",",
+							"    \"endDate\": \"2021-01-13\",",
+							"    \"sumPoints\": 22,",
+							"    \"status\": \"Niezatwierdzona\",",
+							"    \"leaderAttendance\": true,",
+							"    \"tripName\": \"Brzeziny - Toporowa Cyrhla\",",
+							"    \"tripSection\": [",
+							"        {",
+							"            \"id\": 50,",
+							"            \"direction\": true,",
+							"            \"sectionOrder\": 0,",
+							"            \"section\": {",
+							"                \"id\": 1897,",
+							"                \"startToEndPoints\": 5,",
+							"                \"endToStartPoints\": 3,",
+							"                \"length\": 0.0,",
+							"                \"start\": {",
+							"                    \"id\": 96,",
+							"                    \"locationName\": \"Brzeziny\",",
+							"                    \"mountainRange\": \"Tatry\",",
+							"                    \"height\": 1015.0",
+							"                },",
+							"                \"end\": {",
+							"                    \"id\": 1191,",
+							"                    \"locationName\": \"Psia Trawka\",",
+							"                    \"mountainRange\": \"Tatry\",",
+							"                    \"height\": 1185.0",
+							"                }",
+							"            }",
+							"        },",
+							"        {",
+							"            \"id\": 51,",
+							"            \"direction\": false,",
+							"            \"sectionOrder\": 1,",
+							"            \"section\": {",
+							"                \"id\": 1897,",
+							"                \"startToEndPoints\": 5,",
+							"                \"endToStartPoints\": 3,",
+							"                \"length\": 0.0,",
+							"                \"start\": {",
+							"                    \"id\": 96,",
+							"                    \"locationName\": \"Brzeziny\",",
+							"                    \"mountainRange\": \"Tatry\",",
+							"                    \"height\": 1015.0",
+							"                },",
+							"                \"end\": {",
+							"                    \"id\": 1191,",
+							"                    \"locationName\": \"Psia Trawka\",",
+							"                    \"mountainRange\": \"Tatry\",",
+							"                    \"height\": 1185.0",
+							"                }",
+							"            }",
+							"        },",
+							"        {",
+							"            \"id\": 52,",
+							"            \"direction\": true,",
+							"            \"sectionOrder\": 2,",
+							"            \"section\": {",
+							"                \"id\": 1957,",
+							"                \"startToEndPoints\": 14,",
+							"                \"endToStartPoints\": 9,",
+							"                \"length\": 0.0,",
+							"                \"start\": {",
+							"                    \"id\": 147,",
+							"                    \"locationName\": \"Chochołów\",",
+							"                    \"mountainRange\": \"Tatry\",",
+							"                    \"height\": 771.0",
+							"                },",
+							"                \"end\": {",
+							"                    \"id\": 1640,",
+							"                    \"locationName\": \"Toporowa Cyrhla\",",
+							"                    \"mountainRange\": \"Tatry\",",
+							"                    \"height\": 992.0",
+							"                }",
+							"            }",
+							"        }",
+							"    ]",
+							"};",
+							"    pm.expect(jsonData[0].badges[1].trips[jsonData[0].badges[1].trips.length - 1]).to.eql(properResponse)",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/users/?email=b.duda11@wp.pl",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						""
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "b.duda11@wp.pl"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update added trip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var schema = {",
+							"  \"id\": 0,",
+							"  \"startDate\": \"2021-01-25T11:49:54.990Z\",",
+							"  \"endDate\": \"2021-01-25T11:49:54.990Z\",",
+							"  \"sumPoints\": 0,",
+							"  \"status\": \"Niezatwierdzona\",",
+							"  \"leaderAttendance\": true,",
+							"  \"tripName\": \"string\",",
+							"  \"user\": {",
+							"    \"id\": 0,",
+							"    \"pesel\": 0,",
+							"    \"birthDate\": \"2021-01-25T11:49:54.990Z\",",
+							"    \"name\": \"string\",",
+							"    \"surname\": \"string\",",
+							"    \"gender\": \"M\",",
+							"    \"email\": \"string\",",
+							"    \"role\": \"string\",",
+							"    \"badges\": [",
+							"      {",
+							"        \"id\": 0,",
+							"        \"grade\": \"Popularna\",",
+							"        \"dateAcquired\": \"2021-01-25T11:49:54.990Z\",",
+							"        \"pointsNeeded\": 0,",
+							"        \"trips\": [",
+							"          null",
+							"        ],",
+							"        \"sumPointForBadge\": 0",
+							"      }",
+							"    ],",
+							"    \"disabled\": true",
+							"  },",
+							"  \"badge\": {",
+							"    \"id\": 0,",
+							"    \"grade\": \"Popularna\",",
+							"    \"dateAcquired\": \"2021-01-25T11:49:54.990Z\",",
+							"    \"pointsNeeded\": 0,",
+							"    \"trips\": [",
+							"      null",
+							"    ],",
+							"    \"sumPointForBadge\": 0",
+							"  },",
+							"  \"tripSection\": [",
+							"    {",
+							"      \"id\": 0,",
+							"      \"direction\": true,",
+							"      \"sectionOrder\": 0,",
+							"      \"section\": {",
+							"        \"id\": 0,",
+							"        \"startToEndPoints\": 0,",
+							"        \"endToStartPoints\": 0,",
+							"        \"length\": 0,",
+							"        \"start\": {",
+							"          \"id\": 0,",
+							"          \"locationName\": \"string\",",
+							"          \"mountainRange\": \"Tatry\",",
+							"          \"height\": 0",
+							"        },",
+							"        \"end\": {",
+							"          \"id\": 0,",
+							"          \"locationName\": \"string\",",
+							"          \"mountainRange\": \"Tatry\",",
+							"          \"height\": 0",
+							"        }",
+							"      }",
+							"    }",
+							"  ]",
+							"}",
+							"",
+							"pm.test('Schema is valid', function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": {{trip_id}},\n  \"startDate\": \"2021-01-12\",\n  \"endDate\": \"2021-01-12\",\n  \"status\": \"Niezatwierdzona\",\n  \"leaderAttendance\": false,\n  \"badge\": {\n    \"id\": 2\n  },\n  \"user\": {\n    \"id\": 1\n  },\n  \"tripSection\": [\n    {\n      \"id\": 29,\n      \"direction\": true,\n      \"sectionOrder\": 0,\n      \"section\": {\n        \"id\": 1897,\n        \"startToEndPoints\": 5,\n        \"endToStartPoints\": 3,\n        \"length\": 0,\n        \"start\": {\n          \"id\": 96,\n          \"locationName\": \"Brzeziny\",\n          \"mountainRange\": \"Tatry\",\n          \"height\": 1015\n        },\n        \"end\": {\n          \"id\": 1191,\n          \"locationName\": \"Psia Trawka\",\n          \"mountainRange\": \"Tatry\",\n          \"height\": 1185\n        }\n      }\n    },\n    {\n      \"section\": {\n        \"id\": 1896,\n        \"startToEndPoints\": 4,\n        \"endToStartPoints\": 7,\n        \"length\": 0,\n        \"start\": {\n          \"id\": 1380,\n          \"locationName\": \"Schronisko PTTK na Hali Gąsienicowej\",\n          \"mountainRange\": \"Tatry\",\n          \"height\": 1500\n        },\n        \"end\": {\n          \"id\": 1191,\n          \"locationName\": \"Psia Trawka\",\n          \"mountainRange\": \"Tatry\",\n          \"height\": 1185\n        }\n      },\n      \"direction\": 0,\n      \"sectionOrder\": 1\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/trips",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"trips"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Data reload atfer PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var schema = {",
+							"  \"id\": 0,",
+							"  \"pesel\": 0,",
+							"  \"birthDate\": \"2021-01-25T11:36:28.984Z\",",
+							"  \"name\": \"string\",",
+							"  \"surname\": \"string\",",
+							"  \"gender\": \"M\",",
+							"  \"email\": \"string\",",
+							"  \"role\": \"string\",",
+							"  \"badges\": [",
+							"    {",
+							"      \"id\": 0,",
+							"      \"grade\": \"Popularna\",",
+							"      \"dateAcquired\": \"2021-01-25T11:36:28.984Z\",",
+							"      \"pointsNeeded\": 0,",
+							"      \"trips\": [",
+							"        {",
+							"          \"id\": 0,",
+							"          \"startDate\": \"2021-01-25T11:36:28.984Z\",",
+							"          \"endDate\": \"2021-01-25T11:36:28.984Z\",",
+							"          \"sumPoints\": 0,",
+							"          \"status\": \"Niezatwierdzona\",",
+							"          \"leaderAttendance\": true,",
+							"          \"tripName\": \"string\",",
+							"          \"tripSection\": [",
+							"            {",
+							"              \"id\": 0,",
+							"              \"direction\": true,",
+							"              \"sectionOrder\": 0,",
+							"              \"section\": {",
+							"                \"id\": 0,",
+							"                \"startToEndPoints\": 0,",
+							"                \"endToStartPoints\": 0,",
+							"                \"length\": 0,",
+							"                \"start\": {",
+							"                  \"id\": 0,",
+							"                  \"locationName\": \"string\",",
+							"                  \"mountainRange\": \"Tatry\",",
+							"                  \"height\": 0",
+							"                },",
+							"                \"end\": {",
+							"                  \"id\": 0,",
+							"                  \"locationName\": \"string\",",
+							"                  \"mountainRange\": \"Tatry\",",
+							"                  \"height\": 0",
+							"                }",
+							"              }",
+							"            }",
+							"          ]",
+							"        }",
+							"      ],",
+							"      \"sumPointForBadge\": 0",
+							"    }",
+							"  ],",
+							"  \"disabled\": true",
+							"}",
+							"",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"",
+							"",
+							"pm.test('Schema is valid', function () {",
+							"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});",
+							"",
+							"pm.test('Proper user returned', function () {",
+							"    pm.expect(jsonData[0].email).to.eql('b.duda11@wp.pl')",
+							"})",
+							"",
+							"",
+							"pm.test('Trip properly updated by PUT'), function () {",
+							"    var properResponse = {",
+							"    \"id\": 12,",
+							"    \"startDate\": \"2021-01-12\",",
+							"    \"endDate\": \"2021-01-12\",",
+							"    \"sumPoints\": 12,",
+							"    \"status\": \"Niezatwierdzona\",",
+							"    \"leaderAttendance\": false,",
+							"    \"tripName\": \"Brzeziny - Psia Trawka\",",
+							"    \"tripSection\": [",
+							"        {",
+							"            \"id\": 53,",
+							"            \"direction\": true,",
+							"            \"sectionOrder\": 0,",
+							"            \"section\": {",
+							"                \"id\": 1897,",
+							"                \"startToEndPoints\": 5,",
+							"                \"endToStartPoints\": 3,",
+							"                \"length\": 0.0,",
+							"                \"start\": {",
+							"                    \"id\": 96,",
+							"                    \"locationName\": \"Brzeziny\",",
+							"                    \"mountainRange\": \"Tatry\",",
+							"                    \"height\": 1015.0",
+							"                },",
+							"                \"end\": {",
+							"                    \"id\": 1191,",
+							"                    \"locationName\": \"Psia Trawka\",",
+							"                    \"mountainRange\": \"Tatry\",",
+							"                    \"height\": 1185.0",
+							"                }",
+							"            }",
+							"        },",
+							"        {",
+							"            \"id\": 54,",
+							"            \"direction\": false,",
+							"            \"sectionOrder\": 1,",
+							"            \"section\": {",
+							"                \"id\": 1896,",
+							"                \"startToEndPoints\": 4,",
+							"                \"endToStartPoints\": 7,",
+							"                \"length\": 0.0,",
+							"                \"start\": {",
+							"                    \"id\": 1380,",
+							"                    \"locationName\": \"Schronisko PTTK na Hali Gąsienicowej\",",
+							"                    \"mountainRange\": \"Tatry\",",
+							"                    \"height\": 1500.0",
+							"                },",
+							"                \"end\": {",
+							"                    \"id\": 1191,",
+							"                    \"locationName\": \"Psia Trawka\",",
+							"                    \"mountainRange\": \"Tatry\",",
+							"                    \"height\": 1185.0",
+							"                }",
+							"            }",
+							"        }",
+							"    ]",
+							"}",
+							"    pm.expect(jsonData[0].badges[1].trips[jsonData[0].badges[1].trips.length - 1]).to.eql(properResponse)",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/users/?email=b.duda11@wp.pl",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						""
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "b.duda11@wp.pl"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clear test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.sendRequest(\"http://127.0.0.1:8080/api/users/?email=b.duda11@wp.pl\", function (err, response) {",
+							"",
+							"var jsonData = response.json();",
+							"",
+							"pm.test('Proper user returned', function () {",
+							"    pm.expect('b.duda11@wp.pl').to.eql('b.duda11@wp.pl')",
+							"})",
+							"",
+							"pm.test('Trip properly deleted by DELETE'), function () {",
+							"    pm.expect(jsonData[0].badges[1].trips[jsonData[0].badges[1].trips.length - 1]).to.not.eql(pm.environment.get(\"trip_id\"))",
+							"}",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/trips?id={{trip_id}}",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"trips"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{trip_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "trip_id",
+			"value": "0"
+		}
+	]
+}
